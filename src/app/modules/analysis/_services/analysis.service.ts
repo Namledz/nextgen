@@ -57,6 +57,13 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		);
 	}
 
+	getFastqQC(): Observable<any> {
+		let url = `${this.API_URL}/getFastqQC`
+		return this.http.get(url).pipe((response) => {
+			return response
+		});
+	}
+
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
