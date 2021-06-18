@@ -76,7 +76,7 @@ export abstract class TableService<T> {
       catchError(err => {
         this._errorMessage.next(err);
         console.error('CREATE ITEM', err);
-        return of({ id: undefined});
+        return of({ id: undefined });
       }),
       finalize(() => this._isLoading$.next(false))
     );
@@ -103,7 +103,7 @@ export abstract class TableService<T> {
       catchError(err => {
         this._errorMessage.next(err);
         console.error('GET ITEM BY IT', id, err);
-        return of({id: undefined});
+        return of({ id: undefined });
       }),
       finalize(() => this._isLoading$.next(false))
     );

@@ -11,28 +11,19 @@ import { environment } from '../../../../environments/environment';
 	providedIn: 'root'
 })
 export class VariantListService extends TableService<Variant> implements OnDestroy {
-	API_URL = `${environment.apiUrl}/analysis`;
+	API_URL = `${environment.apiUrl}/variant`;
 	constructor(@Inject(HttpClient) http) {
 		super(http);
 	}
 
-	getAnalysisName (id: any) {
+	getAnalysisName(id: any) {
 		const url = `${this.API_URL}/${id}`;
 		return this.http.get(url);
 	}
 
 	// READ
 	find(tableState: ITableState): Observable<TableResponseModel<Variant>> {
-		return this.http.get<Variant[]>(this.API_URL).pipe(
-			map((response: Variant[]) => {
-				const filteredResult = baseFilter(response, tableState);
-				const result: TableResponseModel<Variant> = {
-					items: filteredResult.items,
-					total: filteredResult.total
-				};
-				return result;
-			})
-		);
+		return this.http.post<TableResponseModel<Variant>>(this.API_URL, tableState, { withCredentials: true })
 	}
 
 	deleteItems(ids: number[] = []): Observable<any> {

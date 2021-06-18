@@ -4,6 +4,7 @@ export interface Variant extends BaseModel {
 	id: number;
 	gene: string;
 	transcript_id: string;
+	position: number;
 	rsid: string;
 	REF: string;
 	ALT: string;
@@ -12,7 +13,7 @@ export interface Variant extends BaseModel {
 	function: string;
 	location: string;
 	coverage: string;
-	zygosity: string;
+	// zygosity: string; 
 	gnomad: string;
 	cosmicID: string;
 	classification: string;
