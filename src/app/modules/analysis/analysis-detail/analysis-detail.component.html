@@ -1,6 +1,6 @@
-<mat-card>
+<mat-card  *ngIf="isLoaded" >
 	<mat-card-content>
-		<h2 class="example-h2">Analysis Name</h2>
+		<h2 class="example-h2">{{ analysisName }}</h2>
 		<mat-tab-group class="demo-tab-group">
 			<mat-tab label="Variant List">
 				<div class="demo-tab-content">
