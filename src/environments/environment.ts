@@ -7,7 +7,7 @@ export const environment = {
   appVersion: 'v713demo3',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'api'
+  apiUrl: 'http://192.168.99.100:6969'
 };
 
 /*

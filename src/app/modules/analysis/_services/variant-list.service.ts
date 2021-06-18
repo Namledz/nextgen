@@ -11,11 +11,15 @@ import { environment } from '../../../../environments/environment';
 	providedIn: 'root'
 })
 export class VariantListService extends TableService<Variant> implements OnDestroy {
-	API_URL = `${environment.apiUrl}/variant-list`;
+	API_URL = `${environment.apiUrl}/analysis`;
 	constructor(@Inject(HttpClient) http) {
 		super(http);
 	}
 
+	getAnalysisName (id: any) {
+		const url = `${this.API_URL}/${id}`;
+		return this.http.get(url);
+	}
 
 	// READ
 	find(tableState: ITableState): Observable<TableResponseModel<Variant>> {

@@ -17,7 +17,7 @@ const routes: Routes = [
 				component: AnalysisListComponent,
 			},
 			{
-				path: ':id',
+				path: 'detail/:id',
 				component: AnalysisDetailComponent,
 			},
 			{ path: '', redirectTo: 'list', pathMatch: 'full' },
