@@ -110,9 +110,11 @@ export class SubheaderService implements OnDestroy {
   }
 
   private getBreadcrumbsAndTitle(menuId, pathName): SubheaderModel {
+	console.log(menuId);
     const result = new SubheaderModel();
     const menu = document.getElementById(menuId);
     if (!menu) {
+		console.log(12313123);
       return result;
     }
 

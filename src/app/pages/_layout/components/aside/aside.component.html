@@ -22,148 +22,7 @@
     <!--begin::Nav-->
     <!--begin::Nav-->
     <ul class="nav flex-column" role="tablist">
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        placement="right"
-        ngbTooltip="Latest project"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          data-toggle="tab"
-          [ngClass]="{ active: activeTabId === TABS[1] }"
-          (click)="setTab(TABS[1])"
-          data-target="#kt_aside_tab_1"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item-->
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        placement="right"
-        ngbTooltip="Metronic Features"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          [ngClass]="{ active: activeTabId === TABS[2] }"
-          (click)="setTab(TABS[2])"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_2"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/Communication/Group.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item-->
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        placement="right"
-        ngbTooltip="Latest Reports"
-        ngbTooltipClass="tooltip"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          [ngClass]="{ active: activeTabId === TABS[3] }"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_3"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item--
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        placement="right"
-        ngbTooltip="Latest Reports"
-        ngbTooltipClass="tooltip"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          [ngClass]="{ active: activeTabId === TABS[4] }"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_4"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/General/Shield-check.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item-->
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        data-toggle="tooltip"
-        data-placement="right"
-        data-container="body"
-        data-boundary="window"
-        title="User Management"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_5"
-          [ngClass]="{ active: activeTabId === TABS[5] }"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/Home/Library.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item-->
-      <!--begin::Item-->
-      <li
-        class="nav-item mb-3"
-        data-toggle="tooltip"
-        data-placement="right"
-        data-container="body"
-        data-boundary="window"
-        title="Finance & Accounting"
-        container="body"
-      >
-        <a
-          class="nav-link btn btn-icon btn-clean btn-lg"
-          [ngClass]="{ active: activeTabId === TABS[6] }"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_6"
-          role="tab"
-        >
-          <span
-            [inlineSVG]="'./assets/media/svg/icons/Files/File-plus.svg'"
-            cacheSVG="true"
-            class="svg-icon svg-icon-xl"
-          ></span>
-        </a>
-      </li>
-      <!--end::Item-->
+     
     </ul>
     <!--begin::Item-->
     <!--end::Nav-->
@@ -176,7 +35,7 @@
   <!--end::Footer-->
   <!--end::Primary-->
 </div>
-<ng-container *ngIf="disableAsideSecondaryDisplay">
+<ng-container>
   <!--begin::Secondary-->
   <div class="aside-secondary d-flex flex-row-fluid">
     <!--begin::Workspace-->

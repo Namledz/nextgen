@@ -153,9 +153,9 @@ export class LayoutInitService {
     }
 
     // Default fixed
-    if (this.layout.getProp('aside.self.minimize.default')) {
+    // if (this.layout.getProp('aside.self.minimize.default')) {
       document.body.classList.add('aside-minimize');
-    }
+    // }
 
     // Menu
     // Dropdown Submenu
