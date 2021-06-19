@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
 import { AnalysisListComponent } from '../modules/analysis/analysis-list/analysis-list.component';
+import { SamplesListComponent } from '../modules/samples/samples-list/samples-list.component';
 
 const routes: Routes = [
 	{
@@ -18,6 +19,13 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('../modules/analysis/analysis.module').then(
 						(m) => m.AnalysisModule
+					),
+			},
+			{
+				path: 'samples',
+				loadChildren: () =>
+					import('../modules/samples/samples.module').then(
+						(m) => m.SamplesModule
 					),
 			},
 			{
