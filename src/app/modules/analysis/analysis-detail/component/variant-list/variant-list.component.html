@@ -71,7 +71,8 @@
 
 		<!-- begin:Table -->
 		<div class="table-responsive angular-bootstrap-table" style="width: 100%">
-			<table class="table table-head-custom table-vertical-center overflow-hidden variant-list-table" style="overflow-x: auto !important; width: 2000px">
+			<table class="table table-head-custom table-vertical-center overflow-hidden variant-list-table"
+				style="overflow-x: auto !important; width: 2000px">
 				<colgroup>
 					<col span="1" style="width: 50px">
 					<col span="1" style="width: 100px">
@@ -185,6 +186,7 @@
 						<td>{{ variant.id }}</td>
 						<td>{{ variant.gene }}</td>
 						<td>{{ variant.transcript_id }}</td>
+						<td>{{ variant.position }}</td>
 						<td>{{ variant.rsid }}</td>
 						<td>{{ variant.REF }} - {{variant.ALT}}</td>
 						<td>{{ variant.cnomen }}</td>
@@ -196,7 +198,7 @@
 						<td>{{ variant.gnomad }}</td>
 						<td>{{ variant.cosmicID }}</td>
 						<td>{{ variant.classification }}</td>
-						
+
 					</tr>
 				</tbody>
 			</table>
