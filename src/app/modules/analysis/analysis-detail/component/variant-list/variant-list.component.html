@@ -9,33 +9,94 @@
 	</div>
 	<div class="card-body">
 		<!-- begin: Filtration form -->
-		<!-- <div class="form form-label-right">
-      <div class="form-group row">
-        <div class="col-lg-4">
-          <div class="row" [formGroup]="filterGroup">
-            <div class="col-lg-6">
-              <select class="form-control" name="status" placeholder="Filter by Status" formControlName="status">
-                <option value="">All</option>
-                <option value="1">Susspended</option>
-                <option value="2">Active</option>
-                <option value="3">Pending</option>
-              </select><small class="form-text text-muted"><b>Filter</b> by Status</small>
-            </div>
-            <div class="col-lg-6">
-              <select class="form-control" placeholder="Filter by Type" name="type" formControlName="type">
-                <option value="">All</option>
-                <option value="1">Business</option>
-                <option value="2">Individual</option>
-              </select><small class="form-text text-muted"><b>Filter</b> by Type</small>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-2" [formGroup]="searchGroup">
-          <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
-            formControlName="searchTerm" /><small class="form-text text-muted"><b>Search</b> in all fields</small>
-        </div>
-      </div>
-    </div> -->
+		<div class="form form-label-right">
+			<div class="form-group row">
+			  <div class="col-lg-4">
+				<div class="row" [formGroup]="filterGroup">
+				  <div class="col-lg-6">
+					<select class="form-control" name="status" placeholder="Filter by Status" formControlName="status">
+					  <option value="">All</option>
+					  <option value="1">Susspended</option>
+					  <option value="2">Active</option>
+					  <option value="3">Pending</option>
+					</select><small class="form-text text-muted"><b>Filter</b> by Status</small>
+				  </div>
+				  <div class="col-lg-6">
+					<select class="form-control" placeholder="Filter by Type" name="type" formControlName="type">
+					  <option value="">All</option>
+					  <option value="1">Chromosome 1</option>
+					  <option value="2">Chromosome 2</option>
+					  <option value="3">Chromosome 3</option>
+					  <option value="4">Chromosome 4</option>
+					  <option value="5">Chromosome 5</option>
+					  <option value="6">Chromosome 6</option>
+					  <option value="7">Chromosome 7</option>
+					  <option value="8">Chromosome 8</option>
+					  <option value="9">Chromosome 9</option>
+					  <option value="10">Chromosome 10</option>
+					  <option value="11">Chromosome 11</option>
+					  <option value="12">Chromosome 12</option>
+					  <option value="13">Chromosome 13</option>
+					  <option value="14">Chromosome 14</option>
+					  <option value="15">Chromosome 15</option>
+					  <option value="16">Chromosome 16</option>
+					  <option value="17">Chromosome 17</option>
+					  <option value="18">Chromosome 18</option>
+					  <option value="19">Chromosome 19</option>
+					  <option value="20">Chromosome 20</option>
+					  <option value="21">Chromosome 21</option>
+					  <option value="22">Chromosome 22</option>
+					  <option value="X">Chromosome X</option>
+					  <option value="Y">Chromosome Y</option>
+					</select><small class="form-text text-muted"><b>Filter</b> by Chromosome</small>
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-lg-2" [formGroup]="searchGroup">
+				<input type="text" class="form-control" name="searchText" placeholder="Enter gene name" value=""
+				  formControlName="searchTerm" /><small class="form-text text-muted"><b>Enter</b> gene name</small>
+			  </div>
+			  <div class="col-lg-2">
+				<div class="row">
+				  <div class="col-lg-4">
+					<select class="form-control" name="">
+					  <option value=""></option>
+					  <option value="">≥</option>
+					  <option value="">≤</option>
+					</select>
+				  </div>
+				  <div class="col-lg-4" style="padding-left: 0px;">
+					<input type="text" class="form-control">
+				  </div>
+				</div>
+				<small class="form-text text-muted"><b>Filter</b> by gnomAD</small>
+			  </div>
+			  <div class="col-lg-4">
+				<div class="row">
+				  <div style="margin-top: 10px;">QUAL ≥</div>
+				  <div class="col-lg-4">
+					<input class="form-control" type="text">
+				  </div>
+				  <div style="margin-top:10px">QUAL ≤</div>
+				  <div class="col-lg-4">
+					<input class="form-control" type="text">
+				  </div>
+				</div>
+				<small class="form-text text-muted"><b>Filter</b> by Quality</small>
+			  </div>
+			</div>
+			<div class="form-group row">
+			  <div class="col-lg-3">
+				<ng-select2
+				[data]="dropdownList"
+				placeholder="Select Squecence Ontology"
+				[options]="options"
+				>
+				</ng-select2>
+			  <small class="form-text text-muted"><b>Filter</b> by Squecence Ontology</small>
+			  </div>
+			</div>
+		  </div>
 		<!-- end: Filtration form -->
 
 		<!-- begin: Grouping -->

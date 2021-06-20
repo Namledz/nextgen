@@ -51,6 +51,13 @@ export class VariantListComponent implements
 	
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
+	dropdownList = [];
+	public options = {
+		width: '100%',
+		multiple: true,
+		tags: true
+	};
+	
 	constructor(
 		private fb: FormBuilder,
 		private modalService: NgbModal,
