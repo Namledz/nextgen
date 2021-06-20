@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class TestService {
-  protected http: HttpClient;
+	protected http: HttpClient;
 
-  constructor(http: HttpClient) {
-    this.http = http;
-  }
+	API_URL = `${environment.apiUrl}`;
+	constructor(http: HttpClient) {
+		this.http = http;
+	}
 
-  getQCVCF(id: any): any {
-		const url = `http://localhost:6969/getQCVCF/${id}`;
+	getQCVCF(id: any): any {
+		const url = `${this.API_URL}/getQCVCF/${id}`;
 		return this.http.get(url, {})
 	}
 }

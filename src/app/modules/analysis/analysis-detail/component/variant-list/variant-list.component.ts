@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VariantListService } from '../../../_services/variant-list.service';
+import { environment } from '../../../../../../environments/environment';
 import {
 	GroupingState,
 	PaginatorState,
@@ -39,6 +40,8 @@ export class VariantListComponent implements
 	IGroupingView,
 	ISearchView,
 	IFilterView {
+	@Input() id;
+	url: any
 	paginator: PaginatorState;
 	sorting: SortState;
 	grouping: GroupingState;
@@ -56,6 +59,8 @@ export class VariantListComponent implements
 
 	// angular lifecircle hooks
 	ngOnInit(): void {
+		this.url = `${environment.apiUrl}/variant/${this.id}`
+		this.variantListService.API_URL = this.url;
 		this.filterForm();
 		this.searchForm();
 		this.variantListService.fetch();

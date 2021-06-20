@@ -17,7 +17,7 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 	}
 
 	getAnalysisName(id: any) {
-		const url = `${this.API_URL}/${id}`;
+		const url = `${environment.apiUrl}/analysis/${id}`;
 		return this.http.get(url);
 	}
 

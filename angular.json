@@ -31,10 +31,14 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "packages/igv/igv-all.css"],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",
-              "node_modules/clipboard/dist/clipboard.js"
+              "node_modules/clipboard/dist/clipboard.js",
+			  "node_modules/jquery/dist/jquery.min.js",
+			  "packages/jquery-ui/jquery-ui.min.js",
+			  "packages/igv/igv.js"
+			  
             ]
           },
           "configurations": {
@@ -94,7 +98,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [
+			]
           }
         },
         "lint": {

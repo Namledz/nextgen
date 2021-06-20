@@ -1,20 +1,22 @@
-<mat-card  *ngIf="isLoaded" >
+<mat-card *ngIf="isLoaded" >
 	<mat-card-content>
 		<h2 class="example-h2">{{ analysisName }}</h2>
-		<mat-tab-group class="demo-tab-group">
+		<mat-tab-group class="demo-tab-group" (selectedTabChange)="tabClick($event)">
 			<mat-tab label="Variant List">
 				<div class="demo-tab-content">
-					<app-variant-list></app-variant-list>
+					<app-variant-list [id] = "id"></app-variant-list>
 				</div>
 			</mat-tab>
-			<mat-tab label="Info">
+			<mat-tab label="QC">
 				<div class="demo-tab-content">
 					<app-analysis-info></app-analysis-info>
 				</div>
 			</mat-tab>
-			<mat-tab label="Report">
+			<mat-tab  #report  label="Report">
 				<div class="demo-tab-content">
-					<app-analysis-report></app-analysis-report>
+					<app-analysis-report [id] = "id"></app-analysis-report>
+					<div #igv>
+					</div>
 				</div>
 			</mat-tab>
 		</mat-tab-group>

@@ -71,137 +71,138 @@
 
 		<!-- begin:Table -->
 		<div class="table-responsive angular-bootstrap-table" style="width: 100%">
-			<table class="table table-head-custom table-vertical-center overflow-hidden variant-list-table"
-				style="overflow-x: auto !important; width: 2000px">
-				<colgroup>
-					<col span="1" style="width: 50px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 150px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 100px">
-					<col span="1" style="width: 150px">
-
-				</colgroup>
-				<thead>
-					<th class="selection-cell-header" data-row-selection="true">
-						<label class="checkbox checkbox-single"><input type="checkbox"
-								(click)="grouping.selectAllRows()"
-								[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-					</th>
-					<th>
-						ID
-						<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-							(sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Gene
-						<app-sort-icon column="gene" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Transcript ID
-						<app-sort-icon column="lastName" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Position
-						<app-sort-icon column="email" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						rsid
-						<app-sort-icon column="gender" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						REF - ALT
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						C.nomen
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						P.nomen
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Function
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Location
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Coverage
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Zygosity
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						GNomad
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						CosmicID
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Classification
-						<app-sort-icon column="type" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-				</thead>
-				<tbody>
-					<tr *ngFor="let variant of variantListService.items$ | async">
-						<td class="selection-cell">
+			<div>
+				<table style="table-layout: fixed; overflow-x: auto !important; width: 2500px"  class="table table-head-custom table-vertical-center overflow-hidden variant-list-table">
+					<!-- <colgroup>
+						<col span="1" style="width: 70px">
+						<col span="1" style="width: 100px !important">
+						<col span="1" style="width: 100px !important">
+						<col span="1" style="width: 150px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 100px">
+						<col span="1" style="width: 150px">
+					</colgroup> -->
+					<thead>
+						<th class="selection-cell-header" style="width:50px" data-row-selection="true">
 							<label class="checkbox checkbox-single"><input type="checkbox"
-									(click)="grouping.selectRow(variant.id)"
-									[checked]="grouping.isRowSelected(variant.id)" />
-								<span></span>
-							</label>
-						</td>
-						<td>{{ variant.id }}</td>
-						<td>{{ variant.gene }}</td>
-						<td>{{ variant.transcript_id }}</td>
-						<td>{{ variant.position }}</td>
-						<td>{{ variant.rsid }}</td>
-						<td>{{ variant.REF }} - {{variant.ALT}}</td>
-						<td>{{ variant.cnomen }}</td>
-						<td>{{ variant.pnomen }}</td>
-						<td>{{ variant.function }}</td>
-						<td>{{ variant.location }}</td>
-						<td>{{ variant.coverage }}</td>
-						<td>{{ variant.zygosity }}</td>
-						<td>{{ variant.gnomad }}</td>
-						<td>{{ variant.cosmicID }}</td>
-						<td>{{ variant.classification }}</td>
-
-					</tr>
-				</tbody>
-			</table>
+									(click)="grouping.selectAllRows()"
+									[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+						</th>
+						<!-- <th>
+							ID
+							<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+								(sort)="sort($event)"></app-sort-icon>
+						</th> -->
+						<th style="width:100px">
+							Gene
+							<app-sort-icon column="gene" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width: 400px">
+							Transcript ID
+							<app-sort-icon column="lastName" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:150px">
+							Position
+							<app-sort-icon column="email" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:120px">
+							rsid
+							<app-sort-icon column="gender" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:150px">
+							REF - ALT
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:100px">
+							C.nomen
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:100px">
+							P.nomen
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:150px">
+							Function
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:120px">
+							Location
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:120px">
+							Coverage
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:100px">
+							Zygosity
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:100px">
+							GNomad
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:120px">
+							CosmicID
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th style="width:150px">
+							Classification
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let variant of variantListService.items$ | async">
+							<td class="selection-cell">
+								<label class="checkbox checkbox-single"><input type="checkbox"
+										(click)="grouping.selectRow(variant.id)"
+										[checked]="grouping.isRowSelected(variant.id)" />
+									<span></span>
+								</label>
+							</td>
+							<!-- <td>{{ variant.id }}</td> -->
+							<td><span>{{ variant.gene }}</span></td>
+							<td>
+								<span>{{ variant.transcript_id }}</span></td>
+							<td><span>{{ variant.position }}</span></td>
+							<td><span>{{ variant.rsid }}</span></td>
+							<td><span>{{ variant.REF }} - {{variant.ALT}}</span></td>
+							<td><span>{{ variant.cnomen }}</span></td>
+							<td><span>{{ variant.pnomen }}</span></td>
+							<td><span>{{ variant.function }}</span></td>
+							<td><span>{{ variant.location }}</span></td>
+							<td><span>{{ variant.coverage }}</span></td>
+							<td><span>{{ variant.zygosity }}</span></td>
+							<td><span>{{ variant.gnomad }}</span></td>
+							<td><span>{{ variant.cosmicID }}</span></td>
+							<td><span>{{ variant.classification }}</span></td>
+	
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!-- end: Table -->
 		<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"

@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, Inject, ElementRef, ViewChild } from '@angular/core';
+import * as IGV from 'igv';
+import { MatTab } from '@angular/material/tabs';
 import { VariantListService } from '../_services/variant-list.service';
+import { AnalysisService } from '../_services/analysis.service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
 	selector: 'app-analysis-detail',
@@ -10,19 +13,35 @@ export class AnalysisDetailComponent implements OnInit {
 	id: any;
 	analysisName: string;
 	isLoaded: boolean;
+	@ViewChild('report', { static: true }) igvDiv: MatTab;
+
+	indexBamUrl: any;
+	bamUrl: any;
+
+	igv: any;
+
 	constructor(
 		public variantListService: VariantListService,
+		public analysisService: AnalysisService,
 		private route: ActivatedRoute,
 		private cd: ChangeDetectorRef
 		) { }
 
 	ngOnInit(): void {
 		this.id = this.route.snapshot.params.id;
-		console.log(this.id);
+		this.igv = IGV;
 		this.isLoaded = false;
 		this.getAnalysisName();
+	
 	}
 
+	tabClick(tab) {
+		if (tab.index == 2) {
+			// this.getIgvInfo();
+			
+		}
+		// console.log(this.igvDiv);
+	}
 
 	getAnalysisName() {
 		this.variantListService.getAnalysisName(this.id)
@@ -34,9 +53,11 @@ export class AnalysisDetailComponent implements OnInit {
 				} else {
 
 				}
+				
 			})
 	}
 
+	
 
 
 }
