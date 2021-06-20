@@ -146,7 +146,8 @@ export class AnalysisReportComponent implements OnInit {
 				console.log("Created IGV browser");
 			})
 			.catch(error => {
-				console.log(error);
+				console.log("Cannot create IGV browser");
+				console.log("Create igv Error ", error);
 			})
 	}
 
