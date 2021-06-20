@@ -85,50 +85,77 @@ export class VariantListComponent implements
 	// filtration
 	filterForm() {
 		this.filterGroup = this.fb.group({
-			status: [''],
-			type: [''],
-			searchTerm: [''],
+			chromosome: [''],
+			gnomAdCompare: [''],
+			gnomAdText: [''],
+			qualityGreater: [''],
+			qualityLower: [''],
+			sequencenceOntology: [''],
+			depthGreater: [''],
+			depthLower: ['']
 		});
-		this.subscriptions.push(
-			this.filterGroup.controls.status.valueChanges.subscribe(() =>
-				this.filter()
-			)
-		);
-		this.subscriptions.push(
-			this.filterGroup.controls.type.valueChanges.subscribe(() => this.filter())
-		);
+	}
+
+	applyFilter () {
+		let filter = this.filter();
+		console.log(this.filter());
+		this.variantListService.patchState({ filter });
 	}
 
 	filter() {
-		const filter = {};
-		const status = this.filterGroup.get('status').value;
-		if (status) {
-			filter['status'] = status;
+		let filter = {};
+		const chromosome = this.filterGroup.get('chromosome').value;
+		if (chromosome) {
+			filter['chrom'] = chromosome;
 		}
 
-		const type = this.filterGroup.get('type').value;
-		if (type) {
-			filter['type'] = type;
+		const depthGreater = this.filterGroup.get('depthGreater').value;
+		if (depthGreater) {
+			filter['depth_greater'] = depthGreater;
 		}
-		this.variantListService.patchState({ filter });
+
+		const depthLower = this.filterGroup.get('depthLower').value;
+		if (depthLower) {
+			filter['depth_lower'] = depthLower;
+		}
+
+		const qualityGreater = this.filterGroup.get('qualityGreater').value;
+		if (qualityGreater) {
+			filter['quality_greater'] = qualityGreater;
+		}
+
+		const qualityLower = this.filterGroup.get('qualityLower').value;
+		if (qualityLower) {
+			filter['quality_lower'] = qualityLower;
+		}
+
+		const gnomAdCompare = this.filterGroup.get('gnomAdCompare').value;
+		const filterGnomAdText = this.filterGroup.get('gnomAdText').value;
+		if (gnomAdCompare && filterGnomAdText) {
+			filter['gnomad'] = {
+				type: gnomAdCompare == 'greater' ? '>=' : '<=',
+				value: filterGnomAdText
+			}
+		}
+
+		const sequencenceOntology = this.filterGroup.get('sequencenceOntology').value;
+		if (sequencenceOntology) {
+			filter['sequencence_ontology'] = sequencenceOntology;
+		}
+
+		const geneName = this.searchGroup.get('geneName').value
+		if (geneName) {
+			filter['gene'] = geneName;
+		}
+
+		return filter;
 	}
 
 	// search
 	searchForm() {
 		this.searchGroup = this.fb.group({
-			searchTerm: [''],
+			geneName: [''],
 		});
-		const searchEvent = this.searchGroup.controls.searchTerm.valueChanges
-			.pipe(
-				/*
-			  The user can type quite quickly in the input box, and that could trigger a lot of server requests. With this operator,
-			  we are limiting the amount of server requests emitted to a maximum of one every 150ms
-			  */
-				debounceTime(150),
-				distinctUntilChanged()
-			)
-			.subscribe((val) => this.search(val));
-		this.subscriptions.push(searchEvent);
 	}
 
 	search(searchTerm: string) {

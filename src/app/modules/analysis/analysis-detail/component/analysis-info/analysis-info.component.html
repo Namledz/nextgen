@@ -14,7 +14,7 @@
 				</td>
 				<td class="text-left">
 					<span>
-						<a style="color: #1bc5bd !important" class="text-hover-primary">
+						<a style="color: #1bc5bd !important" class="text-hover-primary text-link">
 							{{ info.pipeline }}
 						</a>
 					</span>
@@ -27,7 +27,7 @@
 				</td>
 				<td class="text-left">
 					<span>
-						<a style="color: #1bc5bd !important" class="text-hover-primary">
+						<a style="color: #1bc5bd !important" class="text-hover-primary text-link">
 							{{ info.project }}
 						</a>
 					</span>
@@ -41,7 +41,7 @@
 				</td>
 				<td class="text-left">
 					<span>
-						<a style="color: #1bc5bd !important" class="text-hover-primary">
+						<a style="color: #1bc5bd !important" class="text-hover-primary text-link">
 							{{ info.samples }}
 						</a>
 					</span>
@@ -57,33 +57,33 @@
 							<div class="section">
 								<h5>QC, Trim</h5>
 								<div class="files">
-									<div><p class="filename">trim/EX1.trim.report.html</p></div>
+									<div><p class="filename">trim/{{ info.samples }}.trim.report.html</p></div>
 								</div>
 							</div>
 							<div class="section">
 								<h5>BWA</h5>
 								<div class="files">
-									<div><p class="filename">bwa/EX1.hg19.bam.bai</p></div>
-									<div><p class="filename">bwa/EX1.hg19.bam</p></div>
+									<div><p class="filename">bwa/{{ info.samples }}.hg19.bam.bai</p></div>
+									<div><p class="filename">bwa/{{ info.samples }}.hg19.bam</p></div>
 								</div>
 							</div>
 							<div class="section">
 								<h5>Summary</h5>
 								<div class="files">
-									<div><p class="filename">summary/EX1.hg19.alignment-summary.png</p></div>
+									<div><p class="filename">summary/{{ info.samples }}.hg19.alignment-summary.png</p></div>
 								</div>
 							</div>
 							<div class="section">
 								<h5>Remove duplicates</h5>
 								<div class="files">
-									<div><p class="filename">dedup/EX1.hg19.dedup.bam.bai</p></div>
-									<div><p class="filename">dedup/EX1.hg19.dedup.bam</p></div>
+									<div><p class="filename">dedup/{{ info.samples }}.hg19.dedup.bam.bai</p></div>
+									<div><p class="filename">dedup/{{ info.samples }}.hg19.dedup.bam</p></div>
 								</div>
 							</div>
 							<div class="section">
 								<h5>Coverage</h5>
 								<div class="files">
-									<div><p class="filename">coverage/EX1.hg19.dedup.coverage-summary.xls</p></div>
+									<div><p class="filename">coverage/{{ info.samples }}.hg19.dedup.coverage-summary.xls</p></div>
 								</div>
 							</div>
 						</div>
