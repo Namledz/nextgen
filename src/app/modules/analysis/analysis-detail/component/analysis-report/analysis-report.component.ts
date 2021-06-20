@@ -10,7 +10,7 @@ import { AnalysisService } from '../../../_services/analysis.service'
 	styleUrls: ['./analysis-report.component.scss']
 })
 export class AnalysisReportComponent implements OnInit {
-	@Input() id: string;
+	@Input() id: any;
 	@Input() type: string;
 	igv: any;
 	@ViewChild('igv', { static: true }) igvDiv: ElementRef;
@@ -29,6 +29,8 @@ export class AnalysisReportComponent implements OnInit {
 		if (this.type == 'fastq') {
 			this.getFastqQC();
 		} else {
+			console.log(this.type)
+			console.log(this.id);
 			this.getVCFQC();
 		}
 		this.getIgvInfo();

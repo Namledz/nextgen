@@ -47,14 +47,13 @@ export class AnalysisDetailComponent implements OnInit {
 	getAnalysisName() {
 		this.variantListService.getAnalysisName(this.id)
 			.subscribe((res: any) => {
-				this.isLoaded = true;
-				this.cd.detectChanges();
 				if (res.status == 'success') {
 					this.analysisName = res.data.name;
 					this.type = res.data.type;
 				} else {
-
 				}
+				this.isLoaded = true;
+				this.cd.detectChanges();
 				
 			})
 	}
