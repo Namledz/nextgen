@@ -25,7 +25,6 @@ export class AnalysisReportComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.igv = IGV;
-
 		if (this.type == 'fastq') {
 			this.getFastqQC();
 		} else {
@@ -36,7 +35,7 @@ export class AnalysisReportComponent implements OnInit {
 
 	getVCFQC() {
 		var self = this;
-		const sb = this.testService.getQCVCF(123)
+		const sb = this.testService.getQCVCF(this.id)
 			.subscribe(function (res) {
 				if (res.status == "success") {
 					self.htmlString = res.html;
