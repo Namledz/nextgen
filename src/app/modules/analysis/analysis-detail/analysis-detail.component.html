@@ -2,21 +2,19 @@
 	<mat-card-content>
 		<h2 class="example-h2">{{ analysisName }}</h2>
 		<mat-tab-group class="demo-tab-group" (selectedTabChange)="tabClick($event)">
-			<mat-tab label="Variant List">
+			<mat-tab *ngIf='type == "vcf"' label="Variant List">
 				<div class="demo-tab-content">
 					<app-variant-list [id] = "id"></app-variant-list>
 				</div>
 			</mat-tab>
-			<mat-tab label="QC">
+			<mat-tab label="Info">
 				<div class="demo-tab-content">
 					<app-analysis-info></app-analysis-info>
 				</div>
 			</mat-tab>
-			<mat-tab  #report  label="Report">
+			<mat-tab  #report  label="QC">
 				<div class="demo-tab-content">
-					<app-analysis-report [id] = "id"></app-analysis-report>
-					<div #igv>
-					</div>
+					<app-analysis-report [id] = "id" [type]="type"></app-analysis-report>
 				</div>
 			</mat-tab>
 		</mat-tab-group>

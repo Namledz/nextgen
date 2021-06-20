@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectorRef, Inject, ElementRef, ViewChild } from '@angular/core';
 
 import * as IGV from 'igv';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TestService } from '../../../_services/test.service'
 import { AnalysisService } from '../../../_services/analysis.service'
 @Component({
@@ -11,17 +11,30 @@ import { AnalysisService } from '../../../_services/analysis.service'
 })
 export class AnalysisReportComponent implements OnInit {
 	@Input() id: string;
+	@Input() type: string;
 	igv: any;
 	@ViewChild('igv', { static: true }) igvDiv: ElementRef;
 	htmlString: string;
+	html: SafeHtml
 	htmlData: any;
 	indexBamUrl: any;
 	bamUrl: any;
 
-	constructor(private sanitizer: DomSanitizer, private cd: ChangeDetectorRef, private testService: TestService, private analysisService: AnalysisService) { }
+	constructor(private sanitizer: DomSanitizer, 
+		private cd: ChangeDetectorRef, private testService: TestService, private analysisService: AnalysisService) { }
 
 	ngOnInit(): void {
 		this.igv = IGV;
+
+		if (this.type == 'fastq') {
+			this.getFastqQC();
+		} else {
+			this.getVCFQC();
+		}
+		this.getIgvInfo();
+	}
+
+	getVCFQC() {
 		var self = this;
 		const sb = this.testService.getQCVCF(123)
 			.subscribe(function (res) {
@@ -31,7 +44,6 @@ export class AnalysisReportComponent implements OnInit {
 					self.cd.detectChanges();
 				}
 			})
-		this.getIgvInfo();
 	}
 
 	getIgvInfo() {
@@ -49,7 +61,6 @@ export class AnalysisReportComponent implements OnInit {
 		let options =
 		{
 			flanking: 1000,
-			locus: "17:41243788",
 			minimumBases: 40,
 			pairsSupported: true,
 			promisified: false,
@@ -78,7 +89,7 @@ export class AnalysisReportComponent implements OnInit {
 					filename: "realigned.bam",
 					format: "bam",
 					indexURL: this.indexBamUrl,
-					label: "Test Fastq-03-06",
+					label: "Example",
 					noSpinner: true,
 					order: 1,
 					sourceType: "file",
@@ -135,5 +146,11 @@ export class AnalysisReportComponent implements OnInit {
 			.catch(error => {
 				console.log(error);
 			})
+	}
+
+	getFastqQC() {
+		this.analysisService.getFastqQC().subscribe(response => {
+			this.html = this.sanitizer.bypassSecurityTrustHtml(response);
+		})
 	}
 }

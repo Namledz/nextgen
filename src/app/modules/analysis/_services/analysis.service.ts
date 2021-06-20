@@ -19,18 +19,8 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 
 	// READ
 	find(tableState: ITableState): Observable<TableResponseModel<Analysis>> {
-		return this.http.get<Analysis[]>(this.API_URL).pipe(
-			map((response: Analysis[]) => {
-				const filteredResult = baseFilter(response, tableState);
-				const result: TableResponseModel<Analysis> = {
-					items: filteredResult.items,
-					total: filteredResult.total
-				};
-				return result;
-			})
-		);
+		return this.http.post<TableResponseModel<Analysis>>(`${this.API_URL}/list`, tableState, { withCredentials: true })
 	}
-
 	deleteItems(ids: number[] = []): Observable<any> {
 		const tasks$ = [];
 		ids.forEach(id => {
@@ -43,7 +33,7 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		return this.http.get<Analysis[]>(this.API_URL).pipe(
 			map((analysis: Analysis[]) => {
 				return analysis.filter(a => ids.indexOf(a.id) > -1).map(a => {
-					a.status = status;
+					// a.status = status;
 					return a;
 				});
 			}),

@@ -63,7 +63,7 @@ export class SamplesListComponent
 	}
 	
 	ngOnDestroy(): void {
-		throw new Error('Method not implemented.');
+		this.subscriptions.forEach((sb) => sb.unsubscribe());
 	}
 
 	filterForm() {

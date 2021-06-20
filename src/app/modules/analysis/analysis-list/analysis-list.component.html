@@ -83,36 +83,31 @@
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
-            FIRSTNAME
+            Name
             <app-sort-icon column="firstName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
-            LASTNAME
+            Owner
             <app-sort-icon column="lastName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
-            EMAIL
+            Permission
             <app-sort-icon column="email" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
-            GENDER
+            Created
             <app-sort-icon column="gender" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
           <th>
-            STATUS
+            Updated
             <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
               (sort)="sort($event)"></app-sort-icon>
           </th>
-          <th>
-            TYPE
-            <app-sort-icon column="type" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>ACTIONS</th>
+          <th>Actions</th>
         </thead>
         <tbody>
           <tr *ngFor="let analysis of analysisService.items$ | async">
@@ -123,24 +118,12 @@
               </label>
             </td>
             <td>{{ analysis.id }}</td>
-            <td>{{ analysis.firstName }}</td>
-            <td>{{ analysis.lastName }}</td>
-            <td>{{ analysis.email }}</td>
-            <td>{{ analysis.gender }}</td>
+            <td><a  href="/analysis/detail/{{ analysis.id }}">{{ analysis.name }} on {{ analysis.sample }}</a></td>
+            <td>{{ analysis.owner }}</td>
+            <td>{{ analysis.permission }}</td>
+            <td>{{ analysis.created }}</td>
             <td>
-              <span class="label label-lg label-inline" [class.label-light-danger]="analysis.status === 1"
-                [class.label-light-success]="analysis.status === 2" [class.label-light-primary]="analysis.status === 3">
-                <ng-container *ngIf="analysis.status === 1">Suspended</ng-container>
-                <ng-container *ngIf="analysis.status === 2">Active</ng-container>
-                <ng-container *ngIf="analysis.status === 3">Pending</ng-container>
-              </span>
-            </td>
-            <td>
-              <span class="label label-dot label-primary mr-2" [class.label-success]="analysis.type === 1"
-                [class.label-primary]="analysis.type === 2"></span>&nbsp;<span class="font-bold font-primary">
-                <ng-container *ngIf="analysis.type === 1">Business</ng-container>
-                <ng-container *ngIf="analysis.type === 2">Individual</ng-container>
-              </span>
+				{{ analysis.updated }}
             </td>
             <td>
 
@@ -150,13 +133,7 @@
                   class="svg-icon svg-icon-md svg-icon-primary">
                 </span>
               </a>
-
-              <a title="Delete analysis" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                (click)="delete(analysis.id)">
-                <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-danger">
-                </span>
-              </a>
+			  
             </td>
           </tr>
         </tbody>

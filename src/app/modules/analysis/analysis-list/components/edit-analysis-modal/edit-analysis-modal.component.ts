@@ -9,16 +9,13 @@ import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../
 
 const EMPTY_ANALYSIS: Analysis = {
 	id: undefined,
-	firstName: '',
-	lastName: '',
-	email: '',
-	userName: '',
-	gender: 'Female',
-	status: 2,
-	dob: undefined,
-	dateOfBbirth: '',
-	ipAddress: '251.237.126.210',
-	type: 2
+	name: '',
+	owner: '',
+	permission: '',
+	created: '',
+	update: '',
+	type: '',
+	sample: ''
 };
 
 @Component({
@@ -69,14 +66,14 @@ export class EditAnalysisModalComponent implements OnInit, OnDestroy {
 
 	loadForm() {
 		this.formGroup = this.fb.group({
-			firstName: [this.analysis.firstName, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-			lastName: [this.analysis.lastName, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
-			email: [this.analysis.email, Validators.compose([Validators.required, Validators.email])],
-			dob: [this.analysis.dateOfBbirth, Validators.compose([Validators.nullValidator])],
-			userName: [this.analysis.userName, Validators.compose([Validators.required])],
-			gender: [this.analysis.gender, Validators.compose([Validators.required])],
-			ipAddress: [this.analysis.ipAddress],
-			type: [this.analysis.type, Validators.compose([Validators.required])]
+			// firstName: [this.analysis.firstName, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			// lastName: [this.analysis.lastName, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+			// email: [this.analysis.email, Validators.compose([Validators.required, Validators.email])],
+			// dob: [this.analysis.dateOfBbirth, Validators.compose([Validators.nullValidator])],
+			// userName: [this.analysis.userName, Validators.compose([Validators.required])],
+			// gender: [this.analysis.gender, Validators.compose([Validators.required])],
+			// ipAddress: [this.analysis.ipAddress],
+			// type: [this.analysis.type, Validators.compose([Validators.required])]
 		});
 	}
 
@@ -116,15 +113,15 @@ export class EditAnalysisModalComponent implements OnInit, OnDestroy {
 	}
 
 	private prepareAnalysis() {
-		const formData = this.formGroup.value;
-		this.analysis.dob = new Date(formData.dob);
-		this.analysis.email = formData.email;
-		this.analysis.firstName = formData.firstName;
-		this.analysis.dateOfBbirth = formData.dob;
-		this.analysis.ipAddress = formData.ipAddress;
-		this.analysis.lastName = formData.lastName;
-		this.analysis.type = +formData.type;
-		this.analysis.userName = formData.userName;
+		// const formData = this.formGroup.value;
+		// this.analysis.dob = new Date(formData.dob);
+		// this.analysis.email = formData.email;
+		// this.analysis.firstName = formData.firstName;
+		// this.analysis.dateOfBbirth = formData.dob;
+		// this.analysis.ipAddress = formData.ipAddress;
+		// this.analysis.lastName = formData.lastName;
+		// this.analysis.type = +formData.type;
+		// this.analysis.userName = formData.userName;
 	}
 
 	ngOnDestroy(): void {

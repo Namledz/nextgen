@@ -13,6 +13,7 @@ export class AnalysisDetailComponent implements OnInit {
 	id: any;
 	analysisName: string;
 	isLoaded: boolean;
+	type: string;
 	@ViewChild('report', { static: true }) igvDiv: MatTab;
 
 	indexBamUrl: any;
@@ -49,7 +50,8 @@ export class AnalysisDetailComponent implements OnInit {
 				this.isLoaded = true;
 				this.cd.detectChanges();
 				if (res.status == 'success') {
-					this.analysisName = res.data.name
+					this.analysisName = res.data.name;
+					this.type = res.data.type;
 				} else {
 
 				}
