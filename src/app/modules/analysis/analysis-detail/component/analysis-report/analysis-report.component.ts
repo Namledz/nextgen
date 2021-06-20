@@ -36,7 +36,7 @@ export class AnalysisReportComponent implements OnInit {
 
 	getVCFQC() {
 		var self = this;
-		const sb = this.testService.getQCVCF(123)
+		const sb = this.testService.getQCVCF(this.id)
 			.subscribe(function (res) {
 				if (res.status == "success") {
 					self.htmlString = res.html;

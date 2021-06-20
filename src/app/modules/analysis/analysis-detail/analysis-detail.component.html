@@ -1,6 +1,6 @@
-<mat-card *ngIf="isLoaded" >
-	<mat-card-content>
-		<h2 class="example-h2">{{ analysisName }}</h2>
+<mat-card>
+	<mat-card-content  *ngIf="isLoaded" >
+		<h2 class="example-h2" style="margin: 20px;">{{ analysisName }}</h2>
 		<mat-tab-group class="demo-tab-group" (selectedTabChange)="tabClick($event)">
 			<mat-tab *ngIf='type == "vcf"' label="Variant List">
 				<div class="demo-tab-content">
@@ -9,7 +9,7 @@
 			</mat-tab>
 			<mat-tab label="Info">
 				<div class="demo-tab-content">
-					<app-analysis-info></app-analysis-info>
+					<app-analysis-info [id] = "id"></app-analysis-info>
 				</div>
 			</mat-tab>
 			<mat-tab  #report  label="QC">

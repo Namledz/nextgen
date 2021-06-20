@@ -64,4 +64,11 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
+
+	getAnalysisInfo(id) {
+		let url = `${environment.apiUrl}/analysis-info/${id}`
+		return this.http.get(url).pipe((response) => {
+			return response;
+		});
+	}
 }

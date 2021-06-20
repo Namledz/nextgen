@@ -1,0 +1,81 @@
+<div class="table-responsive" style="padding-top: 20px" *ngIf="info">
+	<table class="table table-borderless table-vertical-center">
+		<thead>
+			<tr>
+				<th class="p-0" style="width: 250px"></th>
+				<th class="p-0 min-w-140px"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="pl-0">
+				<div class="text-dark font-weight-bolder mb-1 font-size-lg">
+						Pipeline</div>
+				</td>
+				<td class="text-left">
+					<span>
+						<a style="color: #212529 !important" class="text-hover-primary">
+							{{ info.pipeline }}
+						</a>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="pl-0">
+				<div class="text-dark font-weight-bolder mb-1 font-size-lg">
+						Project</div>
+				</td>
+				<td class="text-left">
+					<span>
+						<a style="color: #212529 !important" class="text-hover-primary">
+							{{ info.project }}
+						</a>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="pl-0">
+					<div class="text-dark font-weight-bolder mb-1 font-size-lg">
+						Samples
+					</div>
+				</td>
+				<td class="text-left">
+					<span>
+						<a style="color: #212529 !important" class="text-hover-primary">
+							{{ info.samples }}
+						</a>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="pl-0">
+				<div class="text-dark font-weight-bolder mb-1 font-size-lg">
+						Files</div>
+				</td>
+				<td class="text-left">
+					<span style="color: #212529 !important" class="text-hover-primary">
+						QC, Trim
+						trim/EX1.trim.report.html
+						
+						BWA
+						bwa/EX1.hg19.bam.bai
+						
+						bwa/EX1.hg19.bam
+						
+						Summary
+						summary/EX1.hg19.alignment-summary.png
+						
+						Remove duplicates
+						dedup/EX1.hg19.dedup.bam.bai
+						
+						dedup/EX1.hg19.dedup.bam
+						
+						Coverage
+						coverage/EX1.hg19.dedup.coverage-summary.xls
+					</span>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
