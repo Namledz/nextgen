@@ -5,6 +5,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { CRUDTableModule } from '../../_metronic/shared/crud-table';
 import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelect2Module } from 'ng-select2';
 
 import {SamplesComponent } from './samples.component';
 import { SamplesRoutingModule } from './samples-routing.module';
@@ -33,6 +34,7 @@ import { SamplesListComponent } from './samples-list/samples-list.component';
         MatCardModule,
         MatIconModule,
         MatTabsModule,
+        NgSelect2Module
     ],
     entryComponents: [
         SamplesListComponent

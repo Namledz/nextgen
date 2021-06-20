@@ -5,6 +5,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { CRUDTableModule } from '../../_metronic/shared/crud-table';
 import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelect2Module } from 'ng-select2';
 
 import { AnalysisComponent } from './analysis.component';
 import { AnalysisRoutingModule } from './analysis-routing.module';
@@ -50,7 +51,8 @@ import { AnalysisReportComponent } from './analysis-detail/component/analysis-re
 	  NgbDatepickerModule,
 	  MatCardModule,
 	  MatIconModule,
-	  MatTabsModule
+	  MatTabsModule,
+	  NgSelect2Module
   ],
 	entryComponents: [
 		DeleteAnalysisModalComponent,
