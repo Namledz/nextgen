@@ -1,3 +1,4 @@
+import { MatSliderModule } from '@angular/material/slider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,7 +27,7 @@ import { AnalysisInfoComponent } from './analysis-detail/component/analysis-info
 import { AnalysisReportComponent } from './analysis-detail/component/analysis-report/analysis-report.component';
 
 @NgModule({
-  declarations: [
+	declarations: [
 		AnalysisComponent,
 		DeleteAnalysisModalComponent,
 		DeleteAnalysesModalComponent,
@@ -38,22 +39,23 @@ import { AnalysisReportComponent } from './analysis-detail/component/analysis-re
 		VariantListComponent,
 		AnalysisInfoComponent,
 		AnalysisReportComponent
-  ],
-  imports: [
-	  CommonModule,
-	  HttpClientModule,
-	  FormsModule,
-	  ReactiveFormsModule,
-	  AnalysisRoutingModule,
-	  InlineSVGModule,
-	  CRUDTableModule,
-	  NgbModalModule,
-	  NgbDatepickerModule,
-	  MatCardModule,
-	  MatIconModule,
-	  MatTabsModule,
-	  NgSelect2Module
-  ],
+	],
+	imports: [
+		CommonModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+		AnalysisRoutingModule,
+		InlineSVGModule,
+		CRUDTableModule,
+		NgbModalModule,
+		NgbDatepickerModule,
+		MatCardModule,
+		MatIconModule,
+		MatTabsModule,
+		NgSelect2Module,
+		MatSliderModule
+	],
 	entryComponents: [
 		DeleteAnalysisModalComponent,
 		DeleteAnalysesModalComponent,
