@@ -22,39 +22,38 @@
       </ng-container>
 
       <!--begin::Actions-->
-      <a
-        class="btn btn-light-danger font-weight-bolder btn-sm mr-2 cursor-pointer"
-      >
-        Reports
+      <a routerLink="/" class="brand-logo mr-2 cursor-pointer">
+        <img
+          alt="Logo"
+          src="./assets/media/logos/logo-letter-2.png"
+          class="max-h-30px"
+        />
       </a>
-      <a
-        class="btn btn-light-success font-weight-bolder btn-sm mr-2 cursor-pointer"
-      >
-        Import
-      </a>
+
       <!--end::Actions-->
 
       <!--begin::Inputs-->
-      <div class="input-group input-group-sm input-group-solid max-w-175px">
-        <input type="text" class="form-control pl-4" placeholder="Search..." />
-        <div class="input-group-append">
-          <span class="input-group-text">
-            <span
-              [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
-              cacheSVG="true"
-              class="svg-icon svg-icon-md"
-            ></span>
-          </span>
-        </div>
-      </div>
       <!--end::Inputs-->
     </div>
     <!--end::Info-->
 
     <!--begin::Toolbar-->
     <div class="d-flex align-items-center">
-      <ng-container *ngIf="subheaderDisplayDaterangepicker">
-        <!--begin::Daterange-->
+      <!-- <ng-container>
+        <div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
+          <input type="text" class="form-control pl-4" placeholder="Search..." />
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
+                cacheSVG="true"
+                class="svg-icon svg-icon-md"
+              ></span>
+            </span>
+          </div>
+        </div>
+      </ng-container> -->
+      <!-- <ng-container *ngIf="subheaderDisplayDaterangepicker">
         <a
           class="btn btn-light btn-sm font-weight-bold mr-2 cursor-pointer"
           id="kt_dashboard_daterangepicker"
@@ -80,11 +79,20 @@
             class="svg-icon svg-icon-sm svg-icon-primary ml-1"
           ></span>
         </a>
-        <!--end::Daterange-->
-      </ng-container>
+      </ng-container> -->
 
       <!--begin::Actions-->
       <a
+        class="btn btn-light-primary font-weight-bolder btn-sm mr-2 cursor-pointer"
+      >
+        Analysis
+      </a>
+      <a
+        class="btn btn-light-primary font-weight-bolder btn-sm mr-2 cursor-pointer"
+      >
+        Sample
+      </a>
+      <!-- <a
         class="btn btn-light btn-hover-primary btn-sm btn-icon mr-2 cursor-pointer"
       >
         <i class="flaticon2-file text-muted"></i>
@@ -103,7 +111,7 @@
         class="btn btn-light btn-hover-primary btn-sm btn-icon mr-2 cursor-pointer"
       >
         <i class="flaticon2-settings text-muted"></i>
-      </a>
+      </a> -->
       <!--end::Actions-->
 
       <!--begin::Dropdowns-->
