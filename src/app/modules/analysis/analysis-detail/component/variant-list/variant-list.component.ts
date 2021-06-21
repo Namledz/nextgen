@@ -133,7 +133,7 @@ export class VariantListComponent implements
 		const filterGnomAdText = this.filterGroup.get('gnomAdText').value;
 		if (gnomAdCompare && filterGnomAdText) {
 			filter['gnomad'] = {
-				type: gnomAdCompare == 'greater' ? '>=' : '<=',
+				type: gnomAdCompare,
 				value: filterGnomAdText
 			}
 		}

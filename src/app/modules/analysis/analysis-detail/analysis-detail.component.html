@@ -7,14 +7,14 @@
 					<app-variant-list [id] = "id"></app-variant-list>
 				</div>
 			</mat-tab>
+			<mat-tab #report label="QC">
+				<div class="demo-tab-content">
+					<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
+				</div>
+			</mat-tab>
 			<mat-tab label="Info">
 				<div class="demo-tab-content">
 					<app-analysis-info [id] = "id"></app-analysis-info>
-				</div>
-			</mat-tab>
-			<mat-tab  #report  label="QC">
-				<div class="demo-tab-content">
-					<app-analysis-report [id] = "id" [type]="type"></app-analysis-report>
 				</div>
 			</mat-tab>
 		</mat-tab-group>

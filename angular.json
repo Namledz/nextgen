@@ -36,7 +36,7 @@
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/clipboard/dist/clipboard.js",
 			  "node_modules/jquery/dist/jquery.min.js",
-        "node_modules/select2/dist/js/select2.min.js",
+        	  "node_modules/select2/dist/js/select2.min.js",
 			  "packages/jquery-ui/jquery-ui.min.js",
 			  "packages/igv/igv.js"
 			  

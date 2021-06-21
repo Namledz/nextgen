@@ -64,13 +64,13 @@
 				</div>
 			</div>
 			<div class="form-group row" [formGroup]="filterGroup">
-				<div class="col-lg-2">
+				<div class="col-lg-4">
 					<div class="row" [formGroup]="filterGroup">
-						<div class="col-lg-4">
-							<select class="form-control" name="filterGnomAd" formControlName="gnomAdCompare">
+						<div class="col-lg-3">
+							<select class="form-control" name="filterGnomAd" formControlName="gnomAdCompare" style="font-size:15px; padding-left:40%">
 								<option value=""></option>
-								<option value="greater">≥</option>
-								<option value="lower">≤</option>
+								<option value=">=">≥</option>
+								<option value="<=">≤</option>
 							</select>
 						</div>
 						<div class="col-lg-4" style="padding-left: 0px;">
@@ -264,9 +264,9 @@
 							<td>
 								<span>{{ variant.transcript_id }}</span>
 							</td>
-							<td><span>{{ variant.position }}</span></td>
+							<td><span>{{ variant.chrom }}:{{ variant.position }}</span></td>
 							<td><span>{{ variant.rsid }}</span></td>
-							<td><span>{{ variant.REF }} - {{variant.ALT}}</span></td>
+							<td><span>{{ variant.REF }} > {{variant.ALT}}</span></td>
 							<td><span>{{ variant.cnomen }}</span></td>
 							<td><span>{{ variant.pnomen }}</span></td>
 							<td><span>{{ variant.function }}</span></td>

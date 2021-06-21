@@ -5,6 +5,7 @@ export interface Variant extends BaseModel {
 	gene: string;
 	transcript_id: string;
 	position: number;
+	chrom: string;
 	rsid: string;
 	REF: string;
 	ALT: string;

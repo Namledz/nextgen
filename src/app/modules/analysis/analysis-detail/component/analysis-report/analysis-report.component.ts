@@ -141,6 +141,7 @@ export class AnalysisReportComponent implements OnInit {
 		// 		}
 		// 	]
 		// };
+		console.log(this.igvDiv.nativeElement);
 		this.igv.createBrowser(this.igvDiv.nativeElement, options)
 			.then(function (browser) {
 				console.log("Created IGV browser");
