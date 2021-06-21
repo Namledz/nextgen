@@ -94,13 +94,13 @@ export const DefaultLayoutConfig = {
 
   // Content
   content: {
-    width: 'fixed', // fluid|fixed
+	width: 'fluid', // fluid|fixed
   },
 
   // Aside
   aside: {
     self: {
-      display: true,
+      display: false,
       fixed: true,
       minimize: {
         toggle: true, // allow toggle
@@ -109,7 +109,7 @@ export const DefaultLayoutConfig = {
     },
 
     secondary: {
-      display: true
+      display: false
     },
 
     menu: {
