@@ -101,7 +101,7 @@ export const DefaultLayoutConfig = {
   aside: {
     self: {
       display: false,
-      fixed: true,
+      fixed: false,
       minimize: {
         toggle: true, // allow toggle
         default: false, // default state
@@ -198,7 +198,7 @@ export const DefaultLayoutConfig = {
 
     // Chat
     chat: {
-      display: true,
+      display: false,
     },
 
     // Quick Panel

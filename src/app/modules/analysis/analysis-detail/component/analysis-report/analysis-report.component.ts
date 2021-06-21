@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ChangeDetectorRef, Inject, ElementRef, ViewChild } from '@angular/core';
 
-import * as IGV from 'igv';
+import * as IGV from '../../../../../../../packages/igv/igv';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TestService } from '../../../_services/test.service'
 import { AnalysisService } from '../../../_services/analysis.service'
@@ -110,17 +110,6 @@ export class AnalysisReportComponent implements OnInit {
 					sourceType: "file",
 					type: "annotation",
 					url: "https://s3-us-west-2.amazonaws.com/btgenomics-s3-prod/public/hg19/gencode.v18.annotation.sorted.gtf.gz"
-				},
-				{
-					displayMode: "EXPANDED",
-					filename: "aywrLHew-Homo_sapiens.GRCh37.75.genes.UTR.Agilent_v6.p_lp_risk_pgx_wellness_Y_MT_20200402_fomat_removed.bed",
-					format: "bed",
-					name: "ROI",
-					noSpinner: true,
-					order: 4,
-					sourceType: "file",
-					type: "annotation",
-					url: "https://btgenomics-s3-prod.s3-us-west-2.amazonaws.com/public/aywrLHew-Homo_sapiens.GRCh37.75.genes.UTR.Agilent_v6.p_lp_risk_pgx_wellness_Y_MT_20200402_fomat_removed.bed",
 				},
 				{
 					noSpinner: true,

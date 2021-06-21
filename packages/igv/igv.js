@@ -8063,7 +8063,6 @@
 	var rhtml = /<|&#?\w+;/;
 
 	function buildFragment(elems, context, scripts, selection, ignored) {
-		console.log(context);
 	  var elem,
 	      tmp,
 	      tag,
