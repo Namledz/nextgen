@@ -192,8 +192,6 @@ export class AnalysisListComponent
 	}
 
 	formatUserRole(role) {
-		console.log(role)
-		console.log("haha")
 		switch (role) {
 			case 0:
 				return 'admin'

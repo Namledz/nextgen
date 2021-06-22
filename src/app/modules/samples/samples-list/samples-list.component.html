@@ -187,93 +187,32 @@
             <th>ACTIONS</th>
           </thead>
           <tbody>
-            <tr>
-              <td class="selection-cell">
-                <label class="checkbox checkbox-single"><input type="checkbox" />
-                  <span></span>
-                </label>
-              </td>
-              <td>60950</td>
-              <td>EX1</td>
-              <td>info@genetics.vn</td>
-              <td>6/8/2021</td>
-              <td>panel</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                  <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                    class="svg-icon svg-icon-md svg-icon-primary">
-                  </span>
-                </a>
-              </td>
-            </tr>
-            <tr>
-                <td class="selection-cell">
-                  <label class="checkbox checkbox-single"><input type="checkbox"/>
-                    <span></span>
-                  </label>
-                </td>
-                <td>90234</td>
-                <td>EX2</td>
-                <td>namle@genetics.vn</td>
-                <td>10/08/2021</td>
-                <td>no panel</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                      class="svg-icon svg-icon-md svg-icon-primary">
-                    </span>
-                  </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="selection-cell">
-                  <label class="checkbox checkbox-single"><input type="checkbox" />
-                    <span></span>
-                  </label>
-                </td>
-                <td>60129</td>
-                <td>EX3</td>
-                <td>cuongnguyen@genetics.vn</td>
-                <td>02/18/2018</td>
-                <td>panel</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                      class="svg-icon svg-icon-md svg-icon-primary">
-                    </span>
-                  </a>
-                </td>
-            </tr>
-            <tr>
-                <td class="selection-cell">
-                  <label class="checkbox checkbox-single"><input type="checkbox"/>
-                    <span></span>
-                  </label>
-                </td>
-                <td>78612</td>
-                <td>EX4</td>
-                <td>quocdong@genetics.vn</td>
-                <td>05/22/2010</td>
-                <td>no panel</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
-                    <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                      class="svg-icon svg-icon-md svg-icon-primary">
-                    </span>
-                  </a>
-            </tr>
+			<tr *ngFor="let samples of samplesSerivce.items$ | async">
+				<td class="selection-cell">
+					<label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(samples.id)"
+						[checked]="grouping.isRowSelected(samples.id)" />
+					  <span></span>
+					</label>
+				</td>
+				<td>{{samples.id}}</td>
+				<td>{{samples.name}}</td>
+				<td>{{samples.email}}</td>
+				<td>{{samples.createdAt}}</td>
+				<td>{{samples.data_type}}</td>
+				<td>{{samples.control}}</td>
+				<td>{{samples.genotype}}</td>
+				<td>{{samples.no}}</td>
+				<td>
+
+					<a title="Edit samples" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+					  (click)="edit(samples.id)">
+					  <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+						class="svg-icon svg-icon-md svg-icon-primary">
+					  </span>
+					</a>
+					
+				  </td>
+			</tr>
           </tbody>
         </table>
       </div>

@@ -17,6 +17,7 @@ import {
 	PaginatorState, 
 	SortState } from 'src/app/_metronic/shared/crud-table';
 import { AnalysisService } from '../../analysis/_services/analysis.service';
+import { SamplesService } from '../_services/samples.service';
 
 @Component({
   selector: 'app-samples-list',
@@ -54,13 +55,14 @@ export class SamplesListComponent
 	  };
   	constructor(
 		private fb: FormBuilder,
-		public analysisService: AnalysisService
+		public analysisService: AnalysisService,
+		public samplesSerivce: SamplesService
 	) {}
 
 	ngOnInit(): void {
 		this.filterForm();
 		this.searchForm();
-		this.analysisService.fetch();
+		this.samplesSerivce.fetch();
 		this.grouping = this.analysisService.grouping;
 		this.paginator = this.analysisService.paginator;
 		this.sorting = this.analysisService.sorting;
