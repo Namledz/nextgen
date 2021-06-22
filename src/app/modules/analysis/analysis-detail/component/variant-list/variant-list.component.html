@@ -1,119 +1,34 @@
 <div class="card card-custom gutter-b">
 	<div class="card-header">
-		<div class="card-title">
-			<h3 class="card-label">Variant list</h3>
+		<div class="card-toolbar" style="width: 100%; margin-top: 25px; margin-bottom: 20px;">
+			<div class="d-inline-block" style="width: 100%">
+				<div style="float: right;">
+					<button id="dropdownMenu" #btnShowCol (click)="isListShowing = !isListShowing"
+						class="btn btn-sm btn-outline-primary">Show/Hide
+						Columns
+						<i *ngIf="!isListShowing" class="ki ki-bold-triangle-bottom"></i>
+						<i *ngIf="isListShowing" class="ki ki-bold-triangle-top"></i>
+					</button>
+					
+					<mat-selection-list class="show-hide-column-list" #listColumn [hidden]="!isListShowing">
+						<mat-list-option checkboxPosition="before" class="mat-primary show-hide-column-opt"
+							*ngFor="let column of columnsName" (click)="onColumnListControlChanged(listColumn)"
+							[selected]="column.isSelected" [value]="column.columnVal">
+							{{ column.name }}
+						</mat-list-option>
+					</mat-selection-list>
+					
+				</div>
+				<div>
+					<!-- <p>
+				Options selected: {{shoes.selectedOptions.selected.length}}
+			</p> -->
+				</div>
+
+			</div>
 		</div>
-		<!-- <div class="card-toolbar">
-			<button type="button" class="btn btn-primary" (click)="create()">New Variant</button>
-		</div> -->
 	</div>
 	<div class="card-body">
-		<!-- begin: Filtration form -->
-		<div class="form form-label-right" style="margin-bottom: 15px;">
-			<div class="form-group row">
-				<div class="col-lg-8">
-					<div class="row" [formGroup]="filterGroup">
-						<div class="col-lg-7">
-							<div class="row" [formGroup]="filterGroup">
-								<div style="margin-top: 10px;">DEPTH ≥</div>
-								<div class="col-lg-4">
-									<input class="form-control" type="text" formControlName="depthGreater">
-								</div>
-								<div style="margin-top:10px">DEPTH ≤</div>
-								<div class="col-lg-4">
-									<input class="form-control" type="text" formControlName="depthLower">
-								</div>
-							</div>
-							<small class="form-text text-muted"><b>Filter</b> by Depth</small>
-						</div>
-						<div class="col-lg-5">
-							<select class="form-control" placeholder="Filter by Chromosome" name="chromosome"
-								formControlName="chromosome">
-								<option value="">All</option>
-								<option value="1">Chromosome 1</option>
-								<option value="2">Chromosome 2</option>
-								<option value="3">Chromosome 3</option>
-								<option value="4">Chromosome 4</option>
-								<option value="5">Chromosome 5</option>
-								<option value="6">Chromosome 6</option>
-								<option value="7">Chromosome 7</option>
-								<option value="8">Chromosome 8</option>
-								<option value="9">Chromosome 9</option>
-								<option value="10">Chromosome 10</option>
-								<option value="11">Chromosome 11</option>
-								<option value="12">Chromosome 12</option>
-								<option value="13">Chromosome 13</option>
-								<option value="14">Chromosome 14</option>
-								<option value="15">Chromosome 15</option>
-								<option value="16">Chromosome 16</option>
-								<option value="17">Chromosome 17</option>
-								<option value="18">Chromosome 18</option>
-								<option value="19">Chromosome 19</option>
-								<option value="20">Chromosome 20</option>
-								<option value="21">Chromosome 21</option>
-								<option value="22">Chromosome 22</option>
-								<option value="X">Chromosome X</option>
-								<option value="Y">Chromosome Y</option>
-							</select><small class="form-text text-muted"><b>Filter</b> by Chromosome</small>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4" [formGroup]="searchGroup">
-					<input type="text" class="form-control" name="searchText" placeholder="Enter gene name" value=""
-						formControlName="geneName" /><small class="form-text text-muted"><b>Enter</b> gene name</small>
-				</div>
-			</div>
-			<div class="form-group row" [formGroup]="filterGroup">
-				<div class="col-lg-4">
-					<div class="row" [formGroup]="filterGroup">
-						<div class="col-lg-3">
-							<select class="form-control" name="filterGnomAd" formControlName="gnomAdCompare" style="font-size:15px; padding-left:40%">
-								<option value=""></option>
-								<option value=">=">≥</option>
-								<option value="<=">≤</option>
-							</select>
-						</div>
-						<div class="col-lg-4" style="padding-left: 0px;">
-							<input type="text" class="form-control" name="filterGnomAdText"
-								formControlName="gnomAdText">
-						</div>
-					</div>
-					<small class="form-text text-muted"><b>Filter</b> by gnomAD</small>
-				</div>
-				<div class="col-lg-4">
-					<div class="row" [formGroup]="filterGroup">
-						<div style="margin-top: 10px;">QUAL ≥</div>
-						<div class="col-lg-4">
-							<input class="form-control" type="text" formControlName="qualityGreater">
-						</div>
-						<div style="margin-top:10px">QUAL ≤</div>
-						<div class="col-lg-4">
-							<input class="form-control" type="text" formControlName="qualityLower">
-						</div>
-					</div>
-					<small class="form-text text-muted"><b>Filter</b> by Quality</small>
-				</div>
-				<!-- <div class="col-lg-3">
-					<ng-select2 [data]="dropdownList" placeholder="Select Sequecence Ontology" [options]="options"
-						formControlName="sequencenceOntology">
-					</ng-select2>
-					<small class="form-text text-muted"><b>Filter</b> by Sequecence Ontology</small>
-				</div> -->
-			</div>
-			<div class="d-flex align-items-center py-3">
-				<div style="width: 98px; text-align:center; cursor:pointer" (click)="applyFilter()">
-					<a class="btn btn btn-primary btn-fixed-height font-weight-bold"  style="text-align:center">
-						<span class="d-none d-md-inline">Apply Filter</span>
-					</a>
-				</div>
-				<div class="d-flex align-items-center" *ngIf="isLoading">
-					<div class="ml-7 text-muted">Loading...</div>
-					<div class="spinner spinner-primary ml-2"></div>
-				</div>
-			</div>
-		</div>
-		<!-- end: Filtration form -->
-
 		<!-- begin: Grouping -->
 		<ng-container *ngIf="grouping.getSelectedRowsCount()">
 			<div class="form">
@@ -148,7 +63,7 @@
 		<!-- begin:Table -->
 		<div class="table-responsive angular-bootstrap-table" style="width: 100%">
 			<div>
-				<table style="table-layout: fixed; overflow-x: auto !important; width: 2500px"
+				<table style="table-layout: fixed; overflow-x: auto !important; width: fit-content"
 					class="table table-head-custom table-vertical-center overflow-hidden variant-list-table">
 					<!-- <colgroup>
 						<col span="1" style="width: 70px">
@@ -179,76 +94,91 @@
 							<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
 								(sort)="sort($event)"></app-sort-icon>
 						</th> -->
-						<th style="width:100px">
+						<th class="width-100">
 							Gene
 							<app-sort-icon column="gene" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width: 150px">
-							Transcript ID
+						<th class="width-150">
+							Transcript
 							<app-sort-icon column="lastName" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width:150px">
-							Position
-							<app-sort-icon column="email" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th style="width:120px">
-							rsid
-							<app-sort-icon column="gender" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th style="width:150px">
-							REF - ALT
+						<th class="width-150">
+							cDNA
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width:100px">
-							C.nomen
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('pnomen')">
+							p.nomen
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width:100px">
-							P.nomen
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th style="width:150px">
-							Function
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th style="width:120px">
-							Location
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th style="width:120px">
+						<th class="width-150">
 							Coverage
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<!-- <th style="width:100px">
-							Zygosity
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th> -->
-						<th style="width:100px">
-							GNomad
+						<th class="width-150">
+							Function
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width:120px">
-							CosmicID
+						<th class="width-150">
+							Location
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th style="width:150px">
+						<th class="width-120">
+							Clinvar
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150">
+							GNomad_ALL
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('gnomad_AMR')">
+							GNomad_AMR
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('gnomad_AFR')">
+							GNomad_AFR
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('classification')">
 							Classification
 							<app-sort-icon column="type" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
+						<th class="width-120" [class.hidden-column]="checkColumnIsSelected('rsid')" >
+							rsid
+							<app-sort-icon column="gender" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('REF-ALT')">
+							REF - ALT
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-120" [class.hidden-column]="checkColumnIsSelected('cosmicID')">
+							Cosmic
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('position')">
+							Position
+							<app-sort-icon column="email" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<!-- <th style="width-100">
+								Zygosity
+							<app-sort-icon column="type" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							</th> -->
 					</thead>
 					<tbody>
 						<tr *ngFor="let variant of variantListService.items$ | async">
@@ -260,22 +190,40 @@
 								</label>
 							</td>
 							<!-- <td>{{ variant.id }}</td> -->
-							<td><span>{{ variant.gene }}</span></td>
+							<td>
+								<span>{{ variant.gene }}</span></td>
 							<td>
 								<span>{{ variant.transcript_id }}</span>
 							</td>
-							<td><span>{{ variant.chrom }}:{{ variant.position }}</span></td>
-							<td><span>{{ variant.rsid }}</span></td>
-							<td><span>{{ variant.REF }} > {{variant.ALT}}</span></td>
-							<td><span>{{ variant.cnomen }}</span></td>
-							<td><span>{{ variant.pnomen }}</span></td>
-							<td><span>{{ variant.function }}</span></td>
-							<td><span>{{ variant.location }}</span></td>
-							<td><span>{{ variant.coverage }}</span></td>
+							<td>
+								<span>{{ variant.cnomen }}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('pnomen')">
+								<span>{{ variant.pnomen }}</span></td>
+							<td>
+								<span>{{ variant.coverage }}</span></td>
+							<td>
+								<span>{{ variant.function }}</span></td>
+							<td>
+								<span>{{ variant.location }}</span></td>
+							<td>
+								<span>{{ variant.clinvar }}</span></td>
+							<td>
+								<span>{{ variant.gnomad_ALL }}</span></td>
+							<td  [class.hidden-column]="checkColumnIsSelected('gnomad_AMR')">
+								<span>{{ variant.gnomad_AMR }}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('gnomad_AFR')">
+								<span>{{ variant.gnomad_AFR }}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('classification')">
+								<span>{{ variant.classification }}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('rsid')">
+								<span>{{ variant.rsid }}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('REF-ALT')">
+								<span>{{ variant.REF }} > {{variant.ALT}}</span></td>
+							<td [class.hidden-column]="checkColumnIsSelected('cosmicID')">
+								<span>{{ variant.cosmicID }}</span></td>
+							<td  [class.hidden-column]="checkColumnIsSelected('position')">
+								<span>{{ variant.chrom }}:{{ variant.position }}</span></td>
 							<!-- <td><span>{{ variant.zygosity }}</span></td> -->
-							<td><span>{{ variant.gnomad }}</span></td>
-							<td><span>{{ variant.cosmicID }}</span></td>
-							<td><span>{{ variant.classification }}</span></td>
 
 						</tr>
 					</tbody>

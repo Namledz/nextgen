@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectorRef, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -22,13 +22,14 @@ import {
 } from '../../../../../_metronic/shared/crud-table';
 
 @Component({
-  selector: 'app-variant-list',
-  templateUrl: './variant-list.component.html',
-  styleUrls: ['./variant-list.component.scss']
+	selector: 'app-variant-list',
+	templateUrl: './variant-list.component.html',
+	styleUrls: ['./variant-list.component.scss']
 })
 export class VariantListComponent implements
 	OnInit,
 	OnDestroy,
+	AfterViewInit,
 	ICreateAction,
 	IEditAction,
 	IDeleteAction,
@@ -48,21 +49,42 @@ export class VariantListComponent implements
 	isLoading: boolean;
 	filterGroup: FormGroup;
 	searchGroup: FormGroup;
-	
+
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
+	@ViewChild('btnShowCol') toggleButton: ElementRef;
+	@ViewChild('listColumn') menu: ElementRef;
+
 	dropdownList = [];
+	isListShowing = false;
+	columnSelected = [];
+
 	public options = {
 		width: '100%',
 		multiple: true,
 		tags: true
 	};
-	
+
+	columnsName: any[] = [
+		{ name: 'GnomAD_AMR', isSelected: false, columnVal: 'gnomad_AMR' },
+		{ name: 'GnomAD_AFR', isSelected: false, columnVal: 'gnomad_AFR' },
+		{ name: 'Classification', isSelected: false, columnVal: 'classification' },
+		{ name: 'rsID', isSelected: false, columnVal: 'rsid' },
+		{ name: 'P.Nomen', isSelected: false, columnVal: 'pnomen' },
+		{ name: 'REF-ALT', isSelected: false, columnVal: 'REF-ALT' },
+		{ name: 'Cosmic', isSelected: false, columnVal: 'cosmicID' },
+		{ name: 'Position', isSelected: false, columnVal: 'position' }
+	];
+
 	constructor(
 		private fb: FormBuilder,
 		private modalService: NgbModal,
-		public variantListService: VariantListService
-	) { }
+		public variantListService: VariantListService,
+		private cd: ChangeDetectorRef,
+		private renderer: Renderer2
+	) {
+		
+	}
 
 	// angular lifecircle hooks
 	ngOnInit(): void {
@@ -76,6 +98,13 @@ export class VariantListComponent implements
 		this.sorting = this.variantListService.sorting;
 		const sb = this.variantListService.isLoading$.subscribe(res => this.isLoading = res);
 		this.subscriptions.push(sb);
+		this.showColumnList()
+	}
+
+	ngAfterViewInit() {
+		// This is required in order for Context Menu component to appear
+		// The menu is added as a child of specified app component
+		this.setColumnSelected(this.columnsName.filter(e => e.isSelected).map(e => e.columnVal))
 	}
 
 	ngOnDestroy() {
@@ -96,10 +125,29 @@ export class VariantListComponent implements
 		});
 	}
 
-	applyFilter () {
+	applyFilter() {
 		let filter = this.filter();
 		console.log(this.filter());
 		this.variantListService.patchState({ filter });
+	}
+
+	showColumnList () {
+		this.renderer.listen('window', 'click', (e: Event) => {
+			/**
+			 * Only run when toggleButton is not clicked
+			 * If we don't check this, all clicks (even on the toggle button) gets into this
+			 * section which in the result we might never see the menu open!
+			 * And the menu itself is checked here, and it's where we check just outside of
+			 * the menu and button the condition abbove must close the menu
+			 */
+			const target = e.target as Element;
+			let t = (target.classList.contains('mat-list-text') || target.classList.contains('mat-list-item-content') || target.classList.contains('mat-pseudo-checkbox') || target.id == 'dropdownMenu');
+			
+			if (!t) {
+				this.isListShowing = false;
+				this.cd.detectChanges();
+			}
+		});
 	}
 
 	filter() {
@@ -180,8 +228,23 @@ export class VariantListComponent implements
 		this.variantListService.patchState({ paginator });
 	}
 
+
+	onColumnListControlChanged(list) {
+		let t = list.selectedOptions.selected.map(item => item.value);
+		this.setColumnSelected(t);
+	}
+
+	setColumnSelected(t) {
+		this.columnSelected = t;
+		this.cd.detectChanges();
+	}
+
+	checkColumnIsSelected (columnVal) {
+		return !(this.columnSelected.indexOf(columnVal) != -1)
+	}
+
 	create() {
-		
+
 	}
 
 	edit(id: number) {

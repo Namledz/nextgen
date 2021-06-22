@@ -13,6 +13,10 @@ import { AnalysisRoutingModule } from './analysis-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { AnalysisListComponent } from './analysis-list/analysis-list.component';
 import { DeleteAnalysisModalComponent } from './analysis-list/components/delete-analysis-modal/delete-analysis-modal.component';
@@ -52,7 +56,11 @@ import { AnalysisReportComponent } from './analysis-detail/component/analysis-re
 	  MatCardModule,
 	  MatIconModule,
 	  MatTabsModule,
-	  NgSelect2Module
+	  MatSelectModule,
+	  MatListModule,
+	  MatButtonModule,
+	  NgSelect2Module,
+	  NgbDropdownModule
   ],
 	entryComponents: [
 		DeleteAnalysisModalComponent,
