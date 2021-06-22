@@ -1,24 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AnalysisComponent } from './analysis.component';
+import { PipelineComponent } from './pipeline.component';
 
-import { AnalysisListComponent } from './analysis-list/analysis-list.component';
+import { PipelineListComponent } from './pipeline-list/pipeline-list.component';
 
-import { AnalysisDetailComponent } from './analysis-detail/analysis-detail.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: AnalysisComponent,
+		component: PipelineComponent,
 		children: [
 			{
 				path: 'list',
-				component: AnalysisListComponent,
-			},
-			{
-				path: 'detail/:id',
-				component: AnalysisDetailComponent,
+				component: PipelineListComponent,
 			},
 			{ path: '', redirectTo: 'list', pathMatch: 'full' },
 			// {path: '404', component: Error4Component},
@@ -31,4 +26,4 @@ const routes: Routes = [
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule],
 })
-export class AnalysisRoutingModule { }
+export class PipelineRoutingModule { }
