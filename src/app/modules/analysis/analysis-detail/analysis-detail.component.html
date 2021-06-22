@@ -1,21 +1,21 @@
 <mat-card>
 	<mat-card-content *ngIf="isLoaded" >
 		<h2 class="example-h2" style="margin: 20px;">{{ analysisName }}</h2>
-		<mat-tab-group class="demo-tab-group" (selectedTabChange)="tabClick($event)">
+		<mat-tab-group class="demo-tab-group" animationDuration="2000ms" (selectedTabChange)="tabClick($event)">
 			<mat-tab *ngIf='type == "vcf"' label="Variant List">
-				<div class="demo-tab-content">
+				<ng-template class="demo-tab-content" matTabContent>
 					<app-variant-list [id] = "id"></app-variant-list>
-				</div>
+				</ng-template>
 			</mat-tab>
 			<mat-tab #report label="QC">
-				<div class="demo-tab-content">
+				<ng-template class="demo-tab-content" matTabContent>
 					<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
-				</div>
+				</ng-template>
 			</mat-tab>
 			<mat-tab label="Info">
-				<div class="demo-tab-content">
+				<ng-template class="demo-tab-content" matTabContent>
 					<app-analysis-info [id] = "id"></app-analysis-info>
-				</div>
+				</ng-template>
 			</mat-tab>
 		</mat-tab-group>
 	</mat-card-content>

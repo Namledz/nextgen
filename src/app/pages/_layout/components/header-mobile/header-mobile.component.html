@@ -6,19 +6,56 @@
     class="logo-default max-h-30px"
   />
 </a>
+<div class="d-flex align-items-center">
+  <a
+  class="btn btn-light-primary font-weight-bolder btn-sm mr-2 cursor-pointer"
+  >
+  Analysis
+  </a>
+  <a
+  class="btn btn-light-primary font-weight-bolder btn-sm mr-2 cursor-pointer"
+  >
+  Sample
+  </a>
+  <div
+  class="dropdown dropdown-inline"
+  data-toggle="tooltip"
+  title="Quick actions"
+  data-placement="left"
+  placement="bottom-right"
+  ngbDropdown
+>
+  <a
+    class="btn btn-icon btn-light-primary btn-sm cursor-pointer"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+    ngbDropdownToggle
+  >
+    <i class="ki ki-plus icon-1x"></i>
+  </a>
+  <div
+    ngbDropdownMenu
+    class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right"
+  >
+    <app-dropdown-menu2></app-dropdown-menu2>
+  </div>
+</div>
+</div>
+
 <!--end::Logo-->
 
 <!--begin::Toolbar-->
-<div class="d-flex align-items-center">
+<!-- <div class="d-flex align-items-center">
   <ng-container *ngIf="asideSelfDisplay">
-    <!--begin::Aside Mobile Toggle-->
+
     <button
       class="btn p-0 burger-icon burger-icon-left"
       id="kt_aside_mobile_toggle"
     >
       <span></span>
     </button>
-    <!--end::Aside Mobile Toggle-->
+
   </ng-container>
-</div>
+</div> -->
 <!--end::Toolbar-->
