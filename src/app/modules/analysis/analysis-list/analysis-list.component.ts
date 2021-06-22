@@ -190,4 +190,15 @@ export class AnalysisListComponent
 		modalRef.componentInstance.ids = this.grouping.getSelectedRows();
 		modalRef.result.then(() => this.analysisService.fetch(), () => { });
 	}
+
+	formatUserRole(role) {
+		console.log(role)
+		console.log("haha")
+		switch (role) {
+			case 0:
+				return 'admin'
+			default: 
+				return role
+		}
+	}
 }

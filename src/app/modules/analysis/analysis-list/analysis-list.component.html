@@ -179,12 +179,12 @@
               </label>
             </td>
             <td>{{ analysis.id }}</td>
-            <td><a  href="/analysis/detail/{{ analysis.id }}">{{ analysis.name }} on {{ analysis.sample }}</a></td>
-            <td>{{ analysis.owner }}</td>
-            <td>{{ analysis.permission }}</td>
-            <td>{{ analysis.created }}</td>
+            <td><a  href="/analysis/detail/{{ analysis.id }}">{{ analysis.name }}</a></td>
+            <td>{{ analysis.email }}</td>
+            <td>{{ formatUserRole(analysis.role) }}</td>
+            <td>{{ analysis.createdAt }}</td>
             <td>
-				{{ analysis.updated }}
+				{{ analysis.updatedAt }}
             </td>
             <td>
 
