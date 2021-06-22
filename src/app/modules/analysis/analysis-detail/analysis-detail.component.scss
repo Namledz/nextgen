@@ -1,0 +1,116 @@
+:host::ng-deep .select2-container--default .select2-selection--multiple {
+  width: 100%;
+  // height: calc(1.5em + 1.3rem + 2px);
+  padding: 0.45rem 0 1rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #3f4254;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #e4e6ef;
+  border-radius: 0.42rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+:host::ng-deep .select2-dropdown {
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+}
+
+.main-wrapper {
+  display: flex;
+}
+
+.filter-wrapper {
+  position: relative;
+  border: 0;
+  border: 1px solid #dee2e6;
+  box-shadow: -1px 2px 14px 0px #adb5bd;
+  //   display: flex;
+  flex-direction: row;
+  width: 15%;
+  background-color: #fff;
+  margin-right: 10px;
+  padding: 20px;
+  height: 100%;
+}
+
+.content-wrapper {
+  width: 85%;
+}
+
+.filter-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-header-subscript {
+  align-items: center;
+  display: flex;
+}
+
+.filter-body {
+  width: 100%;
+}
+
+.filter-object {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+.header-main {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  text-align: start;
+}
+
+.filter-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-header h5 {
+  // padding-left: 1rem;
+  color: #495057;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.filter-header-subscript {
+  align-items: center;
+  display: flex;
+}
+
+.filter-header-subscript > div:first-child {
+  padding-right: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+
+.custom-aside-btn {
+  position: absolute;
+  right: -15px;
+  top: 10px;
+  z-index: 10;
+}
+
+.text-bold {
+  font-weight: bold;
+}
