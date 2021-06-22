@@ -29,6 +29,13 @@ const routes: Routes = [
 					),
 			},
 			{
+				path: 'workspaces',
+				loadChildren: () =>
+					import('../modules/workspaces/workspaces.module').then(
+						(m) => m.WorkspacesModule
+					),
+			},
+			{
 				path: 'builder',
 				loadChildren: () =>
 					import('./builder/builder.module').then((m) => m.BuilderModule),
