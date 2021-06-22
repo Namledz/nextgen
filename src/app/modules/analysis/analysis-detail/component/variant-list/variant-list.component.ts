@@ -37,10 +37,7 @@ export class VariantListComponent implements
 	IFetchSelectedAction,
 	IUpdateStatusForSelectedAction,
 	ISortView,
-	IFilterView,
-	IGroupingView,
-	ISearchView,
-	IFilterView {
+	IGroupingView {
 	@Input() id;
 	url: any
 	paginator: PaginatorState;
@@ -90,8 +87,8 @@ export class VariantListComponent implements
 	ngOnInit(): void {
 		this.url = `${environment.apiUrl}/variant/${this.id}`
 		this.variantListService.API_URL = this.url;
-		this.filterForm();
-		this.searchForm();
+		// this.filterForm();
+		// this.searchForm();
 		this.variantListService.fetch();
 		this.grouping = this.variantListService.grouping;
 		this.paginator = this.variantListService.paginator;

@@ -9,7 +9,8 @@ export interface IPaginatorState {
 
 export class PaginatorState implements IPaginatorState {
   page = 1;
-  pageSize = PageSizes[2];
+  // pageSize = PageSizes[2];
+  pageSize = 60;
   total = 0;
   pageSizes: number[] = [];
 
