@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -66,7 +67,8 @@ import { GenomeBrowserComponent } from './analysis-detail/component/genome-brows
 		MatButtonModule,
 		NgSelect2Module,
 		MatSliderModule,
-		NgbDropdownModule
+		NgbDropdownModule,
+		MatProgressSpinnerModule
 	],
 	entryComponents: [
 		DeleteAnalysisModalComponent,

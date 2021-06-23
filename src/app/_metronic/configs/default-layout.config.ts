@@ -85,7 +85,7 @@ export const DefaultLayoutConfig = {
     display: true,
     displayDesc: false,
     displayDaterangepicker: true,
-    layoutVersion: 'v4', // [1..6]
+    layoutVersion: 'v6', // [1..6]
     fixed: false,
     width: 'fixed', // fixed|fluid,
     clear: false,
