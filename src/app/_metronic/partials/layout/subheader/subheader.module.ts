@@ -12,6 +12,10 @@ import { Subheader7Component } from './subheader7/subheader7.component';
 import { SubheaderWrapperComponent } from './subheader-wrapper/subheader-wrapper.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownMenusModule } from '../../content/dropdown-menus/dropdown-menus.module';
+import { TopbarComponent } from '../../../../pages/_layout/components/topbar/topbar.component';
+import { LanguageSelectorComponent } from '../../../../pages/_layout/components/topbar/language-selector/language-selector.component';
+import { ExtrasModule } from '../../../partials/layout/extras/extras.module';
+import { CoreModule } from '../../../core';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { DropdownMenusModule } from '../../content/dropdown-menus/dropdown-menus
     Subheader6Component,
     Subheader7Component,
     SubheaderWrapperComponent,
+    TopbarComponent,
+    LanguageSelectorComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +36,8 @@ import { DropdownMenusModule } from '../../content/dropdown-menus/dropdown-menus
     InlineSVGModule,
     NgbDropdownModule,
     DropdownMenusModule,
+    ExtrasModule,
+    CoreModule
   ],
   exports: [SubheaderWrapperComponent],
 })

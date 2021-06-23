@@ -1,6 +1,7 @@
 <!--begin::Subheader-->
+
 <div
-  class="subheader py-3 py-lg-8"
+  class="subheader py-3"
   [ngClass]="subheaderCSSClasses"
   id="kt_subheader"
 >
@@ -23,19 +24,52 @@
 
       <!--begin::Page Heading-->
       <div class="d-flex align-items-baseline flex-wrap mr-5">
+        <a routerLink="/" class="brand-logo mr-5">
+          <img
+            alt="Logo"
+            src="./assets/media/logos/logo-letter-2.png"
+            class="max-h-40px"
+          />
+        </a>
+        <a href="/workspaces" [ngClass]="getCurrentUrl('/workspaces/list')"
+        class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
+         WorkSpaces
+        </a>
+        <a
+        href="/analysis" [ngClass]="getCurrentUrl('/analysis/list')"
+          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+        >
+          Analysis
+        </a>
+        <a href="/samples" [ngClass]="getCurrentUrl('/samples/list')"
+          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+        >
+          Sample
+        </a>
+        <a 
+          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+        >
+          Upload
+        </a>
+        <a href="/pipeline" [ngClass]="getCurrentUrl('/pipeline/list')"
+          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+        >
+          Pipeline
+        </a>
         <!--begin::Page Title-->
-        <ng-container *ngIf="title$ | async as _title">
+        <!-- <ng-container *ngIf="title$ | async as _title">
           <h2
             class="d-flex align-items-center text-dark font-weight-bold my-1 mr-3"
           >
             {{ _title }}
-            <!-- <ng-container *ngIf="subheaderDisplayDesc">
+            <ng-container *ngIf="subheaderDisplayDesc">
               <ng-container *ngIf="description$ | async as _description">
                 <small>{{ _description }}</small>
               </ng-container>
-            </ng-container> -->
+            </ng-container>
           </h2>
-        </ng-container>
+
+        </ng-container> -->
         <!--end::Page Title-->
         <!--begin::Breadcrumb-->
         <!-- <ul
@@ -59,30 +93,58 @@
 
     <!--begin::Toolbar-->
     <div class="d-flex align-items-center flex-wrap">
-      <!--begin::Button-->
-      <a
-        class="btn btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
-		href="/workspaces"
+        <div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
+          <input type="text" class="form-control pl-4" placeholder="Search..." />
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
+                cacheSVG="true"
+                class="svg-icon svg-icon-md"
+              ></span>
+            </span>
+          </div>
+        </div>
+        <app-topbar
+         
+        ></app-topbar>&nbsp;&nbsp;
+        <div
+        class="dropdown dropdown-inline"
+        data-toggle="tooltip"
+        title="Quick actions"
+        data-placement="left"
+        placement="bottom-right"
+        ngbDropdown
       >
-        <span class="d-none d-md-inline">Workspaces</span>
-      </a>
-      <a
-        class="btn btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
-		href="/analysis"
+        <a
+          class="btn btn-icon btn-light-primary btn-sm cursor-pointer"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ngbDropdownToggle
+        >
+          <i class="ki ki-plus icon-1x"></i>
+        </a>
+        <div
+          ngbDropdownMenu
+          class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right"
+        >
+          <app-dropdown-menu2></app-dropdown-menu2>
+        </div>
+      </div>
+
+      <!-- <a
+        class="btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
       >
-        <span class="d-none d-md-inline">Analyses</span>
+        <span
+          [inlineSVG]="'./assets/media/svg/icons/Communication/Add-user.svg'"
+          cacheSVG="true"
+          class="svg-icon svg-icon-lg"
+        ></span>
+        <span class="d-none d-md-inline">New Member</span>
       </a>
 
-      <a
-        class="btn btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
-		href="/samples"
-      >
-        <span class="d-none d-md-inline">Samples</span>
-      </a>
-      <!--end::Button-->
-
-      <!--begin::Dropdown-->
-      <!-- <div
+      <div
         class="dropdown dropdown-inline"
         data-toggle="tooltip"
         title="Quick actions"
@@ -92,11 +154,38 @@
       >
         <a
           class="btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ngbDropdownToggle
         >
-          <span class="d-none d-md-inline">Samples</span>
+          <span
+            [inlineSVG]="'./assets/media/svg/icons/Files/File.svg'"
+            cacheSVG="true"
+            class="svg-icon svg-icon-lg"
+          ></span>
+          <span class="d-none d-md-inline">New Report</span>
         </a>
-      </div> -->
-      <!--end::Dropdown-->
+        <div
+          class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right"
+          ngbDropdownMenu
+        >
+          <app-dropdown-menu1></app-dropdown-menu1>
+        </div>
+      </div>
+
+      <a
+        class="btn btn-primary btn-icon font-weight-bold"
+        data-toggle="modal"
+        data-target="#kt_chat_modal"
+      >
+        <span
+          [inlineSVG]="'./assets/media/svg/icons/Communication/Group-chat.svg'"
+          cacheSVG="true"
+          class="svg-icon svg-icon-lg"
+        ></span>
+      </a> -->
+
     </div>
     <!--end::Toolbar-->
   </div>
