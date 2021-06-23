@@ -114,3 +114,25 @@
 .text-bold {
   font-weight: bold;
 }
+
+
+// @media all and (-ms-high-contrast: none),
+// (-ms-high-contrast: active) {
+
+// 	/* IE10+ CSS styles go here */
+// 	:host::ng-deep .mat-tab-group * {
+// 		transition: none !important;
+// 		transition-duration: 0ms !important;
+// 		transition-delay: 0ms !important;
+// 	}
+// }
+
+// @supports (-ms-accelerator:true) {
+
+// 	/* IE Edge 12+ CSS styles go here */
+// 	:host::ng-deep .mat-tab-group * {
+// 		transition: none !important;
+// 		transition-duration: 0ms !important;
+// 		transition-delay: 0ms !important;
+// 	}
+// }

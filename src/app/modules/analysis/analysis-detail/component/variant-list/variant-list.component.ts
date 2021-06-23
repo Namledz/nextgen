@@ -65,7 +65,6 @@ export class VariantListComponent implements
 	columnsName: any[] = [
 		{ name: 'GnomAD_AMR', isSelected: false, columnVal: 'gnomad_AMR' },
 		{ name: 'GnomAD_AFR', isSelected: false, columnVal: 'gnomad_AFR' },
-		{ name: 'Classification', isSelected: false, columnVal: 'classification' },
 		{ name: 'rsID', isSelected: false, columnVal: 'rsid' },
 		{ name: 'P.Nomen', isSelected: false, columnVal: 'pnomen' },
 		{ name: 'REF-ALT', isSelected: false, columnVal: 'REF-ALT' },
@@ -89,10 +88,10 @@ export class VariantListComponent implements
 		this.variantListService.API_URL = this.url;
 		// this.filterForm();
 		// this.searchForm();
+		this.sorting = this.variantListService.sorting;
 		this.variantListService.fetch();
 		this.grouping = this.variantListService.grouping;
 		this.paginator = this.variantListService.paginator;
-		this.sorting = this.variantListService.sorting;
 		const sb = this.variantListService.isLoading$.subscribe(res => this.isLoading = res);
 		this.subscriptions.push(sb);
 		this.showColumnList()
@@ -238,6 +237,10 @@ export class VariantListComponent implements
 
 	checkColumnIsSelected (columnVal) {
 		return !(this.columnSelected.indexOf(columnVal) != -1)
+	}
+
+	getVariantClass (classification) {
+		return `${classification.split(" ").join("-")}`;
 	}
 
 	create() {

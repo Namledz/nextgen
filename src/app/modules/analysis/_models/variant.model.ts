@@ -1,7 +1,7 @@
 import { BaseModel } from '../../../_metronic/shared/crud-table';
 
 export interface Variant extends BaseModel {
-	id: number;
+	id: string;
 	gene: string;
 	transcript_id: string;
 	position: number;

@@ -7,20 +7,26 @@ import { AnalysisListComponent } from './analysis-list/analysis-list.component';
 
 import { AnalysisDetailComponent } from './analysis-detail/analysis-detail.component';
 
+import { AnalysesComponent } from './analyses/analyses.component';
+
 const routes: Routes = [
 	{
 		path: '',
 		component: AnalysisComponent,
 		children: [
 			{
-				path: 'list',
+				path: 'index',
+				component: AnalysesComponent
+			},
+			{
+				path: 'list/:id',
 				component: AnalysisListComponent,
 			},
 			{
 				path: 'detail/:id',
 				component: AnalysisDetailComponent,
 			},
-			{ path: '', redirectTo: 'list', pathMatch: 'full' },
+			{ path: '', redirectTo: 'index', pathMatch: 'full' },
 			// {path: '404', component: Error4Component},
 			{ path: '**', redirectTo: 'errors/404', pathMatch: 'full' },
 		],

@@ -19,7 +19,7 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 
 	// READ
 	find(tableState: ITableState): Observable<TableResponseModel<Analysis>> {
-		return this.http.post<TableResponseModel<Analysis>>(`${this.API_URL}/list`, tableState, { withCredentials: true })
+		return this.http.post<TableResponseModel<Analysis>>(`${this.API_URL}`, tableState, { withCredentials: true })
 	}
 	deleteItems(ids: number[] = []): Observable<any> {
 		const tasks$ = [];
@@ -70,5 +70,15 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		return this.http.get(url).pipe((response) => {
 			return response;
 		});
+	}
+
+	getQCVCF(id: any): any {
+		const url = `${environment.apiUrl}/getQCVCF/${id}`;
+		return this.http.get(url, {})
+	}
+
+	getProjectName(id: any): any{
+		const url = `${environment.apiUrl}/workspace/project-name/${id}`;
+		return this.http.get(url, {})
 	}
 }

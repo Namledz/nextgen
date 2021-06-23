@@ -71,7 +71,7 @@ const routes: Routes = [
 			},
 			{
 				path: '',
-				redirectTo: 'analysis',
+				redirectTo: 'workspaces',
 				pathMatch: 'full',
 			},
 			{

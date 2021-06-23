@@ -1,207 +1,140 @@
 <div class="card card-custom gutter-b">
-  <div class="card-header">
-    <div class="card-title">
-      <h3 class="card-label">Analyses list</h3>
-    </div>
-    <div class="card-toolbar">
-      <button type="button" class="btn btn-primary" (click)="create()">New Analysis</button>
-    </div>
-  </div>
-  <div class="card-body">
-    <!-- begin: Filtration form -->
-    <!-- <div class="form form-label-right">
-      <div class="form-group row">
-        <div class="col-lg-4">
-          <div class="row" [formGroup]="filterGroup">
-            <div class="col-lg-6">
-              <select class="form-control" name="status" placeholder="Filter by Status" formControlName="status">
-                <option value="">All</option>
-                <option value="1">Susspended</option>
-                <option value="2">Active</option>
-                <option value="3">Pending</option>
-              </select><small class="form-text text-muted"><b>Filter</b> by Status</small>
-            </div>
-            <div class="col-lg-6">
-              <select class="form-control" placeholder="Filter by Type" name="type" formControlName="type">
-                <option value="">All</option>
-                <option value="1">Chromosome 1</option>
-                <option value="2">Chromosome 2</option>
-                <option value="3">Chromosome 3</option>
-                <option value="4">Chromosome 4</option>
-                <option value="5">Chromosome 5</option>
-                <option value="6">Chromosome 6</option>
-                <option value="7">Chromosome 7</option>
-                <option value="8">Chromosome 8</option>
-                <option value="9">Chromosome 9</option>
-                <option value="10">Chromosome 10</option>
-                <option value="11">Chromosome 11</option>
-                <option value="12">Chromosome 12</option>
-                <option value="13">Chromosome 13</option>
-                <option value="14">Chromosome 14</option>
-                <option value="15">Chromosome 15</option>
-                <option value="16">Chromosome 16</option>
-                <option value="17">Chromosome 17</option>
-                <option value="18">Chromosome 18</option>
-                <option value="19">Chromosome 19</option>
-                <option value="20">Chromosome 20</option>
-                <option value="21">Chromosome 21</option>
-                <option value="22">Chromosome 22</option>
-                <option value="X">Chromosome X</option>
-                <option value="Y">Chromosome Y</option>
-              </select><small class="form-text text-muted"><b>Filter</b> by Chromosome</small>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-2" [formGroup]="searchGroup">
-          <input type="text" class="form-control" name="searchText" placeholder="Enter gene name" value=""
-            formControlName="searchTerm" /><small class="form-text text-muted"><b>Enter</b> gene name</small>
-        </div>
-        <div class="col-lg-2">
-          <div class="row">
-            <div class="col-lg-4">
-              <select class="form-control" name="">
-                <option value=""></option>
-                <option value="">≥</option>
-                <option value="">≤</option>
-              </select>
-            </div>
-            <div class="col-lg-4" style="padding-left: 0px;">
-              <input type="text" class="form-control">
-            </div>
-          </div>
-          <small class="form-text text-muted"><b>Filter</b> by gnomAD</small>
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <div style="margin-top: 10px;">QUAL ≥</div>
-            <div class="col-lg-4">
-              <input class="form-control" type="text">
-            </div>
-            <div style="margin-top:10px">QUAL ≤</div>
-            <div class="col-lg-4">
-              <input class="form-control" type="text">
-            </div>
-          </div>
-          <small class="form-text text-muted"><b>Filter</b> by Quality</small>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-3">
-          <ng-select2
-          [data]="dropdownList"
-          placeholder="Select Squecence Ontology"
-          [options]="options"
-          >
-          </ng-select2>
-        <small class="form-text text-muted"><b>Filter</b> by Squecence Ontology</small>
-        </div>
-      </div>
-    </div> -->
-    <!-- end: Filtration form -->
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">{{ projectName }} > Analyses list</h3>
+		</div>
+		<div class="card-toolbar">
+			<button type="button" class="btn btn-primary" (click)="create()">New Analysis</button>
+			<a style="margin-left: 10px;" type="button" class="btn btn-light" routerLink="/workspaces">
+				<i class="fa fa-arrow-left"></i>Back
+			</a>
+		</div>
+	</div>
+	<div class="card-body">
 
-    <!-- begin: Grouping -->
-    <ng-container *ngIf="grouping.getSelectedRowsCount()">
-      <div class="form">
-        <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-          <div class="col-xl-12">
-            <div class="form-group form-group-inline">
-              <div class="form-label form-label-no-wrap">
-                <label class="font-bold font-danger"><span>Selected records count:
-                    <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
-              </div>
-              <div>
-                <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
-                  (click)="deleteSelected()">
-                  <i class="fa fa-trash"></i> Delete All
-                </button>&nbsp;
-                <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                  (click)="fetchSelected()">
-                  <i class="fa fa-stream"></i> Fetch Selected
-                </button>&nbsp;
-                <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                  (click)="updateStatusForSelected()">
-                  <i class="fa fa-sync-alt"></i> Update Status
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-    <!-- end: Grouping -->
+		<!-- begin: Grouping -->
+		<ng-container *ngIf="grouping.getSelectedRowsCount()">
+			<div class="form">
+				<div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+					<div class="col-xl-12">
+						<div class="form-group form-group-inline">
+							<div class="form-label form-label-no-wrap">
+								<label class="font-bold font-danger"><span>Selected records count:
+										<b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
+							</div>
+							<div>
+								<button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+									(click)="deleteSelected()">
+									<i class="fa fa-trash"></i> Delete All
+								</button>&nbsp;
+								<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+									(click)="fetchSelected()">
+									<i class="fa fa-stream"></i> Fetch Selected
+								</button>&nbsp;
+								<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+									(click)="updateStatusForSelected()">
+									<i class="fa fa-sync-alt"></i> Update Status
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<!-- end: Grouping -->
 
-    <!-- begin:Table -->
-    <div class="table-responsive angular-bootstrap-table">
-      <table class="table table-head-custom table-vertical-center overflow-hidden">
-        <thead>
-          <th class="selection-cell-header" data-row-selection="true">
-            <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
-                [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-          </th>
-          <th>
-            ID
-            <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>
-            Name
-            <app-sort-icon column="firstName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>
-            Owner
-            <app-sort-icon column="lastName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>
-            Permission
-            <app-sort-icon column="email" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>
-            Created
-            <app-sort-icon column="gender" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>
-            Updated
-            <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-              (sort)="sort($event)"></app-sort-icon>
-          </th>
-          <th>Actions</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let analysis of analysisService.items$ | async">
-            <td class="selection-cell">
-              <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(analysis.id)"
-                  [checked]="grouping.isRowSelected(analysis.id)" />
-                <span></span>
-              </label>
-            </td>
-            <td>{{ analysis.id }}</td>
-            <td><a  href="/analysis/detail/{{ analysis.id }}">{{ analysis.name }}</a></td>
-            <td>{{ analysis.email }}</td>
-            <td>{{ formatUserRole(analysis.role) }}</td>
-            <td>{{ analysis.createdAt }}</td>
-            <td>
-				{{ analysis.updatedAt }}
-            </td>
-            <td>
+		<!-- begin:Table -->
+		<div class="table-responsive angular-bootstrap-table">
+			<table class="table table-head-custom table-vertical-center overflow-hidden">
+				<thead>
+					<th class="selection-cell-header" data-row-selection="true">
+						<label class="checkbox checkbox-single"><input type="checkbox"
+								(click)="grouping.selectAllRows()"
+								[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+					</th>
+					<th>
+						ID
+						<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+							(sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Sample Name
+						<app-sort-icon column="sampleName" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Project
+						<app-sort-icon column="project" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Created
+						<app-sort-icon column="created" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Updated
+						<app-sort-icon column="updated" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Analyzed
+						<app-sort-icon column="analyzed" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Variants
+						<app-sort-icon column="variants" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Size
+						<app-sort-icon column="size" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Status
+						<app-sort-icon column="status" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let analysis of analysisService.items$ | async">
+						<td class="selection-cell">
+							<label class="checkbox checkbox-single"><input type="checkbox"
+									(click)="grouping.selectRow(analysis.id)"
+									[checked]="grouping.isRowSelected(analysis.id)" />
+								<span></span>
+							</label>
+						</td>
+						<td>{{ analysis.id }}</td>
+						<td><a href="/analysis/detail/{{ analysis.id }}">{{ analysis.name }}</a></td>
+						<td><a>{{ analysis.project_name }}</a></td>
+						<td>{{ analysis.createdAt }}</td>
+						<td>
+							{{ analysis.updatedAt }}
+						</td>
+						<td>{{ analysis.analyzed }}</td>
+						<td>{{ analysis.variants }}</td>
+						<td>{{ analysis.size }}</td>
+						<td>{{ analysis.status }}</td>
+						<td>
 
-              <a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                (click)="edit(analysis.id)">
-                <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                  class="svg-icon svg-icon-md svg-icon-primary">
-                </span>
-              </a>
-			  
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- end: Table -->
-    <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-      [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
-  </div>
+							<a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+								(click)="edit(analysis.id)">
+								<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+									class="svg-icon svg-icon-md svg-icon-primary">
+								</span>
+							</a>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- end: Table -->
+		<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+			[isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+	</div>
 </div>

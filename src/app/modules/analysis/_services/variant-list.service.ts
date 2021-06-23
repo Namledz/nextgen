@@ -12,8 +12,11 @@ import { environment } from '../../../../environments/environment';
 })
 export class VariantListService extends TableService<Variant> implements OnDestroy {
 	API_URL = `${environment.apiUrl}/variant`;
+	
 	constructor(@Inject(HttpClient) http) {
 		super(http);
+		this.sorting.column = 'classification';
+		this.sorting.direction = 'asc';
 	}
 
 	getAnalysisName(id: any) {

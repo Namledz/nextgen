@@ -25,6 +25,7 @@ export class AnalysisDetailComponent implements OnInit {
 	bamUrl: any;
 
 	igv: any;
+	tabIndex = 0;
 
 	chromosomeList = [
 		'Chr 1',
@@ -123,12 +124,8 @@ export class AnalysisDetailComponent implements OnInit {
 
 	}
 
-	tabClick(tab) {
-		if (tab.index == 2) {
-			// this.getIgvInfo();
-
-		}
-		// console.log(this.igvDiv);
+	tabClick(event) {
+		this.tabIndex = event.index;
 	}
 
 	getAnalysisName() {

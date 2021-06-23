@@ -9,7 +9,7 @@
 						<i *ngIf="!isListShowing" class="ki ki-bold-triangle-bottom"></i>
 						<i *ngIf="isListShowing" class="ki ki-bold-triangle-top"></i>
 					</button>
-					
+
 					<mat-selection-list class="show-hide-column-list" #listColumn [hidden]="!isListShowing">
 						<mat-list-option checkboxPosition="before" class="mat-primary show-hide-column-opt"
 							*ngFor="let column of columnsName" (click)="onColumnListControlChanged(listColumn)"
@@ -17,7 +17,7 @@
 							{{ column.name }}
 						</mat-list-option>
 					</mat-selection-list>
-					
+
 				</div>
 				<div>
 					<!-- <p>
@@ -99,79 +99,81 @@
 							<app-sort-icon column="gene" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th class="width-150">
+						<th class="width-120">
 							Transcript
-							<app-sort-icon column="lastName" [activeColumn]="sorting.column"
+							<app-sort-icon column="transcript" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th class="width-150">
+						<th class="width-110">
 							cDNA
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							<!-- <app-sort-icon column="cnomen" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon> -->
 						</th>
 						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('pnomen')">
 							p.nomen
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							<!-- <app-sort-icon column="pnomen" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon> -->
 						</th>
-						<th class="width-150">
+						<th class="width-100">
 							Coverage
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							<!-- <app-sort-icon column="coverage" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon> -->
 						</th>
-						<th class="width-150">
+						<th class="width-110">
 							Function
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="function" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th class="width-150">
+						<th class="width-110">
 							Location
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="location" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+						</th>
+						<th class="width-110">
+							ClinVar
+							<app-sort-icon column="clinvar" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
 						<th class="width-120">
-							Clinvar
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							Classification
+							<app-sort-icon column="classification" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+								(sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th class="width-150">
+						<th class="width-120">
 							GNomad_ALL
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="gnomad_ALL" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
 						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('gnomad_AMR')">
 							GNomad_AMR
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="gnomad_AMR" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
+						
 						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('gnomad_AFR')">
 							GNomad_AFR
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="gnomad_AFR" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
-						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('classification')">
-							Classification
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-						</th>
-						<th class="width-120" [class.hidden-column]="checkColumnIsSelected('rsid')" >
+						
+						<th class="width-120" [class.hidden-column]="checkColumnIsSelected('rsid')">
 							rsid
-							<app-sort-icon column="gender" [activeColumn]="sorting.column"
+							<app-sort-icon column="rsid" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
 						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('REF-ALT')">
 							REF - ALT
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
-								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+							<!-- <app-sort-icon column="" [activeColumn]="sorting.column"
+								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon> -->
 						</th>
 						<th class="width-120" [class.hidden-column]="checkColumnIsSelected('cosmicID')">
 							Cosmic
-							<app-sort-icon column="type" [activeColumn]="sorting.column"
+							<app-sort-icon column="cosmicID" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
 						<th class="width-150" [class.hidden-column]="checkColumnIsSelected('position')">
 							Position
-							<app-sort-icon column="email" [activeColumn]="sorting.column"
+							<app-sort-icon column="position" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 						</th>
 						<!-- <th style="width-100">
@@ -191,38 +193,55 @@
 							</td>
 							<!-- <td>{{ variant.id }}</td> -->
 							<td>
-								<span>{{ variant.gene }}</span></td>
+								<span>{{ variant.gene }}</span>
+							</td>
 							<td>
 								<span>{{ variant.transcript_id }}</span>
 							</td>
 							<td>
-								<span>{{ variant.cnomen }}</span></td>
+								<span>{{ variant.cnomen }}</span>
+							</td>
 							<td [class.hidden-column]="checkColumnIsSelected('pnomen')">
-								<span>{{ variant.pnomen }}</span></td>
+								<span>{{ variant.pnomen }}</span>
+							</td>
 							<td>
-								<span>{{ variant.coverage }}</span></td>
+								<span>{{ variant.coverage }}</span>
+							</td>
 							<td>
-								<span>{{ variant.function }}</span></td>
+								<span>{{ variant.function }}</span>
+							</td>
 							<td>
-								<span>{{ variant.location }}</span></td>
+								<span>{{ variant.location }}</span>
+							</td>
 							<td>
-								<span>{{ variant.clinvar }}</span></td>
+								<span>{{ variant.clinvar }}</span>
+							</td>
+
 							<td>
-								<span>{{ variant.gnomad_ALL }}</span></td>
-							<td  [class.hidden-column]="checkColumnIsSelected('gnomad_AMR')">
-								<span>{{ variant.gnomad_AMR }}</span></td>
+								<span [class]="getVariantClass(variant.classification)" class="classification">{{ variant.classification
+									}}</span>
+							</td>
+							<td>
+								<span>{{ variant.gnomad_ALL }}</span>
+							</td>
+							<td [class.hidden-column]="checkColumnIsSelected('gnomad_AMR')">
+								<span>{{ variant.gnomad_AMR }}</span>
+							</td>
 							<td [class.hidden-column]="checkColumnIsSelected('gnomad_AFR')">
-								<span>{{ variant.gnomad_AFR }}</span></td>
-							<td [class.hidden-column]="checkColumnIsSelected('classification')">
-								<span>{{ variant.classification }}</span></td>
+								<span>{{ variant.gnomad_AFR }}</span>
+							</td>
 							<td [class.hidden-column]="checkColumnIsSelected('rsid')">
-								<span>{{ variant.rsid }}</span></td>
+								<span>{{ variant.rsid }}</span>
+							</td>
 							<td [class.hidden-column]="checkColumnIsSelected('REF-ALT')">
-								<span>{{ variant.REF }} > {{variant.ALT}}</span></td>
+								<span>{{ variant.REF }} > {{variant.ALT}}</span>
+							</td>
 							<td [class.hidden-column]="checkColumnIsSelected('cosmicID')">
-								<span>{{ variant.cosmicID }}</span></td>
-							<td  [class.hidden-column]="checkColumnIsSelected('position')">
-								<span>{{ variant.chrom }}:{{ variant.position }}</span></td>
+								<span>{{ variant.cosmicID }}</span>
+							</td>
+							<td [class.hidden-column]="checkColumnIsSelected('position')">
+								<span>{{ variant.chrom }}:{{ variant.position }}</span>
+							</td>
 							<!-- <td><span>{{ variant.zygosity }}</span></td> -->
 
 						</tr>

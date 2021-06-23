@@ -24,6 +24,8 @@ import { DeleteAnalysesModalComponent } from './components/delete-analyses-modal
 import { UpdateAnalysisStatusModalComponent } from './components/update-analysis-status-modal/update-analysis-status-modal.component';
 import { FetchAnalysisModalComponent } from './components/fetch-analysis-modal/fetch-analysis-modal.component';
 import { EditAnalysisModalComponent } from './components/edit-analysis-modal/edit-analysis-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
 	selector: 'app-analysis-list',
@@ -50,6 +52,9 @@ export class AnalysisListComponent
 	grouping: GroupingState;
 	isLoading: boolean;
 	filterGroup: FormGroup;
+	id: any;
+	url: any;
+	projectName: any;
 	searchGroup: FormGroup;
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -63,11 +68,16 @@ export class AnalysisListComponent
 	constructor(
 		private fb: FormBuilder,
 		private modalService: NgbModal,
-		public analysisService: AnalysisService
+		public analysisService: AnalysisService, 
+		private route: ActivatedRoute,
 	) { }
 
 	// angular lifecircle hooks
 	ngOnInit(): void {
+		this.id = this.route.snapshot.params.id;
+		this.getProjectName();
+		this.url = `${environment.apiUrl}/analysis/list/${this.id}`
+		this.analysisService.API_URL = this.url;
 		this.filterForm();
 		this.searchForm();
 		this.analysisService.fetch();
@@ -80,6 +90,17 @@ export class AnalysisListComponent
 
 	ngOnDestroy() {
 		this.subscriptions.forEach((sb) => sb.unsubscribe());
+	}
+
+	getProjectName() {
+		let self = this;
+		const sb = this.analysisService.getProjectName(self.id)
+			.subscribe(function (res) {
+				if (res.status == "success") {
+					self.projectName = res.data;
+				}
+			})
+		this.subscriptions.push(sb);
 	}
 
 	// filtration

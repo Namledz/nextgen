@@ -12,7 +12,8 @@ const routes: Routes = [
               path: 'list',
               component: WorkspacesListComponent
           },
-          { path:'', redirectTo: 'list', pathMatch: 'full'}
+          { path:'', redirectTo: 'list', pathMatch: 'full'},
+		  { path: '**', redirectTo: 'errors/404', pathMatch: 'full' },
       ]
   },
 ];
