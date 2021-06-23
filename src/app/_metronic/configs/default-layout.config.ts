@@ -89,7 +89,7 @@ export const DefaultLayoutConfig = {
     fixed: false,
     width: 'fixed', // fixed|fluid,
     clear: false,
-    style: 'transparent', // transparent/solid
+    style: 'solid', // transparent/solid
   },
 
   // Content
@@ -113,6 +113,7 @@ export const DefaultLayoutConfig = {
     },
 
     menu: {
+      static: true, // static => true | dynamic => true
       dropdown: false, // ok
       scroll: true, // ok
       iconStyle: 'duotone', // duotone, line, bold, solid
@@ -139,7 +140,7 @@ export const DefaultLayoutConfig = {
       display: false,
       layout: 'offcanvas', // offcanvas, dropdown,
       offcanvas: {
-        direction: 'left',
+        direction: 'right',
       },
     },
 
@@ -151,7 +152,7 @@ export const DefaultLayoutConfig = {
         style: 'dark', // light|dark
       },
       offcanvas: {
-        direction: 'left',
+        direction: 'right',
       },
     },
 
@@ -163,7 +164,7 @@ export const DefaultLayoutConfig = {
         style: 'dark', // light|dark
       },
       offcanvas: {
-        direction: 'left',
+        direction: 'right',
       },
     },
 
@@ -175,7 +176,7 @@ export const DefaultLayoutConfig = {
         style: 'dark', // light|dark
       },
       offcanvas: {
-        direction: 'left',
+        direction: 'right',
       },
     },
 
@@ -189,7 +190,7 @@ export const DefaultLayoutConfig = {
       display: false,
       layout: 'offcanvas', // offcanvas, dropdown,
       offcanvas: {
-        direction: 'left',
+        direction: 'right',
       },
       dropdown: {
         style: 'dark', // light|dark
@@ -198,14 +199,14 @@ export const DefaultLayoutConfig = {
 
     // Chat
     chat: {
-      display: false,
+      display: true,
     },
 
     // Quick Panel
     quickPanel: {
       display: true,
       offcanvas: {
-        direction: 'left  ',
+        direction: 'right  ',
       },
     },
 

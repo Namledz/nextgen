@@ -19,6 +19,7 @@ export class AsideComponent implements OnInit {
     'kt_aside_tab_6'];
   activeTabId;
   disableAsideSelfDisplay: boolean;
+  asideMenuStatic: true;
   disableAsideSecondaryDisplay: boolean;
   ulCSSClasses: string;
   asideMenuHTMLAttributes: any = {};
@@ -36,6 +37,7 @@ export class AsideComponent implements OnInit {
     // load view settings
     this.disableAsideSelfDisplay =
       this.layout.getProp('aside.self.display') === false;
+    this.asideMenuStatic = this.layout.getProp('aside.menu.static');
     this.ulCSSClasses = this.layout.getProp('aside_menu_nav');
     this.asideMenuCSSClasses = this.layout.getStringCSSClasses('aside_menu');
     this.asideMenuHTMLAttributes = this.layout.getHTMLAttributes('aside_menu');

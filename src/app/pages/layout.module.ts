@@ -35,8 +35,6 @@ import { DropdownMenusModule } from '../_metronic/partials/content/dropdown-menu
     FooterComponent,
     HeaderComponent,
     HeaderMenuComponent,
-    TopbarComponent,
-    LanguageSelectorComponent,
     AsideDynamicComponent,
     AsideStaticComponent,
     AsideSearchComponent,

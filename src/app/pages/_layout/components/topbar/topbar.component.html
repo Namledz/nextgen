@@ -1,6 +1,76 @@
 <!--begin::Topbar-->
+<!-- 
+<ng-container *ngIf="asideSecondaryDisplay && asideSelfMinimizeToggle">
+  <span
+    class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm"
+    id="kt_aside_toggle"
+    data-toggle="tooltip"
+    data-placement="right"
+    data-container="body"
+    data-boundary="window"
+    title="Toggle Aside"
+  >
+    <i class="ki ki-bold-arrow-back icon-sm"></i>
+  </span>
+</ng-container> -->
 
+<ng-container *ngIf="extraSearchDisplay">
+  <ng-container *ngIf="extrasSearchLayout === 'offcanvas'">
+    <!--begin::Search-->
+    <a
+      class="btn btn-icon btn-clean btn-lg mb-1"
+      id="kt_quick_search_toggle"
+      data-toggle="tooltip"
+      data-placement="right"
+      data-container="body"
+      data-boundary="window"
+      title="Quick Search"
+    >
+      <span
+        [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
+        cacheSVG="true"
+        class="svg-icon svg-icon-xl"
+      ></span>
+    </a>
 
+    <!--end::Search-->
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasNotificationsDisplay">
+  <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
+    <!--begin::Notifications-->
+    <a
+      class="btn btn-icon btn-clean btn-lg mb-1"
+      id="kt_quick_notifications_toggle"
+    >
+      <span
+        [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'"
+        cacheSVG="true"
+        class="svg-icon svg-icon-xl"
+      ></span>
+      <span class="pulse-ring"></span>
+    </a>
+    <!--end::Notifications-->
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasQuickActionsDisplay">
+  <ng-container *ngIf="extrasQuickActionsLayout === 'offcanvas'">
+    <!--begin::Quick Actions-->
+    <a
+      class="btn btn-icon btn-clean btn-lg mb-1 position-relative"
+      id="kt_quick_actions_toggle"
+    >
+      <span
+        [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'"
+        cacheSVG="true"
+        class="svg-icon svg-icon-xl"
+      ></span>
+    </a>
+    <!--end::Quick Actions-->
+  </ng-container>
+</ng-container>
 
 <ng-container *ngIf="extrasCartDisplay">
   <ng-container *ngIf="extrasCartLayout === 'offcanvas'">
