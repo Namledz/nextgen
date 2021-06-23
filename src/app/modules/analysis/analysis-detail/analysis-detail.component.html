@@ -1,151 +1,22 @@
-<div class="main-wrapper">
-	<div class="filter-wrapper" id="aside">
-		<span (click)="toggleAside()"
-			class="aside-toggle btn btn-icon btn-primary btn-hover-primary shadow-sm custom-aside-btn"
-			id="kt_aside_toggle" data-toggle="tooltip" data-placement="right" data-container="body"
-			data-boundary="window" title="Toggle Aside">
-			<i [ngClass]="asideState ? 'ki ki-bold-arrow-back icon-sm' : 'ki ki-bold-arrow-next icon-sm'"></i>
-		</span>
-		<div class="filter-container" id="filter-conatiner">
-			<div class="filter-header">
-				<h5>Filter By</h5>
-			</div>
-			<hr>
-			<div class="filter-body">
-				<!-- begin: Filtration form -->
-				<div class="form form-label-right" [formGroup]="filterGroup">
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Gene</label>
-						<div class="col-12">
-							<ng-select2 placeholder="Select Gene name" [options]="options" formControlName="geneName">
-
-							</ng-select2>
-							<small class="form-text text-muted"><b>Filter</b> gene name</small>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Read Depth</label>
-						<div class="col-12">
-							<mat-slider formControlName="depthGreater" style="width: 100%;" thumbLabel min="0" max="600"
-								step="1" aria-label="units">
-							</mat-slider>
-							<input style="width: 50%;" class="form-control" type="number"
-								formControlName="depthGreater">
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Allele Fraction</label>
-						<div class="col-12">
-							<input type="number" class="form-control" name="searchText" placeholder="Enter AF"
-								formControlName="alleleFraction" /><small class="form-text text-muted"><b>Enter</b>
-								AF</small>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Classification</label>
-						<div class="col-12">
-							<ng-select2 [data]="classificationList" placeholder="Select Classification"
-								[options]="options" formControlName="classification">
-							</ng-select2>
-							<small class="form-text text-muted"><b>Filter</b> by Classification</small>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">GnomAD</label>
-						<div class="form-group row">
-							<div class="col-5">
-								<input class="form-control" type="number" formControlName="gnomADfrom">
-							</div>
-							<div class="col-2" style="margin: auto;">
-								To
-							</div>
-							<div class="col-5">
-								<input class="form-control" type="number" formControlName="gnomADto">
-							</div>
-						</div>
-
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Annotation <small>(sequence
-								Ontology)</small></label>
-						<div class="col-12">
-							<ng-select2 [data]="annotationList" placeholder="Select Annotation" [options]="options"
-								formControlName="annotation">
-							</ng-select2>
-							<small class="form-text text-muted"><b>Filter</b> by Annotation</small>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="text-bold col-12 col-form-label">Chromosome</label>
-						<div class="col-12">
-							<ng-select2 [data]="chromosomeList" placeholder="Select Chromosome" [options]="options"
-								formControlName="chromosome">
-
-							</ng-select2>
-							<small class="form-text text-muted"><b>Filter</b> by Chromosome</small>
-						</div>
-					</div>
-
-
-					<!-- <div class="form-group row">
-						<label class="col-4 col-form-label">Quality</label>
-						<div class="col-8">
-							<mat-slider style="width: 100%;" thumbLabel min="30" max="18000" step="50"
-								aria-label="units">
-							</mat-slider>
-							<input style="width: 50%;" class="form-control" type="number" formControlName="gnomADfrom">
-						</div>
-					</div>
-					
-					
-					<div class="form-group row">
-						<label class="col-4 col-form-label">Zygosity</label>
-						<div class="col-8">
-							<ng-select2 [data]="zygosity" placeholder="Select Zygosity" [options]="options"
-								formControlName="Zygosity">
-							</ng-select2>
-							<small class="form-text text-muted"><b>Filter</b> by Zygosity</small>
-						</div>
-					</div> -->
-
-					<div class="form-group row">
-						<div class="col-4"></div>
-						<div class="col-8 text-right">
-							<button class="btn btn btn-primary" (click)="applyFilter()">Apply Filter</button>
-							<!-- <div class="d-flex align-items-center" *ngIf="isLoaded">
-								<div class="ml-7 text-muted">Loading...</div>
-								<div class="spinner spinner-primary ml-2"></div>
-							</div> -->
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<!-- end: Filtration form -->
-		</div>
-	</div>
-	<div class="content-wrapper" id="content-container">
-		<mat-card>
-			<mat-card-content *ngIf="isLoaded">
-				<h2 class="example-h2" style="margin: 20px;">{{ analysisName }}</h2>
-				<mat-tab-group class="demo-tab-group" animationDuration="2000ms" (selectedTabChange)="tabClick($event)">
-					<mat-tab *ngIf='type == "vcf"' label="Variant List">
-						<ng-template class="demo-tab-content" matTabContent>
-							<app-variant-list [id]="id"></app-variant-list>
-						</ng-template>
-					</mat-tab>
-					<mat-tab #report label="QC">
-						<ng-template class="demo-tab-content" matTabContent>
-							<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
-						</ng-template>
-					</mat-tab>
-					<mat-tab label="Info">
-						<ng-template class="demo-tab-content" matTabContent>
-							<app-analysis-info [id]="id"></app-analysis-info>
-						</ng-template>
-					</mat-tab>
-				</mat-tab-group>
-			</mat-card-content>
-		</mat-card>
-	</div>
-</div>
+<mat-card>
+	<mat-card-content *ngIf="isLoaded">
+		<h2 class="example-h2" style="margin: 20px;">{{ analysisName }}</h2>
+		<mat-tab-group class="demo-tab-group" animationDuration="2000ms" (selectedTabChange)="tabClick($event)">
+			<mat-tab *ngIf='type == "vcf"' label="Variant List">
+				<ng-template class="demo-tab-content" matTabContent>
+					<app-variant-list [id]="id"></app-variant-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab #report label="QC">
+				<ng-template class="demo-tab-content" matTabContent>
+					<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Info">
+				<ng-template class="demo-tab-content" matTabContent>
+					<app-analysis-info [id]="id"></app-analysis-info>
+				</ng-template>
+			</mat-tab>
+		</mat-tab-group>
+	</mat-card-content>
+</mat-card>

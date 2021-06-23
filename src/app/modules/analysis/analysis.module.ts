@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -62,7 +63,8 @@ import { AnalysisReportComponent } from './analysis-detail/component/analysis-re
 		MatButtonModule,
 		NgSelect2Module,
 		MatSliderModule,
-		NgbDropdownModule
+		NgbDropdownModule,
+		MatProgressSpinnerModule
 	],
 	entryComponents: [
 		DeleteAnalysisModalComponent,
