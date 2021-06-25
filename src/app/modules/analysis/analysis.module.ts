@@ -33,6 +33,7 @@ import { AnalysisReportComponent, SafePipe } from './analysis-detail/component/a
 import { AnalysesComponent } from './analyses/analyses.component';
 import { GenomeBrowserComponent } from './analysis-detail/component/genome-browser/genome-browser.component';
 import { VariantDetailModalComponent } from './analysis-detail/component/variant-detail-modal/variant-detail-modal.component';
+import { AnalysisReportVariantComponent } from './analysis-detail/component/analysis-report-variant/analysis-report-variant.component';
 
 @NgModule({
 	declarations: [
@@ -50,7 +51,8 @@ import { VariantDetailModalComponent } from './analysis-detail/component/variant
 		AnalysesComponent,
 		GenomeBrowserComponent,
 		SafePipe,
-		VariantDetailModalComponent
+		VariantDetailModalComponent,
+		AnalysisReportVariantComponent
 	],
 	imports: [
 		CommonModule,

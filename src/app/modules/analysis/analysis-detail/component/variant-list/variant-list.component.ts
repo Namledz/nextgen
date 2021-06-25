@@ -1,11 +1,13 @@
 import { Variant } from './../../../_models/variant.model';
 import { Component, Input, OnDestroy, OnInit, ChangeDetectorRef, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subscription, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VariantListService } from '../../../_services/variant-list.service';
 import { environment } from '../../../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, delay, finalize, tap } from 'rxjs/operators';
 import {
 	GroupingState,
 	PaginatorState,
@@ -49,6 +51,7 @@ export class VariantListComponent implements
 	isLoading: boolean;
 	filterGroup: FormGroup;
 	searchGroup: FormGroup;
+	variantList: any[];
 
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -84,7 +87,8 @@ export class VariantListComponent implements
 		private modalService: NgbModal,
 		public variantListService: VariantListService,
 		private cd: ChangeDetectorRef,
-		private renderer: Renderer2
+		private renderer: Renderer2,
+		private toastr: ToastrService
 	) {
 
 	}
@@ -100,6 +104,9 @@ export class VariantListComponent implements
 		this.grouping = this.variantListService.grouping;
 		this.paginator = this.variantListService.paginator;
 		const sb = this.variantListService.isLoading$.subscribe(res => this.isLoading = res);
+		this.variantListService.items$.subscribe((res) => {
+			this.variantList = res;
+		})
 		this.subscriptions.push(sb);
 		this.showColumnList()
 	}
@@ -340,6 +347,41 @@ export class VariantListComponent implements
 
 	getVariantClass(classification) {
 		return `${classification.split(" ").join("-")}`;
+	}
+
+	addReport() {
+		let selectedIds = this.grouping.getSelectedRows();
+		let selectedFilter = this.variantList.filter((el) => {
+			return selectedIds.includes(el._id)
+		})
+
+		let data = selectedFilter.map((el) => {
+			let obj = {
+				chrom: "",
+				pos: "",
+				ref: "",
+				alt: "",
+				gene: "",
+				end: ""
+			};
+			obj.chrom = el.chrom;
+			obj.pos = el.position;
+			obj.ref = el.REF;
+			obj.alt = el.ALT;
+			obj.gene = el.gene;
+
+			return obj;
+		})
+
+		const sb = this.variantListService.selectVariantToReport({data})
+			.subscribe((res : any) => {
+				if(res.body.status == 'success') {
+					this.toastr.success(res.body.message);
+				} else {
+					this.toastr.error(res.body.message);
+				}
+			})
+		this.subscriptions.push(sb);
 	}
 
 	create() {

@@ -169,21 +169,26 @@
 												<b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
 									</div>
 									<div>
-										<button type="button"
+										<!-- <a type="button"
 											class="btn btn-danger font-weight-bolder font-size-sm mr-1"
 											(click)="deleteSelected()">
 											<i class="fa fa-trash"></i> Delete All
-										</button>&nbsp;
-										<button type="button"
+										</a>&nbsp;
+										<a type="button"
 											class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
 											(click)="fetchSelected()">
 											<i class="fa fa-stream"></i> Fetch Selected
-										</button>&nbsp;
-										<button type="button"
+										</a>&nbsp; -->
+										<a type="button"
+											class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+											(click)="addReport()">
+											<i class="far fa-sticky-note"></i> Add To Report
+										</a>&nbsp;
+										<!-- <a type="button"
 											class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
 											(click)="updateStatusForSelected()">
 											<i class="fa fa-sync-alt"></i> Update Status
-										</button>
+										</a> -->
 									</div>
 								</div>
 							</div>
