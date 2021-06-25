@@ -81,4 +81,9 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		const url = `${environment.apiUrl}/workspace/project-name/${id}`;
 		return this.http.get(url, {})
 	}
+
+	getVennDiagramData(data: any): any {
+		const url = `${environment.apiUrl}/analysis/venn-data`;
+		return this.http.post(url, { data: data });
+	}
 }

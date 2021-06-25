@@ -23,66 +23,65 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Variants</th>
-                            <th>Classification</th>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="selection-cell">
                                     <label class="checkbox checkbox-single">
-                                        <input type="checkbox" [checked]="isChecked" (change)="onChange($event)">
+                                        <input type="checkbox" value="6427" [checked]="isChecked"  (change)="onChange($event)">
                                         <span></span>
                                     </label>
                                 </td>
-                                <td>GM6426</td>
+                                <td>GM6427</td>
                                 <td>sample1</td>
                                 <td>261261</td>
-                                <td>control 1</td>
                             </tr>
                             <tr>
                                 <td class="selection-cell">
                                     <label class="checkbox checkbox-single">
-                                        <input type="checkbox" [checked]="isChecked" (change)="onChange($event)">
+                                        <input type="checkbox" value="6428" [checked]="isChecked" (change)="onChange($event)">
                                         <span></span>
                                     </label>
                                 </td>
                                 <td>GM6428</td>
                                 <td>sample3</td>
                                 <td>271197</td>
-                                <td>control 2</td>
+                 
                             </tr>
                             <tr>
                                 <td class="selection-cell">
                                     <label class="checkbox checkbox-single">
-                                        <input type="checkbox" [checked]="isChecked" (change)="onChange($event)">
+                                        <input type="checkbox" value="6429" [checked]="isChecked" (change)="onChange($event)">
                                         <span></span>
                                     </label>
                                 </td>
                                 <td>GM6429</td>
                                 <td>sample2</td>
                                 <td>265034</td>
-                                <td>control 3</td>
+
                             </tr>
                             <tr>
                                 <td class="selection-cell">
                                     <label class="checkbox checkbox-single">
-                                        <input type="checkbox" [checked]="isChecked" (change)="onChange($event)">
+                                        <input type="checkbox" value="6430" [checked]="isChecked" (change)="onChange($event)">
                                         <span></span>
                                     </label>
                                 </td>
                                 <td>GM6430</td>
                                 <td>sample4</td>
                                 <td>269952</td>
-                                <td>case</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-lg-7">
-                <div id="chartdiv" [hidden]="total == 4" style="width: 100%; height: 500px"></div>
-                <div id="chartdiv" [hidden]="total == 3" style="width: 100%; height: 500px"></div>
-                <div id="chartdiv" [hidden]="total == 2" style="width: 100%; height: 500px"></div>
-                <div id="chartdiv" [hidden]="total == 1" style="width: 100%; height: 500px"></div>
+			<div class="col-lg-7" *ngIf="sampleIds.length == 4">
+				<div style="width: 100%;">
+					<img src="/assets/images/venn.png" alt="">
+				</div>
+			</div>
+            <div class="col-lg-7" *ngIf="sampleIds.length < 4">
+                <div #chartdiv id="chartdiv" style="width: 100%;" [class] ="getClass()"></div>
             </div>
         </div>
     </div>
