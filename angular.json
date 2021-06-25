@@ -31,7 +31,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "packages/igv/igv-all.css", "node_modules/select2/dist/css/select2.min.css"],
+            "styles": ["src/styles.scss", "packages/igv/igv-all.css", "node_modules/select2/dist/css/select2.min.css", "node_modules/ngx-toastr/toastr.css"],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/clipboard/dist/clipboard.js",

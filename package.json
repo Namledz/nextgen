@@ -42,6 +42,7 @@
     "ngx-clipboard": "^13.0.1",
     "ngx-highlightjs": "3.0.3",
     "ngx-perfect-scrollbar": "^9.0.0",
+    "ngx-toastr": "^14.0.0",
     "object-path": "^0.11.4",
     "perfect-scrollbar": "^1.5.0",
     "rxjs": "~6.5.5",

@@ -52,6 +52,16 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 		);
 	}
 
+	selectVariantToReport(data: any): Observable<any> {
+		const url = `${this.API_URL}/select-variant-to-report`;
+		return this.http.post(url, data, { withCredentials: true, observe: 'response' })
+	}
+
+	getSeletedVariants() {
+		const url = `${this.API_URL}/getSeletedVariants`;
+		return this.http.get(url, { withCredentials: true, observe: 'response' })
+	}
+
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}

@@ -51,7 +51,6 @@ export class Subheader6Component implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log(this.router.url);
 		this.subheaderCSSClasses = this.layout.getStringCSSClasses('subheader');
 		this.subheaderContainerCSSClasses = this.layout.getStringCSSClasses(
 			'subheader_container'

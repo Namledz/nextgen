@@ -31,6 +31,13 @@
 						</div>
 					</ng-template>
 				</mat-tab>
+				<mat-tab label="Report">
+					<ng-template class="demo-tab-content" matTabContent>
+						<div style="min-height: 800px !important">
+							<app-analysis-report-variant [id]="id"></app-analysis-report-variant>
+						</div>
+					</ng-template>
+				</mat-tab>
 			</mat-tab-group>
 		</div>
 	</mat-card-content>
