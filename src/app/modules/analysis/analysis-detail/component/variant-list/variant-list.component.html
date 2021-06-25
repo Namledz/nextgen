@@ -118,6 +118,14 @@
 		</div>
 	</div>
 	<div class="content-wrapper" id="content-container">
+		<!--Spin-->
+		<div *ngIf="isLoading" class="spin-loading">
+			<div style=" 
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			z-index: 100;" class="spinner-border text-primary"></div>
+		</div>
 		<div class="card card-custom gutter-b">
 			<div class="card-header">
 				<div class="card-toolbar" style="width: 100%; margin-top: 25px; margin-bottom: 20px;">
@@ -317,7 +325,8 @@
 									</td>
 									<!-- <td>{{ variant.id }}</td> -->
 									<td>
-										<span>{{ variant.gene }}</span>
+										<a href="javascript:void(0)" (click)="getVariantDetail(variant)">{{
+											variant.gene }} </a>
 									</td>
 									<td>
 										<span>{{ variant.transcript_id }}</span>

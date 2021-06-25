@@ -1,3 +1,4 @@
+import { Variant } from './../../../_models/variant.model';
 import { Component, Input, OnDestroy, OnInit, ChangeDetectorRef, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -21,6 +22,7 @@ import {
 	ISearchView,
 } from '../../../../../_metronic/shared/crud-table';
 import { Datalist } from '../../../ultils/datalist';
+import { VariantDetailModalComponent } from '../variant-detail-modal/variant-detail-modal.component';
 
 @Component({
 	selector: 'app-variant-list',
@@ -336,7 +338,7 @@ export class VariantListComponent implements
 		return !(this.columnSelected.indexOf(columnVal) != -1)
 	}
 
-	getVariantClass (classification) {
+	getVariantClass(classification) {
 		return `${classification.split(" ").join("-")}`;
 	}
 
@@ -357,5 +359,14 @@ export class VariantListComponent implements
 	}
 
 	fetchSelected() {
+	}
+
+	getVariantDetail(variant: Variant) {
+		const modalRef = this.modalService.open(VariantDetailModalComponent, { size: 'xl' });
+		modalRef.componentInstance.variant = variant;
+		modalRef.result.then(() =>
+			this.cd.detectChanges(),
+			() => { }
+		);
 	}
 }
