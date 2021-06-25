@@ -12,7 +12,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class VariantListService extends TableService<Variant> implements OnDestroy {
 	API_URL = `${environment.apiUrl}/variant`;
-	
+
 	constructor(@Inject(HttpClient) http) {
 		super(http);
 		this.sorting.column = 'classification';
@@ -22,6 +22,11 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 	getAnalysisName(id: any) {
 		const url = `${environment.apiUrl}/analysis/${id}`;
 		return this.http.get(url);
+	}
+
+	getGeneDetail(gene: string) {
+		const url = `${environment.apiUrl}/getGeneDetail`;
+		return this.http.post(url, { gene }, { withCredentials: true })
 	}
 
 	// READ
