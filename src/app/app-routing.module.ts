@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './modules/auth/_services/auth.guard';
+import { Error4Component } from './modules/errors/error4/error4.component';
 
 export const routes: Routes = [
   {
@@ -19,7 +20,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./pages/layout.module').then((m) => m.LayoutModule),
   },
-  { path: '**', redirectTo: 'errors/404', pathMatch: 'full' },
+  {
+    path: '404',
+    component: Error4Component
+  },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
 ];
 
 @NgModule({
