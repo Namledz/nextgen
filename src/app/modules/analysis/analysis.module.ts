@@ -29,7 +29,7 @@ import { EditAnalysisModalComponent } from './analysis-list/components/edit-anal
 import { AnalysisDetailComponent } from './analysis-detail/analysis-detail.component';
 import { VariantListComponent } from './analysis-detail/component/variant-list/variant-list.component';
 import { AnalysisInfoComponent } from './analysis-detail/component/analysis-info/analysis-info.component';
-import { AnalysisReportComponent } from './analysis-detail/component/analysis-report/analysis-report.component';
+import { AnalysisReportComponent, SafePipe } from './analysis-detail/component/analysis-report/analysis-report.component';
 import { AnalysesComponent } from './analyses/analyses.component';
 import { GenomeBrowserComponent } from './analysis-detail/component/genome-browser/genome-browser.component';
 
@@ -47,7 +47,8 @@ import { GenomeBrowserComponent } from './analysis-detail/component/genome-brows
 		AnalysisInfoComponent,
 		AnalysisReportComponent,
 		AnalysesComponent,
-		GenomeBrowserComponent
+		GenomeBrowserComponent,
+		SafePipe
 	],
 	imports: [
 		CommonModule,

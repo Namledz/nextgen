@@ -1,38 +1,60 @@
-import { Component, Input, OnInit, ChangeDetectorRef, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, Inject, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core';
 
 import * as IGV from '../../../../../../../packages/igv/igv';
+
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AnalysisService } from '../../../_services/analysis.service'
+
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+	constructor(private sanitizer: DomSanitizer) { }
+	transform(url) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+}
+
+
 @Component({
 	selector: 'app-analysis-report',
 	templateUrl: './analysis-report.component.html',
 	styleUrls: ['./analysis-report.component.scss']
 })
-export class AnalysisReportComponent implements OnInit {
+export class AnalysisReportComponent implements OnInit  {
 	@Input() id: any;
 	@Input() type: string;
 	igv: any;
 	@ViewChild('igv', { static: true }) igvDiv: ElementRef;
+	@ViewChild('iframe', { static: true }) iframe: ElementRef;
 	htmlString: string;
 	html: SafeHtml
 	htmlData: any;
 	indexBamUrl: any;
 	bamUrl: any;
+	url: any;
+	iframeShow: any;
 
 	constructor(private sanitizer: DomSanitizer, 
 		private cd: ChangeDetectorRef, private analysisService: AnalysisService) { }
 
+
 	ngOnInit(): void {
 		this.igv = IGV;
-
+		const self = this;
 		if (this.type == 'fastq') {
 			this.getFastqQC();
 		} else {
-			console.log(this.type)
-			console.log(this.id);
-			this.getVCFQC();
+			this.url = `http://varigenes.com/vcf/index.html?vcf=https://varigenes-s3.s3.us-west-2.amazonaws.com/samples/sample${this.id}/output-hc.vcf.gz&species=Human&build=GRCh37`
+			console.log(self.iframe);
+			self.iframe.nativeElement.onload = function () {
+				const els = self.iframe.nativeElement.contentWindow.document.getElementById('banner');
+				const els2 = self.iframe.nativeElement.contentWindow.document.getElementById('selectData');
+				els.style.display = 'none';
+				els2.style.display = 'none';
+			};
 		}
 	}
+
 
 	getVCFQC() {
 		var self = this;
