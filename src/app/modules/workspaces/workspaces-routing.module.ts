@@ -13,7 +13,7 @@ const routes: Routes = [
 				component: WorkspacesListComponent
 			},
 			{
-				path: 'analysis',
+				path: 'samples',
 				loadChildren: () =>
 					import('../analysis/analysis.module').then(
 						(m) => m.AnalysisModule

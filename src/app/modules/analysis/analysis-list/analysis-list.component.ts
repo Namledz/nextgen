@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -70,6 +70,7 @@ export class AnalysisListComponent
 		private modalService: NgbModal,
 		public analysisService: AnalysisService, 
 		private route: ActivatedRoute,
+		private cd: ChangeDetectorRef
 	) { }
 
 	// angular lifecircle hooks
@@ -98,6 +99,7 @@ export class AnalysisListComponent
 			.subscribe(function (res) {
 				if (res.status == "success") {
 					self.projectName = res.data;
+					self.cd.detectChanges();
 				}
 			})
 		this.subscriptions.push(sb);
