@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
-import { UploadComponent } from '../modules/upload/upload.component';;
+import { UploadComponent } from '../modules/upload/upload.component';
 
 const routes: Routes = [
 	{
@@ -14,10 +14,10 @@ const routes: Routes = [
 			// 		import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
 			// },
 			{
-				path: 'analysis',
+				path: 'analyses',
 				loadChildren: () =>
-					import('../modules/analysis/analysis.module').then(
-						(m) => m.AnalysisModule
+					import('../modules/analyses/analyses.module').then(
+						(m) => m.AnalysesModule
 					),
 			},
 			{
