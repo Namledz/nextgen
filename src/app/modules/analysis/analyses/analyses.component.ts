@@ -16,6 +16,7 @@ export class AnalysesComponent implements OnInit {
 	data: any
 	sampleIds = [];
 	keys = [];
+	chart: any;
 	@ViewChild("chartdiv") private chartElement: ElementRef
 	constructor(
 		private cd: ChangeDetectorRef,
@@ -54,7 +55,9 @@ export class AnalysesComponent implements OnInit {
 			this.total = this.total + 1
 			this.sampleIds.push($event.target.value);
 		}
-		this.fetchVennData();
+		if (this.total != 4) {
+			this.fetchVennData();
+		}
 
 	}
 
@@ -68,10 +71,10 @@ export class AnalysesComponent implements OnInit {
 				if (self.sampleIds.length < 4) {
 					self.data = data;
 					self.data.forEach(e => {
-						e.color = am4core.color("#1BC5BD")
+						e.color = am4core.color(e.color);
+
 					})
-					self.chartElement.nativeElement.innerHTML = '';
-					self.venn();
+					self.venn(this.sampleIds.length);
 					console.log(self.data);
 				} else {
 
@@ -93,15 +96,28 @@ export class AnalysesComponent implements OnInit {
 		}
 	}
 
-	venn() {
+	venn(id) {
 		am4core.useTheme(am4themes_animated);
-		var chart = am4core.create("chartdiv", am4plugins_venn.VennDiagram)
-		var series = chart.series.push(new am4plugins_venn.VennSeries())
+		am4core.addLicense("ch-custom-attribution");
+		// if (id == 1) {
+		// 	am4core.percent(300);
+		// } else if (id == 2) {
+		// 	am4core.percent(350);
+		// } else if (id == 3) {
+		// 	am4core.percent(400);
+		// }
+		if (this.chart) {
+			this.chart.dispose();
+		}
+		this.chart = am4core.create(`chartdiv`, am4plugins_venn.VennDiagram)
+		var series = this.chart.series.push(new am4plugins_venn.VennSeries())
 		series.dataFields.category = "name";
 		series.dataFields.value = "value";
 		series.dataFields.intersections = "sets";
 		series.slices.template.fillOpacity = 0.5;
 		series.slices.template.propertyFields.fill = "color";
+		series.slices.template.properties.tooltipText = ""
+		series.slices.template.properties.interactionsEnabled = false
 		series.data = this.data;
 		console.log(this.data);
 	}

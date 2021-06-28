@@ -9,10 +9,10 @@
 			</a>
 		</div>
 	</div>
-    <div class="card-body">
+    <div class="card-body" style="min-height: 700px;">
         <div class="row">
             <div class="col-lg-5">
-                <div class="table-responsive angular-bootstrap-table">
+                <div class="table-responsive angular-bootstrap-table" style="width: 80%;">
                     <table class="table table-head-custom table-vertical-center overflow-hidden">
                         <thead>
                             <th class="selection-cell-header">
@@ -23,6 +23,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Variants</th>
+                            <th>Color</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -32,9 +33,13 @@
                                         <span></span>
                                     </label>
                                 </td>
-                                <td>GM6427</td>
-                                <td>sample1</td>
+                                <td>1</td>
+                                <td>V011_proband</td>
                                 <td>261261</td>
+                                <td>
+									<div class="sample-color" style=" background-color: #eb418b;" >
+									</div>
+								</td>
                             </tr>
                             <tr>
                                 <td class="selection-cell">
@@ -43,9 +48,13 @@
                                         <span></span>
                                     </label>
                                 </td>
-                                <td>GM6428</td>
-                                <td>sample3</td>
+                                <td>3</td>
+                                <td>V011_mon</td>
                                 <td>271197</td>
+								<td>
+									<div class="sample-color" style=" background-color: #9a96ec;">
+									</div>
+								</td>
                  
                             </tr>
                             <tr>
@@ -55,9 +64,13 @@
                                         <span></span>
                                     </label>
                                 </td>
-                                <td>GM6429</td>
-                                <td>sample2</td>
+                                <td>2</td>
+                                <td>V011_dad</td>
                                 <td>265034</td>
+								<td>
+									<div class="sample-color" style=" background-color: #f5d770;">
+									</div>
+								</td>
 
                             </tr>
                             <tr>
@@ -67,20 +80,24 @@
                                         <span></span>
                                     </label>
                                 </td>
-                                <td>GM6430</td>
-                                <td>sample4</td>
+                                <td>4</td>
+                                <td>V011_sister</td>
                                 <td>269952</td>
+								<td>
+									<div class="sample-color" style=" background-color: #1BC5BD;">
+									</div>
+								</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 			<div class="col-lg-7" *ngIf="sampleIds.length == 4">
-				<div style="width: 100%;">
-					<img style="width: 80%" src="/assets/images/venn.png" alt="">
+				<div style="width: 100%;  text-align: center">
+					<img style="width: 80%;" src="/assets/images/venn.png" alt="">
 				</div>
 			</div>
-            <div class="col-lg-7" *ngIf="sampleIds.length < 4">
+            <div class="col-lg-7" *ngIf="sampleIds.length < 4" style="height: fit-content;">
                 <div #chartdiv id="chartdiv" style="width: 100%;" [class] ="getClass()"></div>
             </div>
         </div>
