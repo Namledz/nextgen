@@ -44,7 +44,9 @@ export class AnalysesComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.sampleIds = ['6427', '6428', '6429', '6430']
-		this.fetchVennData();
+		if (this.sampleIds.length != 4) {
+			this.fetchVennData();
+		}
 	}
 
 	onChange($event) {
@@ -55,7 +57,7 @@ export class AnalysesComponent implements OnInit {
 			this.total = this.total + 1
 			this.sampleIds.push($event.target.value);
 		}
-		if (this.total != 4) {
+		if (this.sampleIds.length != 4) {
 			this.fetchVennData();
 		}
 
