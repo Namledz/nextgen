@@ -9,12 +9,16 @@ import { NgSelect2Module } from 'ng-select2';
 import { WorkspacesRoutingModule } from './workspaces-routing.module';
 import { WorkspacesComponent } from './workspaces.component';
 import { WorkspacesListComponent } from './workspaces-list/workspaces-list.component';
+import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
+import { WorkspacesDashboardComponent } from './workspaces-dashboard/workspaces-dashboard.component';
 
 
 @NgModule({
   declarations: [
     WorkspacesComponent,
-    WorkspacesListComponent
+    WorkspacesListComponent,
+    WorkspacesIndexComponent,
+    WorkspacesDashboardComponent
   ],
   imports: [
     CommonModule,

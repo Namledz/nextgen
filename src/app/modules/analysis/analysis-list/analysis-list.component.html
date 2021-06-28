@@ -1,140 +1,122 @@
-<div class="card card-custom gutter-b">
-	<div class="card-header">
-		<div class="card-title">
-			<h3 class="card-label">{{ projectName }} > Analyses list</h3>
-		</div>
-		<div class="card-toolbar">
-			<button type="button" class="btn btn-primary" (click)="create()">New Analysis</button>
-			<a style="margin-left: 10px;" type="button" class="btn btn-light" routerLink="/workspaces">
-				<i class="fa fa-arrow-left"></i>Back
-			</a>
-		</div>
-	</div>
-	<div class="card-body">
-
-		<!-- begin: Grouping -->
-		<ng-container *ngIf="grouping.getSelectedRowsCount()">
-			<div class="form">
-				<div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-					<div class="col-xl-12">
-						<div class="form-group form-group-inline">
-							<div class="form-label form-label-no-wrap">
-								<label class="font-bold font-danger"><span>Selected records count:
-										<b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
-							</div>
-							<div>
-								<button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
-									(click)="deleteSelected()">
-									<i class="fa fa-trash"></i> Delete All
-								</button>&nbsp;
-								<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-									(click)="fetchSelected()">
-									<i class="fa fa-stream"></i> Fetch Selected
-								</button>&nbsp;
-								<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-									(click)="updateStatusForSelected()">
-									<i class="fa fa-sync-alt"></i> Update Status
-								</button>
-							</div>
-						</div>
+<!-- begin: Grouping -->
+<ng-container *ngIf="grouping.getSelectedRowsCount()">
+	<div class="form">
+		<div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+			<div class="col-xl-12">
+				<div class="form-group form-group-inline">
+					<div class="form-label form-label-no-wrap">
+						<label class="font-bold font-danger"><span>Selected records count:
+								<b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
+					</div>
+					<div>
+						<button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+							(click)="deleteSelected()">
+							<i class="fa fa-trash"></i> Delete All
+						</button>&nbsp;
+						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+							(click)="fetchSelected()">
+							<i class="fa fa-stream"></i> Fetch Selected
+						</button>&nbsp;
+						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
+							(click)="updateStatusForSelected()">
+							<i class="fa fa-sync-alt"></i> Update Status
+						</button>
 					</div>
 				</div>
 			</div>
-		</ng-container>
-		<!-- end: Grouping -->
-
-		<!-- begin:Table -->
-		<div class="table-responsive angular-bootstrap-table">
-			<table class="table table-head-custom table-vertical-center overflow-hidden">
-				<thead>
-					<th class="selection-cell-header" data-row-selection="true">
-						<label class="checkbox checkbox-single"><input type="checkbox"
-								(click)="grouping.selectAllRows()"
-								[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-					</th>
-					<th>
-						ID
-						<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-							(sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Sample Name
-						<app-sort-icon column="sampleName" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Project
-						<app-sort-icon column="project" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Created
-						<app-sort-icon column="created" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Updated
-						<app-sort-icon column="updated" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Analyzed
-						<app-sort-icon column="analyzed" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Variants
-						<app-sort-icon column="variants" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Size
-						<app-sort-icon column="size" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Status
-						<app-sort-icon column="status" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>Actions</th>
-				</thead>
-				<tbody>
-					<tr *ngFor="let analysis of analysisService.items$ | async">
-						<td class="selection-cell">
-							<label class="checkbox checkbox-single"><input type="checkbox"
-									(click)="grouping.selectRow(analysis.id)"
-									[checked]="grouping.isRowSelected(analysis.id)" />
-								<span></span>
-							</label>
-						</td>
-						<td>{{ analysis.id }}</td>
-						<td><a href="/workspaces/samples/detail/{{ analysis.id }}">{{ analysis.name }}</a></td>
-						<td><a>{{ analysis.project_name }}</a></td>
-						<td>{{ analysis.createdAt }}</td>
-						<td>
-							{{ analysis.updatedAt }}
-						</td>
-						<td>{{ analysis.analyzed }}</td>
-						<td>{{ analysis.variants }}</td>
-						<td>{{ analysis.size }}</td>
-						<td>{{ analysis.status }}</td>
-						<td>
-
-							<a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-								(click)="edit(analysis.id)">
-								<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-									class="svg-icon svg-icon-md svg-icon-primary">
-								</span>
-							</a>
-
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
-		<!-- end: Table -->
-		<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-			[isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
 	</div>
+</ng-container>
+<!-- end: Grouping -->
+
+<!-- begin:Table -->
+<div class="table-responsive angular-bootstrap-table">
+	<table class="table table-head-custom table-vertical-center overflow-hidden">
+		<thead>
+			<th class="selection-cell-header" data-row-selection="true">
+				<label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
+						[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+			</th>
+			<th>
+				ID
+				<app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Sample Name
+				<app-sort-icon column="sampleName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Project
+				<app-sort-icon column="project" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Created
+				<app-sort-icon column="created" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Updated
+				<app-sort-icon column="updated" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Analyzed
+				<app-sort-icon column="analyzed" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Variants
+				<app-sort-icon column="variants" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Size
+				<app-sort-icon column="size" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>
+				Status
+				<app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let analysis of analysisService.items$ | async">
+				<td class="selection-cell">
+					<label class="checkbox checkbox-single"><input type="checkbox"
+							(click)="grouping.selectRow(analysis.id)" [checked]="grouping.isRowSelected(analysis.id)" />
+						<span></span>
+					</label>
+				</td>
+				<td>{{ analysis.id }}</td>
+				<td><a href="/workspaces/samples/detail/{{ analysis.id }}">{{ analysis.name }}</a></td>
+				<td><a>{{ analysis.project_name }}</a></td>
+				<td>{{ analysis.createdAt }}</td>
+				<td>
+					{{ analysis.updatedAt }}
+				</td>
+				<td>{{ analysis.analyzed }}</td>
+				<td>{{ analysis.variants }}</td>
+				<td>{{ analysis.size }}</td>
+				<td>{{ analysis.status }}</td>
+				<td>
+
+					<a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+						(click)="edit(analysis.id)">
+						<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+							class="svg-icon svg-icon-md svg-icon-primary">
+						</span>
+					</a>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+<!-- end: Table -->
+<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+	[isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
