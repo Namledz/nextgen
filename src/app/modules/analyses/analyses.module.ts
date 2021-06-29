@@ -20,12 +20,22 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { AnalysesListComponent } from './analyses/analyses.component';
+import { AnalysesListDetailComponent } from './analyses/analyses.component';
+import { AnalysesHomeComponent } from './analyses-home/analyses-home.component';
+import { AnalysesListComponent } from './analyses-list/analyses-list.component';
+import { AnalysesDetailComponent } from './analyses-detail/analyses-detail.component';
+import { AnalysesVennDiagramComponent } from './analyses-detail/analyses-venn-diagram/analyses-venn-diagram.component';
+import { AnalysesInfoComponent } from './analyses-detail/analyses-info/analyses-info.component';
 
 @NgModule({
 	declarations: [
 		AnalysesComponent,
-		AnalysesListComponent
+		AnalysesListDetailComponent,
+		AnalysesHomeComponent,
+		AnalysesListComponent,
+		AnalysesDetailComponent,
+		AnalysesVennDiagramComponent,
+		AnalysesInfoComponent
 	],
 	imports: [
 		CommonModule,

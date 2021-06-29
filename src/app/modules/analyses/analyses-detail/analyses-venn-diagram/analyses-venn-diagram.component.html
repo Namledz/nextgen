@@ -1,0 +1,109 @@
+<div class="card card-custom gutter-b">
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label"></h3>
+		</div>
+		<div class="card-toolbar">
+			<a style="margin-left: 10px;" type="button" class="btn btn-light" routerLink="/workspaces">
+				<i class="fa fa-arrow-left"></i>Back
+			</a>
+		</div>
+	</div>
+	<div class="card-body" style="min-height: 700px;">
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="table-responsive angular-bootstrap-table" style="width: 80%;">
+					<table class="table table-head-custom table-vertical-center overflow-hidden">
+						<thead>
+							<th class="selection-cell-header">
+								<label class="checkbox checkbox-single">
+									<input type="checkbox">
+								</label>
+							</th>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Variants</th>
+							<th>Color</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="selection-cell">
+									<label class="checkbox checkbox-single">
+										<input type="checkbox" value="6427" [checked]="isChecked"
+											(change)="onChange($event)">
+										<span></span>
+									</label>
+								</td>
+								<td>1</td>
+								<td>V011_proband</td>
+								<td>261261</td>
+								<td>
+									<div class="sample-color" style=" background-color: #eb418b;">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="selection-cell">
+									<label class="checkbox checkbox-single">
+										<input type="checkbox" value="6428" [checked]="isChecked"
+											(change)="onChange($event)">
+										<span></span>
+									</label>
+								</td>
+								<td>3</td>
+								<td>V011_mom</td>
+								<td>271197</td>
+								<td>
+									<div class="sample-color" style=" background-color: #9a96ec;">
+									</div>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="selection-cell">
+									<label class="checkbox checkbox-single">
+										<input type="checkbox" value="6429" [checked]="isChecked"
+											(change)="onChange($event)">
+										<span></span>
+									</label>
+								</td>
+								<td>2</td>
+								<td>V011_dad</td>
+								<td>265034</td>
+								<td>
+									<div class="sample-color" style=" background-color: #f5d770;">
+									</div>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="selection-cell">
+									<label class="checkbox checkbox-single">
+										<input type="checkbox" value="6430" [checked]="false"
+											(change)="onChange($event)">
+										<span></span>
+									</label>
+								</td>
+								<td>4</td>
+								<td>V011_sister</td>
+								<td>269952</td>
+								<td>
+									<div class="sample-color" style=" background-color: #1BC5BD;">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-lg-7" *ngIf="sampleIds.length == 4">
+				<div style="width: 100%;  text-align: center">
+					<img style="width: 80%;" src="/assets/images/venn.png" alt="">
+				</div>
+			</div>
+			<div class="col-lg-7" *ngIf="sampleIds.length < 4" style="height: fit-content;">
+				<div #chartdiv id="chartdiv" style="width: 100%;" [class]="getClass()"></div>
+			</div>
+		</div>
+	</div>
+</div>

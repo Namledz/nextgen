@@ -1,0 +1,23 @@
+<mat-card>
+	<mat-card-content>
+		<h2 class="example-h2" style="margin: 20px;">Ananlyses 101</h2>
+		<div [@.disabled]="true">
+			<mat-tab-group class="demo-tab-group" animationDuration="0ms"  (selectedTabChange)="tabClick($event)">
+				<mat-tab label="Venn Diagram">
+					<ng-template class="demo-tab-content" matTabContent style="min-height: 400px">
+						<div style="min-height: 800px !important">
+							<app-analyses-venn-diagram></app-analyses-venn-diagram>
+						</div>
+					</ng-template>
+				</mat-tab>
+				<mat-tab #report label="Info">
+					<ng-template class="demo-tab-content" matTabContent>
+						<div style="min-height: 800px !important">
+							<app-analyses-info></app-analyses-info>
+						</div>
+					</ng-template>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</mat-card-content>
+</mat-card>

@@ -3,16 +3,16 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4plugins_venn from "@amcharts/amcharts4/plugins/venn";
-import { AnalysisService } from '../../analysis/_services/analysis.service';
+import { AnalysisService } from '../../../analysis/_services/analysis.service';
 
 @Component({
-	selector: 'app-analyses-index',
-	templateUrl: './analyses.component.html',
-	styleUrls: ['./analyses.component.scss']
+  selector: 'app-analyses-venn-diagram',
+  templateUrl: './analyses-venn-diagram.component.html',
+  styleUrls: ['./analyses-venn-diagram.component.scss']
 })
-export class AnalysesListDetailComponent implements OnInit {
+export class AnalysesVennDiagramComponent implements OnInit {
 	isChecked = true;
-	total = 4;
+	total = 3;
 	data: any
 	sampleIds = [];
 	keys = [];
@@ -43,7 +43,7 @@ export class AnalysesListDetailComponent implements OnInit {
 	]
 
 	ngOnInit(): void {
-		this.sampleIds = ['6427', '6428', '6429', '6430']
+		this.sampleIds = ['6427', '6428', '6429']
 		this.fetchVennData();
 	}
 

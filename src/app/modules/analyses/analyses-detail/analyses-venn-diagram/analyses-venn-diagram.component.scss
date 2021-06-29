@@ -1,0 +1,23 @@
+.w1 {
+	height: 500px;
+	transition-delay: 0.25s !important;
+}
+
+.w2 {
+	height: 400px;
+	font-size: 16px;
+	transition-delay: 0.25s !important;
+}
+
+.w3 {
+	height: 330px;
+	font-size: 18px;
+	transition-delay: 0.25s !important;
+}
+
+:host::ng-deep tr td div.sample-color {
+	width: 30px;
+	height: 20px;
+	border-radius: 13px;
+	margin-left: 8px;
+}
