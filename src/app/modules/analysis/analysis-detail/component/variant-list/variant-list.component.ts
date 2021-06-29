@@ -99,8 +99,10 @@ export class VariantListComponent implements
 		this.variantListService.API_URL = this.url;
 		this.filterForm();
 		// this.searchForm();
-		this.sorting = this.variantListService.sorting;
+		// this.variantListService.sorting.column = 'classification';
+		// this.variantListService.sorting.direction = 'asc';
 		this.variantListService.fetch();
+		this.sorting = this.variantListService.sorting;
 		this.grouping = this.variantListService.grouping;
 		this.paginator = this.variantListService.paginator;
 		const sb = this.variantListService.isLoading$.subscribe(res => this.isLoading = res);
@@ -118,6 +120,7 @@ export class VariantListComponent implements
 	}
 
 	ngOnDestroy() {
+		this.variantListService.patchStateReset();
 		this.subscriptions.forEach((sb) => sb.unsubscribe());
 	}
 

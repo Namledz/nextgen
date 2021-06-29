@@ -10,31 +10,45 @@
 						</div>
 					</ng-template>
 				</mat-tab>
-				<mat-tab #report label="QC">
+				<mat-tab *ngIf='type != "covid"' #report label="QC">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
 						</div>
 					</ng-template>
 				</mat-tab>
-				<mat-tab label="Info">
+				<mat-tab *ngIf='type != "covid"' label="Info">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-info [id]="id"></app-analysis-info>
 						</div>
 					</ng-template>
 				</mat-tab>
-				<mat-tab label="Genome Browser">
+				<mat-tab *ngIf='type != "covid"' label="Genome Browser">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-genome-browser [id]="id"></app-genome-browser>
 						</div>
 					</ng-template>
 				</mat-tab>
-				<mat-tab label="Report">
+				<mat-tab *ngIf='type == "vcf"' label="Report">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-report-variant [id]="id"></app-analysis-report-variant>
+						</div>
+					</ng-template>
+				</mat-tab>
+				<mat-tab *ngIf='type == "covid"' label="Lineage Detail">
+					<ng-template class="demo-tab-content" matTabContent>
+						<div style="min-height: 800px !important">
+							<app-lineage-detail [id]="id"></app-lineage-detail>
+						</div>
+					</ng-template>
+				</mat-tab>
+				<mat-tab *ngIf='type == "covid"' label="Auspice Tree">
+					<ng-template class="demo-tab-content" matTabContent>
+						<div style="min-height: 800px !important">
+							<app-auspice-tree [id]="id"></app-auspice-tree>
 						</div>
 					</ng-template>
 				</mat-tab>

@@ -213,6 +213,18 @@ export abstract class TableService<T> {
     this.fetch();
   }
 
+  public patchStateReset() {
+    let patchReset = {
+      filter: {},
+      paginator: new PaginatorState(),
+      sorting: new SortState(),
+      searchTerm: '',
+      grouping: new GroupingState(),
+      entityId: undefined
+    };
+    this.patchStateWithoutFetch(patchReset);
+  }
+
   public patchStateWithoutFetch(patch: Partial<ITableState>) {
     const newState = Object.assign(this._tableState$.value, patch);
     this._tableState$.next(newState);

@@ -34,6 +34,8 @@ import { AnalysesComponent } from './analyses/analyses.component';
 import { GenomeBrowserComponent } from './analysis-detail/component/genome-browser/genome-browser.component';
 import { VariantDetailModalComponent } from './analysis-detail/component/variant-detail-modal/variant-detail-modal.component';
 import { AnalysisReportVariantComponent } from './analysis-detail/component/analysis-report-variant/analysis-report-variant.component';
+import { LineageDetailComponent } from './analysis-detail/component/lineage-detail/lineage-detail.component';
+import { AuspiceTreeComponent } from './analysis-detail/component/auspice-tree/auspice-tree.component';
 
 @NgModule({
 	declarations: [
@@ -52,7 +54,9 @@ import { AnalysisReportVariantComponent } from './analysis-detail/component/anal
 		GenomeBrowserComponent,
 		SafePipe,
 		VariantDetailModalComponent,
-		AnalysisReportVariantComponent
+		AnalysisReportVariantComponent,
+		LineageDetailComponent,
+		AuspiceTreeComponent
 	],
 	imports: [
 		CommonModule,
