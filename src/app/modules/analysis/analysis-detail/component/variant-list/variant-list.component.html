@@ -24,11 +24,11 @@
 					</div>
 					<div class="form-group row mb-1">
 						<label class="text-bold col-12 col-form-label">Read Depth</label>
-						<div class="col-12">
+						<!-- <div class="col-12">
 							<mat-slider formControlName="depthGreater" style="width: 100%;" thumbLabel min="0" max="600"
 								step="1" aria-label="units">
 							</mat-slider>
-						</div>
+						</div> -->
 						<div class="col-5">
 							<input class="form-control" type="number" formControlName="depthGreater">
 						</div>
@@ -67,8 +67,7 @@
 						</div>
 					</div>
 					<div class="form-group row mb-1">
-						<label class="text-bold col-12 col-form-label">Annotation <small>(sequence
-								Ontology)</small></label>
+						<label class="text-bold col-12 col-form-label">Annotation</label>
 						<div class="col-12">
 							<ng-select2 [data]="annotationList" placeholder="Select Annotation" [options]="options"
 								formControlName="annotation">
@@ -352,7 +351,16 @@
 										<span>{{ variant.location }}</span>
 									</td>
 									<td>
-										<span>{{ variant.clinvar }}</span>
+										<a href="https://www.ncbi.nlm.nih.gov/clinvar/variation/{{ variant.Clinvar_VARIANT_ID }}"
+                                            target="_blank">{{variant.Clinvar_VARIANT_ID}}</a>
+										<span><i
+                                            [ngClass]="variant.gold_stars >= 1 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
+                                    <span><i
+                                            [ngClass]="variant.gold_stars >= 2 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
+                                    <span><i
+                                            [ngClass]="variant.gold_stars >= 3 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
+                                    <span><i
+                                            [ngClass]="variant.gold_stars >= 4 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
 									</td>
 
 									<td>

@@ -18,6 +18,12 @@ export class SamplesService extends TableService<Samples> implements OnDestroy {
 	find(tableState: ITableState): Observable<TableResponseModel<Samples>> {
 		return this.http.post<TableResponseModel<Samples>>(`${this.API_URL}/list`, tableState, { withCredentials: true })
 	}
+
+  uploadSample(files: Array<any>) {
+    const url = `${environment.apiUrl}/uploadSample`;
+    return this.http.post<Array<any>>(url, { files }, { withCredentials: true })
+  }
+
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
   }
