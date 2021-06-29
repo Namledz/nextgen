@@ -56,6 +56,7 @@ export class AnalysisListComponent
 	url: any;
 	projectName: any;
 	searchGroup: FormGroup;
+	type: any;
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
 	dropdownList = [];
@@ -86,11 +87,20 @@ export class AnalysisListComponent
 		this.paginator = this.analysisService.paginator;
 		this.sorting = this.analysisService.sorting;
 		const sb = this.analysisService.isLoading$.subscribe(res => this.isLoading = res);
+		this.checkType();
 		this.subscriptions.push(sb);
 	}
 
 	ngOnDestroy() {
 		this.subscriptions.forEach((sb) => sb.unsubscribe());
+	}
+
+	checkType() {
+		this.analysisService.items$.subscribe((res) => {
+			if(res.length > 0) {
+				this.type = res[0].type
+			}
+		})
 	}
 
 	getProjectName() {

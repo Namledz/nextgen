@@ -26,11 +26,11 @@
 						</button>&nbsp;
 						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
 							(click)="fetchSelected()">
-							<i class="fa fa-stream"></i> Fetch Selected
+							<i class="fas fa-vial"></i> Analyze
 						</button>&nbsp;
 						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
 							(click)="updateStatusForSelected()">
-							<i class="fa fa-sync-alt"></i> Update Status
+							<i class="fa fa-sync-alt"></i> Re-Analyze
 						</button>
 					</div>
 				</div>
@@ -78,12 +78,12 @@
 				<app-sort-icon column="analyzed" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
 					(sort)="sort($event)"></app-sort-icon>
 			</th>
-			<th>
+			<th *ngIf="type!='covid'">
 				Variants
 				<app-sort-icon column="variants" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
 					(sort)="sort($event)"></app-sort-icon>
 			</th>
-			<th>
+			<th *ngIf="type!='covid'">
 				Size
 				<app-sort-icon column="size" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
 					(sort)="sort($event)"></app-sort-icon>
@@ -111,8 +111,8 @@
 					{{ analysis.updatedAt }}
 				</td>
 				<td>{{ analysis.analyzed }}</td>
-				<td>{{ analysis.variants }}</td>
-				<td>{{ analysis.size }}</td>
+				<td *ngIf="type!='covid'">{{ analysis.variants }}</td>
+				<td *ngIf="type!='covid'">{{ analysis.size }}</td>
 				<td>{{ analysis.status }}</td>
 				<td>
 

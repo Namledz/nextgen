@@ -3,13 +3,13 @@
 <div
   class="subheader py-3"
   [ngClass]="subheaderCSSClasses"
-  id="kt_subheader"
+  id="kt_subheader" style="padding: 2rem 2.25rem;"
 >
   <div
-    [ngClass]="subheaderContainerCSSClasses"
-    class="d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap"
+    class="d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap container-fluid"
   >
-    <!--begin::Info-->
+  <!-- [ngClass]="subheaderContainerCSSClasses" -->
+
     <div class="d-flex align-items-center mr-1">
       <ng-container *ngIf="subheaderMobileToggle">
         <!--begin::Mobile Toggle-->
@@ -46,15 +46,15 @@
         >
           Samples
         </a> -->
-        <a 
-          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
-        >
-          Upload
-        </a>
         <a href="/pipeline" [ngClass]="getCurrentUrl('pipeline')"
           class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
         >
           Pipeline
+        </a>
+        <a 
+          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+        >
+          Upload
         </a>
         <!--begin::Page Title-->
         <!-- <ng-container *ngIf="title$ | async as _title">
@@ -89,9 +89,7 @@
       </div>
       <!--end::Page Heading-->
     </div>
-    <!--end::Info-->
 
-    <!--begin::Toolbar-->
     <div class="d-flex align-items-center flex-wrap">
         <div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
           <input type="text" class="form-control pl-4" placeholder="Search..." />
@@ -187,7 +185,7 @@
       </a> -->
 
     </div>
-    <!--end::Toolbar-->
+
   </div>
 </div>
 <!--end::Subheader-->

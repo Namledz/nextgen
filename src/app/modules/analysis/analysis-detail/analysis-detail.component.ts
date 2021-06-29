@@ -6,6 +6,7 @@ import { VariantListService } from '../_services/variant-list.service';
 import { AnalysisService } from '../_services/analysis.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 @Component({
 	selector: 'app-analysis-detail',
 	templateUrl: './analysis-detail.component.html',
@@ -25,7 +26,7 @@ export class AnalysisDetailComponent implements OnInit {
 
 	igv: any;
 	tabIndex = 0;
-
+	project_id: any;
 
 
 
@@ -35,6 +36,7 @@ export class AnalysisDetailComponent implements OnInit {
 		private route: ActivatedRoute,
 		private cd: ChangeDetectorRef,
 		private fb: FormBuilder,
+		private _location: Location
 	) { }
 
 	ngOnInit(): void {
@@ -53,6 +55,7 @@ export class AnalysisDetailComponent implements OnInit {
 		this.variantListService.getAnalysisName(this.id)
 			.subscribe((res: any) => {
 				if (res.status == 'success') {
+					this.project_id = res.data.project_id
 					this.analysisName = res.data.name;
 					this.type = res.data.type;
 				} else {
@@ -61,6 +64,10 @@ export class AnalysisDetailComponent implements OnInit {
 				this.cd.detectChanges();
 
 			})
+	}
+
+	backClicked() {
+		this._location.back();
 	}
 
 
