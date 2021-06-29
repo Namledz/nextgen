@@ -337,7 +337,7 @@
 										<span>{{ variant.transcript_id }}</span>
 									</td>
 									<td>
-										<span>{{ variant.cnomen }}</span>
+										<a href="javascript:void(0)" (click)="openIGVModal(variant.chrom, variant.position)">{{ variant.cnomen }} </a>
 									</td>
 									<td [class.hidden-column]="checkColumnIsSelected('pnomen')">
 										<span>{{ variant.pnomen }}</span>

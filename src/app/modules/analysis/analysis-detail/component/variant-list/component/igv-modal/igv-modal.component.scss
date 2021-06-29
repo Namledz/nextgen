@@ -1,0 +1,34 @@
+//  :host::ng-deep .igv-browser-modal .modal-dialog {
+//  	max-width: 700px !important;
+//  	width: 700px !important;
+//  }
+
+:host::ng-deep {
+	.modal-header .closebtn {
+		margin-top: -2px;
+		cursor: pointer;
+	}
+
+	body>[uib-modal-window]:not([modal-render]) {
+		display: none !important;
+	}
+
+	button.closebtn {
+		-webkit-appearance: none;
+		padding: 0;
+		cursor: pointer;
+		background: 0 0;
+		border: 0;
+	}
+
+	.closebtn {
+		float: right;
+		font-size: 21px;
+		font-weight: 700;
+		line-height: 1;
+		color: #000;
+		text-shadow: 0 1px 0 #fff;
+		filter: alpha(opacity=20);
+		opacity: .2;
+	}
+}

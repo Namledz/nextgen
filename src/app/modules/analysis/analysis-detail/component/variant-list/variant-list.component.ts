@@ -8,6 +8,7 @@ import { VariantListService } from '../../../_services/variant-list.service';
 import { environment } from '../../../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, delay, finalize, tap } from 'rxjs/operators';
+import { IgvModalComponent } from './component/igv-modal/igv-modal.component';
 import {
 	GroupingState,
 	PaginatorState,
@@ -313,6 +314,18 @@ export class VariantListComponent implements
 		}
 
 
+	}
+
+	openIGVModal(chrom: any, position: any) {
+		const modalRef = this.modalService.open(IgvModalComponent, { size: 'lg', windowClass: "igv-browser-modal" });
+		modalRef.componentInstance.chrom = chrom;
+		modalRef.componentInstance.position = position;
+		modalRef.componentInstance.id = this.id;
+
+		modalRef.result.then(() => {
+			this.cd.detectChanges(),
+				() => { }
+		});
 	}
 
 	// sorting

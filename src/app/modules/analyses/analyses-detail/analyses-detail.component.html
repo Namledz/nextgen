@@ -1,8 +1,17 @@
 <mat-card>
+	<div style="display: table; width: 100%;">
+		<div class="card-title" style="margin-bottom: 10px; vertical-align: middle; display: table-cell; width: 90%;">
+			<h2 class="example-h2" style="margin: 20px;">Ananlyses 101</h2>
+		</div>
+		<div class="card-toolbar" style="vertical-align: middle; display: table-cell; width: fit-content;">
+			<a style="margin-left: 10px; width: 100px;" type="button" class="btn btn-light" routerLink="{{backUrl}}">
+				<i class="fa fa-arrow-left"></i>Back
+			</a>
+		</div>
+	</div>
 	<mat-card-content>
-		<h2 class="example-h2" style="margin: 20px;">Ananlyses 101</h2>
 		<div [@.disabled]="true">
-			<mat-tab-group class="demo-tab-group" animationDuration="0ms"  (selectedTabChange)="tabClick($event)">
+			<mat-tab-group class="demo-tab-group" animationDuration="0ms" (selectedTabChange)="tabClick($event)">
 				<mat-tab label="Venn Diagram">
 					<ng-template class="demo-tab-content" matTabContent style="min-height: 400px">
 						<div style="min-height: 800px !important">

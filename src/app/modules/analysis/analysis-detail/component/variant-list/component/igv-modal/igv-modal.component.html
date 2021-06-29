@@ -1,0 +1,22 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			Genome Browser
+		</div>
+		<button type="button" class="closebtn" (click)="modal.close()" aria-hidden="true"><span aria-hidden="true">×</span></button>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body" style="min-height: 550px; width: 100%;">
+		<!-- <ng-container *ngIf="isLoading$ | async">
+			<div class="overlay-layer bg-transparent">
+				<div class="spinner spinner-lg spinner-success"></div>
+			</div>
+		</ng-container> -->
+
+		<div #igv>
+
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.close()">Close</button>
+	</div>
+</div>

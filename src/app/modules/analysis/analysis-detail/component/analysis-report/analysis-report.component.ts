@@ -46,7 +46,7 @@ export class AnalysisReportComponent implements OnInit  {
 			this.getFastqQC();
 		} else {
 			this.isLoading = true;
-			this.url = `http://varigenes.com/vcf/index.html?vcf=https://varigenes-s3.s3.us-west-2.amazonaws.com/samples/sample${this.id}/output-hc.vcf.gz&species=Human&build=GRCh37`
+			this.url = `http://varigenes.com/vcf/index.html?vcf=https://varigenes-s3.s3.us-west-2.amazonaws.com/samples/sample${this.id}/output-hc-v1.vcf.gz&species=Human&build=GRCh37`
 			self.iframe.nativeElement.onload = function () {
 				const els = self.iframe.nativeElement.contentWindow.document.getElementById('banner');
 				const els2 = self.iframe.nativeElement.contentWindow.document.getElementById('selectData');

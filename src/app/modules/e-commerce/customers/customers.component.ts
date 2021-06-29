@@ -152,7 +152,7 @@ export class CustomersComponent
   }
 
   edit(id: number) {
-    const modalRef = this.modalService.open(EditCustomerModalComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(EditCustomerModalComponent, { size: 'lg' });
     modalRef.componentInstance.id = id;
     modalRef.result.then(() =>
       this.customerService.fetch(),

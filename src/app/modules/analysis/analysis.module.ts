@@ -36,6 +36,7 @@ import { VariantDetailModalComponent } from './analysis-detail/component/variant
 import { AnalysisReportVariantComponent } from './analysis-detail/component/analysis-report-variant/analysis-report-variant.component';
 import { LineageDetailComponent } from './analysis-detail/component/lineage-detail/lineage-detail.component';
 import { AuspiceTreeComponent } from './analysis-detail/component/auspice-tree/auspice-tree.component';
+import { IgvModalComponent } from './analysis-detail/component/variant-list/component/igv-modal/igv-modal.component';
 
 @NgModule({
 	declarations: [
@@ -56,7 +57,8 @@ import { AuspiceTreeComponent } from './analysis-detail/component/auspice-tree/a
 		VariantDetailModalComponent,
 		AnalysisReportVariantComponent,
 		LineageDetailComponent,
-		AuspiceTreeComponent
+		AuspiceTreeComponent,
+		IgvModalComponent
 	],
 	imports: [
 		CommonModule,
