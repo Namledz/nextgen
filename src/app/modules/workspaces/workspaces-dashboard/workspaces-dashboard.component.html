@@ -1,6 +1,27 @@
+<div class="row">
+    <h5 style="margin-top: 0.5rem; margin-left: 0.9rem;">About The Workspace</h5>
+    <button type="button" class="btn btn-sm btn-outline-primary font-size-sm ml-3 mb-3" (click)="show = true">
+        Edit
+        <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true" class="svg-icon svg-icon-sm">
+        </span>
+    </button>
+    <div style="margin-left: 31%;">
+        <button type="button" class="btn btn-sm btn-outline-info font-size-sm ml-20 mb-3" (click)="save()" *ngIf="show">
+            Save
+            <span [inlineSVG]="'./assets/media/svg/icons/General/Save.svg'" cacheSVG="true" class="svg-icon svg-icon-sm">
+            </span>
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger font-size-sm ml-3 mb-3" (click)="show = false" *ngIf="show">
+            Cancel
+            <span [inlineSVG]="'./assets/media/svg/icons/Communication/Spam.svg'" cacheSVG="true" class="svg-icon svg-icon-sm">
+            </span>
+        </button>
+    </div>
+</div>
 <div class="row mt-5">
     <div class="col-lg-8">
-        <textarea class="form-control form-control-lg mb-3 ml-3" name="" id="" rows="15"></textarea>
+        <div *ngIf="!show" style="padding-left: 29px; padding-top: 12px"><p style="white-space: pre-line;" >{{data}}</p></div>
+        <textarea #textarea1 *ngIf="show" class="form-control form-control-lg mb-3 ml-3" name="" id="" rows="15" [(ngModel)]="data"></textarea>
     </div>
     <div class="col-lg-1"></div>
     <div class="col-lg-3">
@@ -19,7 +40,6 @@
             Name: fc-6f1a2833-85a8-4955-bfdc-770ff4d76767
             Location: US
             Open in browser
-
         </textarea>
     </div>
 </div>

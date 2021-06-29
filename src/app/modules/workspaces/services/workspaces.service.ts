@@ -27,6 +27,10 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 		})
 	}
 
+	updateWorkspaceDashboard(data) {
+		return this.http.post(`${this.API_URL}/update`, {data: data})
+	}
+
 	deleteItems(ids: number[] = []): Observable<any> {
 		const tasks$ = [];
 		ids.forEach(id => {

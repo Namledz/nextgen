@@ -13,9 +13,9 @@
 	<div class="card-body">
 		<div style="margin-bottom: 20px;">
 			<a class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer" [ngClass]="{'workspaces-active-btn': tab == 1}" type="dashboard"
-				(click)="changeInfo($event)">DASHBOARD</a>
+				(click)="changeInfo($event)">Dashboard</a>
 			<a class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer" [ngClass]="{'workspaces-active-btn': tab == 2}" type="data"
-				(click)="changeInfo($event)">DATA</a>
+				(click)="changeInfo($event)">Data</a>
 		</div>
 		<app-analysis-list [id]="id" *ngIf="tab == 2"></app-analysis-list>
 		<app-workspaces-dashboard [id]="id" *ngIf="tab == 1"></app-workspaces-dashboard>
