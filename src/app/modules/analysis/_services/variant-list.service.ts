@@ -15,8 +15,6 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 
 	constructor(@Inject(HttpClient) http) {
 		super(http);
-		this.sorting.column = 'classification';
-		this.sorting.direction = 'asc';
 	}
 
 	getAnalysisName(id: any) {
@@ -31,6 +29,8 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 
 	// READ
 	find(tableState: ITableState): Observable<TableResponseModel<Variant>> {
+		this.sorting.column = 'classification';
+		this.sorting.direction = 'asc';
 		return this.http.post<TableResponseModel<Variant>>(this.API_URL, tableState, { withCredentials: true })
 	}
 

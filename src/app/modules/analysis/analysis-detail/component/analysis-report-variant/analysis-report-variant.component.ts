@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VariantSelectedListService } from '../../../_services/variant-selected-list.service'
-import { VariantListService } from '../../../_services/variant-list.service';
 import { environment } from '../../../../../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
@@ -50,8 +49,7 @@ export class AnalysisReportVariantComponent implements
   htmlData: any;
   sorting: SortState;
 
-  constructor(public varianSelectedtListService: VariantSelectedListService, private fb: FormBuilder, private modalService: NgbModal, private toastr: ToastrService, private sanitizer: DomSanitizer, 
-    private cd: ChangeDetectorRef) { }
+  constructor(public varianSelectedtListService: VariantSelectedListService, private fb: FormBuilder, private modalService: NgbModal, private toastr: ToastrService, private sanitizer: DomSanitizer, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 		this.url = `${environment.apiUrl}/getSeletedVariants/${this.id}`
@@ -67,7 +65,6 @@ export class AnalysisReportVariantComponent implements
   }
 
   sort(column: string) {
-    console.log(this.grouping.getSelectedRows())
     const sorting = this.sorting;
     const isActiveColumn = sorting.column === column;
     if (!isActiveColumn) {
@@ -121,6 +118,7 @@ export class AnalysisReportVariantComponent implements
   }
 
   ngOnDestroy() {
+    this.varianSelectedtListService.patchStateReset();
     this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 

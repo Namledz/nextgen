@@ -1,0 +1,104 @@
+<div class="card card-custom gutter-b">
+      <div class="card-body">
+        <div class="form form-label-right">
+            <div class="form-group row">
+              <div class="col-lg-3" [formGroup]="searchGroup">
+                <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+                  formControlName="searchTerm" /><small class="form-text text-muted"><b>Search</b> in all fields</small>
+              </div>
+            </div>
+          </div>
+        <ng-container *ngIf="grouping.getSelectedRowsCount()">
+            <div class="form">
+              <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+                <div class="col-xl-12">
+                  <div class="form-group form-group-inline">
+                    <div class="form-label form-label-no-wrap">
+                      <label class="font-bold font-danger"><span>Selected records count:
+                          <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
+                    </div>
+                    <!-- <div>
+                      <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+                        (click)="deleteSelected()">
+                        <i class="fa fa-trash"></i> Delete All
+                      </button>&nbsp;
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="table-responsive angular-bootstrap-table">
+            <table class="table table-head-custom table-vertical-center overflow-hidden">
+              <thead>
+                <th class="selection-cell-header" data-row-selection="true" style="width: 3%;">
+                  <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
+                      [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+                </th>
+                <th style="width: 10%;">
+                  Sample
+                  <app-sort-icon column="taxon" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 10%;">
+                  Pangolin
+                  <app-sort-icon column="pangolin_lineage" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 10%;">
+                  Usher
+                  <app-sort-icon column="uhser_lineage" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 12%;">
+                    Scorpio Call
+                  <app-sort-icon column="scorpio_call" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 10%;">
+                    Scorpio support
+                  <app-sort-icon column="scorpio_support" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 8%;">
+                    Version
+                  <app-sort-icon column="pangolin_version" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th style="width: 10%;">
+                    Status
+                  <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+                <th>
+                    Note
+                  <app-sort-icon column="note" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+                    (sort)="sort($event)"></app-sort-icon>
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lineage of lineageDetailService.items$ | async">
+                  <td class="selection-cell">
+                    <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(lineage.id)"
+                        [checked]="grouping.isRowSelected(lineage.id)" />
+                      <span></span>
+                    </label>
+                  </td>
+                  <td>{{ lineage.taxon }}</td>
+                  <td>{{ lineage.pangolin_lineage }}</td>
+                  <td>{{ lineage.uhser_lineage }}</td>
+                  <td>{{ lineage.scorpio_call }}</td> 
+                  <td>{{ lineage.scorpio_support }}</td>
+                  <td>{{ lineage.pangolin_version }}</td>
+                  <td>{{ lineage.status }}</td>
+                  <td>{{ lineage.note }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>         
+
+          <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+          [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>      
+      </div>
+</div>
