@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkspacesComponent } from './workspaces.component';
 import { WorkspacesListComponent } from './workspaces-list/workspaces-list.component';
+import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
 
 const routes: Routes = [
 	{
@@ -11,6 +12,10 @@ const routes: Routes = [
 			{
 				path: 'list',
 				component: WorkspacesListComponent
+			},
+			{
+				path: 'index/:id',
+				component: WorkspacesIndexComponent
 			},
 			{
 				path: 'samples',

@@ -82,6 +82,9 @@ import { AnalysisReportVariantComponent } from './analysis-detail/component/anal
 		UpdateAnalysisStatusModalComponent,
 		EditAnalysisModalComponent,
 		AnalysisListComponent
+	],
+	exports: [
+		AnalysisListComponent
 	]
 })
 export class AnalysisModule { }
