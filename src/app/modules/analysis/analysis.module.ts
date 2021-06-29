@@ -86,6 +86,9 @@ import { AuspiceTreeComponent } from './analysis-detail/component/auspice-tree/a
 		UpdateAnalysisStatusModalComponent,
 		EditAnalysisModalComponent,
 		AnalysisListComponent
+	],
+	exports: [
+		AnalysisListComponent
 	]
 })
 export class AnalysisModule { }

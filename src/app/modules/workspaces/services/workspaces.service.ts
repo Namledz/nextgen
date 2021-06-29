@@ -28,6 +28,12 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 		return forkJoin(tasks$);
 	}
 
+	getWorkspaceDashboard(id) {
+		return this.http.get(`${this.API_URL}/dashboard/${id}`).pipe((response) => {
+			return response
+		})
+	}
+
   ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}

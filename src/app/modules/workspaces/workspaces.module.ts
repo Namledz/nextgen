@@ -11,6 +11,7 @@ import { WorkspacesComponent } from './workspaces.component';
 import { WorkspacesListComponent } from './workspaces-list/workspaces-list.component';
 import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
 import { WorkspacesDashboardComponent } from './workspaces-dashboard/workspaces-dashboard.component';
+import { AnalysisModule } from '../analysis/analysis.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { WorkspacesDashboardComponent } from './workspaces-dashboard/workspaces-
     NgbModalModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelect2Module
+    NgSelect2Module,
+    AnalysisModule
   ],
   entryComponents: [
     WorkspacesListComponent
