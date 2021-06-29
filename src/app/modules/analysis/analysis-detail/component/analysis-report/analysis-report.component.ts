@@ -32,6 +32,7 @@ export class AnalysisReportComponent implements OnInit  {
 	indexBamUrl: any;
 	bamUrl: any;
 	url: any;
+	isLoading: any;
 	iframeShow: any;
 
 	constructor(private sanitizer: DomSanitizer, 
@@ -44,14 +45,18 @@ export class AnalysisReportComponent implements OnInit  {
 		if (this.type == 'fastq') {
 			this.getFastqQC();
 		} else {
+			this.isLoading = true;
 			this.url = `http://varigenes.com/vcf/index.html?vcf=https://varigenes-s3.s3.us-west-2.amazonaws.com/samples/sample${this.id}/output-hc.vcf.gz&species=Human&build=GRCh37`
-			console.log(self.iframe);
 			self.iframe.nativeElement.onload = function () {
 				const els = self.iframe.nativeElement.contentWindow.document.getElementById('banner');
 				const els2 = self.iframe.nativeElement.contentWindow.document.getElementById('selectData');
 				els.style.display = 'none';
 				els2.style.display = 'none';
 			};
+			setTimeout(() => {
+				this.isLoading = false;
+				self.cd.detectChanges();
+			}, 1000)
 		}
 	}
 

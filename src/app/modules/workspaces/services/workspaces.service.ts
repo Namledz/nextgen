@@ -7,7 +7,7 @@ import { baseFilter } from '../../../_fake/fake-helpers/http-extenstions';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class WorkspacesService extends TableService<any> implements OnDestroy {
 
@@ -16,10 +16,17 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 		super(http);
 	}
 
-  find(tableState: ITableState): Observable<TableResponseModel<any>> {
+	find(tableState: ITableState): Observable<TableResponseModel<any>> {
 		return this.http.post<TableResponseModel<any>>(`${this.API_URL}/list`, tableState, { withCredentials: true })
 	}
-	
+
+	getWorkspaceName(id: any) {
+		console.log(id);
+		return this.http.get(`${environment.apiUrl}/workspace/project-name/${id}`).pipe((response) => {
+			return response
+		})
+	}
+
 	deleteItems(ids: number[] = []): Observable<any> {
 		const tasks$ = [];
 		ids.forEach(id => {
@@ -34,7 +41,7 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 		})
 	}
 
-  ngOnDestroy() {
+	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
 }

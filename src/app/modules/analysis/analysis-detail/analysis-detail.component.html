@@ -3,17 +3,17 @@
 		<h2 class="example-h2" style="margin: 20px;">{{ analysisName }}</h2>
 		<div [@.disabled]="true">
 			<mat-tab-group class="demo-tab-group" animationDuration="0ms" (selectedTabChange)="tabClick($event)">
-				<mat-tab *ngIf='type == "vcf"' label="Variant List">
-					<ng-template class="demo-tab-content" matTabContent style="min-height: 400px">
-						<div style="min-height: 800px !important">
-							<app-variant-list [id]="id"></app-variant-list>
-						</div>
-					</ng-template>
-				</mat-tab>
 				<mat-tab *ngIf='type != "covid"' #report label="QC">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
+						</div>
+					</ng-template>
+				</mat-tab>
+				<mat-tab *ngIf='type == "vcf"' label="Variant List">
+					<ng-template class="demo-tab-content" matTabContent style="min-height: 400px">
+						<div style="min-height: 800px !important">
+							<app-variant-list [id]="id"></app-variant-list>
 						</div>
 					</ng-template>
 				</mat-tab>
