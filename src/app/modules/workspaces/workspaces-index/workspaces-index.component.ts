@@ -2,7 +2,7 @@ import { Attribute, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnalysisListComponent } from '../.././analysis/analysis-list/analysis-list.component'
 import { WorkspacesService } from '../services/workspaces.service';
-
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-workspaces-index',
@@ -15,7 +15,8 @@ export class WorkspacesIndexComponent implements OnInit {
 		@Attribute('type') public type: string,
 		private route: ActivatedRoute,
 		private cd: ChangeDetectorRef,
-		private workspaceService: WorkspacesService
+		private workspaceService: WorkspacesService,
+		private _location: Location
 	) { }
 	id: any
 	tab: any
@@ -42,11 +43,15 @@ export class WorkspacesIndexComponent implements OnInit {
 
 	changeInfo($event) {
 		if ($event.target.type == "dashboard") {
-			this.tab = 1
-		} else {
 			this.tab = 2
+		} else {
+			this.tab = 1
 		}
 		this.cd.detectChanges();
+	}
+
+	backClicked() {
+		this._location.back();
 	}
 
 
