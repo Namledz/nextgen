@@ -1,81 +1,62 @@
 <!--begin::Subheader-->
 
-<div
-  class="subheader py-3"
-  [ngClass]="subheaderCSSClasses"
-  id="kt_subheader" style="padding: 2rem 2.25rem;"
->
-  <div
-    class="d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap container-fluid"
-  >
-  <!-- [ngClass]="subheaderContainerCSSClasses" -->
+<div class="subheader py-3" [ngClass]="subheaderCSSClasses" id="kt_subheader" style="padding: 2rem 2.25rem;">
+	<div class="d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap container-fluid">
+		<!-- [ngClass]="subheaderContainerCSSClasses" -->
 
-    <div class="d-flex align-items-center mr-1">
-      <ng-container *ngIf="subheaderMobileToggle">
-        <!--begin::Mobile Toggle-->
-        <button
-          class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
-          id="kt_subheader_mobile_toggle"
-        >
-          <span></span>
-        </button>
-        <!--end::Mobile Toggle-->
-      </ng-container>
+		<div class="d-flex align-items-center mr-1">
+			<ng-container *ngIf="subheaderMobileToggle">
+				<!--begin::Mobile Toggle-->
+				<button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
+					id="kt_subheader_mobile_toggle">
+					<span></span>
+				</button>
+				<!--end::Mobile Toggle-->
+			</ng-container>
 
-      <!--begin::Page Heading-->
-      <div class="d-flex align-items-baseline flex-wrap mr-5">
-        <a routerLink="/" class="brand-logo mr-5">
-          <img
-            alt="Logo"
-            src="./assets/images/varigene_v3.png"
-            class="max-h-50px"
-          />
-        </a>
-        <a href="/workspaces" [ngClass]="getCurrentUrl('workspaces')"
-        class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
-         WorkSpaces
-        </a>
-        <a
-        href="/analyses" [ngClass]="getCurrentUrl('/analyses')"
-          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
-        >
-          Analyses
-        </a>
-        <!-- <a href="/samples" [ngClass]="getCurrentUrl('samples')"
+			<!--begin::Page Heading-->
+			<div class="d-flex align-items-baseline flex-wrap mr-5">
+				<a routerLink="/" class="brand-logo mr-5">
+					<img alt="Logo" src="./assets/images/varigene_v3.png" class="max-h-50px" />
+				</a>
+				<a href="/workspaces" [ngClass]="getCurrentUrl('workspaces')"
+					class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
+					WorkSpaces
+				</a>
+				<a href="/analyses" [ngClass]="getCurrentUrl('/analyses')"
+					class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
+					Analyses
+				</a>
+				<!-- <a href="/samples" [ngClass]="getCurrentUrl('samples')"
           class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
         >
           Samples
         </a> -->
-        <a class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer" href="javascript:void(0)"
-          (click)="openModalUpload()">
-          Upload <span class="svg-icon svg-icon-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-              viewBox="0 0 24 24" version="1.1">
-              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <rect x="0" y="0" width="24" height="24" />
-                <path
-                  d="M2,13 C2,12.5 2.5,12 3,12 C3.5,12 4,12.5 4,13 C4,13.3333333 4,15 4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 C2,15 2,13.3333333 2,13 Z"
-                  fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                <rect fill="#000000" opacity="0.3" x="11" y="2" width="2" height="14" rx="1" />
-                <path
-                  d="M12.0362375,3.37797611 L7.70710678,7.70710678 C7.31658249,8.09763107 6.68341751,8.09763107 6.29289322,7.70710678 C5.90236893,7.31658249 5.90236893,6.68341751 6.29289322,6.29289322 L11.2928932,1.29289322 C11.6689749,0.916811528 12.2736364,0.900910387 12.6689647,1.25670585 L17.6689647,5.75670585 C18.0794748,6.12616487 18.1127532,6.75845471 17.7432941,7.16896473 C17.3738351,7.57947475 16.7415453,7.61275317 16.3310353,7.24329415 L12.0362375,3.37797611 Z"
-                  fill="#000000" fill-rule="nonzero" />
-              </g>
-            </svg>
-          </span>
-        </a>
-		<a href="/pipeline" [ngClass]="getCurrentUrl('pipeline')"
-			class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
-			Pipeline
-		</a>
-        <a 
-          class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
-        >
-          Upload
-        </a>
-        <!--begin::Page Title-->
-        <!-- <ng-container *ngIf="title$ | async as _title">
+				<a href="/pipeline" [ngClass]="getCurrentUrl('pipeline')"
+					class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
+					Pipeline
+				</a>
+				<a class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer"
+					href="javascript:void(0)" (click)="openModalUpload()">
+					Upload <span class="svg-icon svg-icon-primary">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+							height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<rect x="0" y="0" width="24" height="24" />
+								<path
+									d="M2,13 C2,12.5 2.5,12 3,12 C3.5,12 4,12.5 4,13 C4,13.3333333 4,15 4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 C2,15 2,13.3333333 2,13 Z"
+									fill="#000000" fill-rule="nonzero" opacity="0.3" />
+								<rect fill="#000000" opacity="0.3" x="11" y="2" width="2" height="14" rx="1" />
+								<path
+									d="M12.0362375,3.37797611 L7.70710678,7.70710678 C7.31658249,8.09763107 6.68341751,8.09763107 6.29289322,7.70710678 C5.90236893,7.31658249 5.90236893,6.68341751 6.29289322,6.29289322 L11.2928932,1.29289322 C11.6689749,0.916811528 12.2736364,0.900910387 12.6689647,1.25670585 L17.6689647,5.75670585 C18.0794748,6.12616487 18.1127532,6.75845471 17.7432941,7.16896473 C17.3738351,7.57947475 16.7415453,7.61275317 16.3310353,7.24329415 L12.0362375,3.37797611 Z"
+									fill="#000000" fill-rule="nonzero" />
+							</g>
+						</svg>
+					</span>
+				</a>
+
+				<!--begin::Page Title-->
+				<!-- <ng-container *ngIf="title$ | async as _title">
           <h2
             class="d-flex align-items-center text-dark font-weight-bold my-1 mr-3"
           >
@@ -88,9 +69,9 @@
           </h2>
 
         </ng-container> -->
-        <!--end::Page Title-->
-        <!--begin::Breadcrumb-->
-        <!-- <ul
+				<!--end::Page Title-->
+				<!--begin::Breadcrumb-->
+				<!-- <ul
           class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold my-2 p-0"
         >
           <li
@@ -103,53 +84,34 @@
             </a>
           </li>
         </ul> -->
-        <!--end::Breadcrumb-->
-      </div>
-      <!--end::Page Heading-->
-    </div>
+				<!--end::Breadcrumb-->
+			</div>
+			<!--end::Page Heading-->
+		</div>
 
-    <div class="d-flex align-items-center flex-wrap">
-        <div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
-          <input type="text" class="form-control pl-4" placeholder="Search..." />
-          <div class="input-group-append">
-            <span class="input-group-text">
-              <span
-                [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"
-                cacheSVG="true"
-                class="svg-icon svg-icon-md"
-              ></span>
-            </span>
-          </div>
-        </div>
-        <app-topbar
-         
-        ></app-topbar>&nbsp;&nbsp;
-        <div
-        class="dropdown dropdown-inline"
-        data-toggle="tooltip"
-        title="Quick actions"
-        data-placement="left"
-        placement="bottom-right"
-        ngbDropdown
-      >
-        <a
-          class="btn btn-icon btn-light-primary btn-sm cursor-pointer"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          ngbDropdownToggle
-        >
-          <i class="ki ki-plus icon-1x"></i>
-        </a>
-        <div
-          ngbDropdownMenu
-          class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right"
-        >
-          <app-dropdown-menu2></app-dropdown-menu2>
-        </div>
-      </div>
+		<div class="d-flex align-items-center flex-wrap">
+			<div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
+				<input type="text" class="form-control pl-4" placeholder="Search..." />
+				<div class="input-group-append">
+					<span class="input-group-text">
+						<span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
+							class="svg-icon svg-icon-md"></span>
+					</span>
+				</div>
+			</div>
+			<app-topbar></app-topbar>&nbsp;&nbsp;
+			<div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left"
+				placement="bottom-right" ngbDropdown>
+				<a class="btn btn-icon btn-light-primary btn-sm cursor-pointer" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+					<i class="ki ki-plus icon-1x"></i>
+				</a>
+				<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
+					<app-dropdown-menu2></app-dropdown-menu2>
+				</div>
+			</div>
 
-      <!-- <a
+			<!-- <a
         class="btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2"
       >
         <span
@@ -202,8 +164,8 @@
         ></span>
       </a> -->
 
-    </div>
+		</div>
 
-  </div>
+	</div>
 </div>
 <!--end::Subheader-->

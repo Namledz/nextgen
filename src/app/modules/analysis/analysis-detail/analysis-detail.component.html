@@ -11,7 +11,7 @@
 		</div>
 		<div [@.disabled]="true">
 			<mat-tab-group class="demo-tab-group" animationDuration="0ms" (selectedTabChange)="tabClick($event)">
-				<mat-tab *ngIf='type != "covid"' #report label="QC">
+				<mat-tab *ngIf='type != "covid"' #report label="Quality Control">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-report [id]="id" [type]="type"></app-analysis-report>
