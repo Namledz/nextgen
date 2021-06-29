@@ -1,3 +1,4 @@
+import { UploadModalComponent } from './../../../../../components/upload-modal/upload-modal.component';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreadcrumbItemModel } from '../_models/breadcrumb-item.model';
@@ -5,6 +6,7 @@ import { LayoutService } from '../../../../core';
 import { SubheaderService } from '../_services/subheader.service';
 import { KTUtil } from '../../../../../../assets/js/components/util';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-subheader6',
@@ -43,7 +45,8 @@ export class Subheader6Component implements OnInit {
 		private layout: LayoutService,
 		private subheader: SubheaderService,
 		private cdr: ChangeDetectorRef,
-		private router: Router
+		private router: Router,
+		private modalService: NgbModal,
 	) {
 		this.title$ = this.subheader.titleSubject.asObservable();
 		this.breadcrumbs$ = this.subheader.breadCrumbsSubject.asObservable();
@@ -94,5 +97,13 @@ export class Subheader6Component implements OnInit {
 		if (this.router.url.includes(url)) {
 			return 'active'
 		}
+	}
+
+	openModalUpload() {
+		const modalRef = this.modalService.open(UploadModalComponent, { size: 'lg' });
+		modalRef.result.then(() =>
+			this.cdr.detectChanges(),
+			() => { }
+		);
 	}
 }

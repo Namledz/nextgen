@@ -1,0 +1,85 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+
+            <ng-container>Upload Sample</ng-container>
+        </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px;">
+        <!-- <ng-container *ngIf="isLoading$ | async">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>
+      </ng-container> -->
+
+        <ng-container>
+            <div class="dropzone" appDnd (fileDropped)="onFileDropped($event)">
+                <input type="file" #fileDropRef id="fileDropRef" multiple
+                    (change)="fileBrowseHandler($event.target.files)" />
+                <img src="assets/images/dnd/ic-upload-file.svg" alt="">
+                <h3>Drag and drop file here</h3>
+                <h3>or</h3>
+                <label for="fileDropRef">Browse for file</label>
+            </div>
+            <ngb-alert style="margin-top: 1rem;" [dismissible]="false" [type]="'light'">
+                <span class="svg-icon svg-icon-primary svg-icon-2x mr-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                        height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                            <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
+                            <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
+                        </g>
+                    </svg>
+                </span><strong>Allowed file formats:</strong> vcf
+            </ngb-alert>
+            <div class="files-list">
+                <div style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem;" *ngFor="let file of files; let i = index">
+                    <div class="single-file">
+                        <img src="assets/images/dnd/ic-file.svg" width="45px" alt="file">
+                        <div class="info">
+                            <h4 class="name">
+                                {{ file?.name }}
+                            </h4>
+                            <p class="size">
+                                {{ formatBytes(file?.size) }}
+                            </p>
+                            <app-progress [progress]="file?.progress"></app-progress>
+                        </div>
+                        <img src="assets/images/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file"
+                            (click)="deleteFile(i)">
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label>Sample Name*</label>
+                                <input type="text" class="form-control" name="sampleName"
+                                    placeholder="Enter sample name" value={{file?.name}} (change)="getSampleName($event, file)" />
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label>Work Space*</label>
+                                <select name="workSpace" class="form-control" (change)="getWorkSpace($event.target.value, file)">
+                                    <option value="1">Ambry Genetics Whole Genome Sequencing</option>
+                                    <option value="2">500 Genes Comprehensive Panel</option>
+                                    <option value="3">BRCANext comprehensive 30 genes panel</option>
+                                    <option value="4">SARS-CoV2 Orange County California
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
+        <ng-container>
+  
+        <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="checkSave()">Save</button>
+      </ng-container>
+    </div>
+</div>

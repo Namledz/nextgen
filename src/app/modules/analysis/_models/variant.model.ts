@@ -17,6 +17,7 @@ export interface Variant extends BaseModel {
 	// zygosity: string; 
 	clinvar: string;
 	gnomad_ALL: string;
+	gnomad: string;
 	gnomad_AMR: string;
 	gnomad_AFR: string;
 	cosmicID: string;
