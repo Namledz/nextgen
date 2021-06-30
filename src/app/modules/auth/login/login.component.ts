@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
+		console.log("existed");
+		this.router.navigate(['/']);
     }
   }
 

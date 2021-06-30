@@ -61,7 +61,8 @@ export class VariantListComponent implements
 
 	asideState: boolean = true
 	public chromosomeList = Datalist.chromosome
-	public annotationList = Datalist.annotation
+	public annotationList: any
+	public annotationOptions: any
 	public classificationList = Datalist.classification
 
 	public options = {
@@ -99,6 +100,8 @@ export class VariantListComponent implements
 		this.url = `${environment.apiUrl}/variant/${this.id}`
 		this.variantListService.API_URL = this.url;
 		this.filterForm();
+
+		this.setUpSelect2();
 		// this.searchForm();
 		// this.variantListService.sorting.column = 'classification';
 		// this.variantListService.sorting.direction = 'asc';
@@ -112,6 +115,58 @@ export class VariantListComponent implements
 		})
 		this.subscriptions.push(sb);
 		this.showColumnList()
+	}
+
+	setUpSelect2() {
+		this.annotationOptions = {
+			width: '100%',
+			multiple: true,
+			tags: true,
+			formatResult: function (data) {
+				return data.html;
+			},
+			formatSelection: function (data) {
+				return data.text;
+			}
+		};
+
+
+		this.annotationList = [{ id: "exonic", text: "Exon", items: ["frameshift", "inframe indel", "start lost", "start retained", "nonframeshift", "nonsynonymous SNV", "synonymous SNV", "stopgain", "stoploss", "stop retained", "coding", "missense", "Protein altering variant"], show: true },
+		{ id: "frameshift", text: "Frameshift", dad: "exonic", show: true },
+		{ id: "inframe indel", text: "Inframe indel", dad: "exonic", show: true },
+		{ id: "missense", text: "Missense", dad: "exonic", show: true },
+		{ id: "start lost", text: "Start loss", dad: "exonic", show: true },
+		{ id: "start retained", text: "Start retained", dad: "exonic", show: true },
+		{ id: "stopgain", text: "Stop gained", dad: "exonic", show: true },
+		{ id: "stoploss", text: "Stop loss", dad: "exonic", show: true },
+		{ id: "stop retained", text: "Stop retained", dad: "exonic", show: true },
+		{ id: "synonymous SNV", text: "Synonymous", dad: "exonic", show: true },
+		{ id: "coding", text: "Coding", dad: "exonic", show: true },
+		{ id: "Protein altering variant", text: "Protein altering variant", dad: "exonic", show: true },
+		{ id: "intronic", text: "Intron", show: true },
+		{ id: "splicing", text: "Splicing", items: ["splice_site_variant", "splice_region_variant", "splice_acceptor", "splice_donor"], show: true },
+		{ id: "splice_acceptor", text: "Splice acceptor", dad: "splicing", show: true },
+		{ id: "splice_donor", text: "Splice donor", dad: "splicing", show: true },
+		{ id: "splice_region", text: "Splice region", dad: "splicing", show: true },
+		{ id: "UTR", text: "UTR", items: ["3UTR", "5UTR"], show: true },
+		{ id: "3UTR", text: "3` UTR", dad: "UTR", show: true },
+		{ id: "5UTR", text: "5` UTR", dad: "UTR", show: true },
+		{ id: "regulatory_region", text: "Regulatory Region", items: ["TF_site", "sub_requlatory_region"], show: true },
+		{ id: "sub_requlatory_region", text: "Regulatory region", dad: "regulatory_region", show: true },
+		{ id: "upstream", text: "Upstream", items: ["NMD", "sub_upstream"], show: true },
+		{ id: "NMD", text: "NMD", dad: "upstream", show: true },
+		{ id: "sub_upstream", text: "Upstream variant", dad: "upstream", show: true },
+		{ id: "downstream", text: "Downstream", show: true },
+		{ id: "noncoding", text: "Noncoding", items: ["noncoding_exon", "noncoding_intron"], show: true },
+		{ id: "noncoding_exon", text: "Noncoding exon", dad: "noncoding", show: true },
+		{ id: "noncoding_intron", text: "Noncoding intron", dad: "noncoding", show: true },
+		{ id: "intergenic", text: "Intergenic", show: true },
+		{ id: "other", text: "Other", show: true }].map(e => {
+			e['html'] = `<h3 style="color: red">${e.text}</h3>`
+			return e;
+		})
+
+		console.log(this.annotationList)
 	}
 
 	ngAfterViewInit() {
@@ -389,9 +444,9 @@ export class VariantListComponent implements
 			return obj;
 		})
 
-		const sb = this.variantListService.selectVariantToReport({data})
-			.subscribe((res : any) => {
-				if(res.body.status == 'success') {
+		const sb = this.variantListService.selectVariantToReport({ data })
+			.subscribe((res: any) => {
+				if (res.body.status == 'success') {
 					this.toastr.success(res.body.message);
 				} else {
 					this.toastr.error(res.body.message);
