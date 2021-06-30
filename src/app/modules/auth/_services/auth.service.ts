@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
 import { AuthModel } from '../_models/auth.model';
-import { AuthHTTPService } from './auth-http';
+import { AuthHTTPService } from './auth-http/auth-http.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 
@@ -45,10 +45,11 @@ export class AuthService implements OnDestroy {
   // public methods
   login(email: string, password: string): Observable<UserModel> {
     this.isLoadingSubject.next(true);
+    let self = this;
     return this.authHttpService.login(email, password).pipe(
-      map((auth: AuthModel) => {
-        const result = this.setAuthFromLocalStorage(auth);
-        return result;
+      map((response) => {
+        this.currentUserSubject = new BehaviorSubject<UserModel>(response.data);
+        return response;
       }),
       switchMap(() => this.getUserByToken()),
       catchError((err) => {

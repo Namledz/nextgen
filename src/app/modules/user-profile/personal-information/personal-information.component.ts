@@ -41,10 +41,10 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
       pic: [this.user.pic],
       firstname: [this.user.firstname, Validators.required],
       lastname: [this.user.lastname, Validators.required],
-      companyName: [this.user.companyName, Validators.required],
-      phone: [this.user.phone, Validators.required],
+      // companyName: [this.user.companyName, Validators.required],
+      // phone: [this.user.phone, Validators.required],
       email: [this.user.email, Validators.compose([Validators.required, Validators.email])],
-      website: [this.user.website, Validators.required]
+      // website: [this.user.website, Validators.required]
     });
   }
 
@@ -71,15 +71,15 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   }
 
   getPic() {
-    if (!this.user.pic) {
-      return 'none';
-    }
+    // if (!this.user.pic) {
+    //   return 'none';
+    // }
 
-    return `url('${this.user.pic}')`;
+    // return `url('${this.user.pic}')`;
   }
 
   deletePic() {
-    this.user.pic = '';
+    //this.user.pic = '';
   }
 
   // helpers for View
