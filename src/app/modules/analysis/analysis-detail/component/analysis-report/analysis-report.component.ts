@@ -56,7 +56,7 @@ export class AnalysisReportComponent implements OnInit  {
 			setTimeout(() => {
 				this.isLoading = false;
 				self.cd.detectChanges();
-			}, 1000)
+			}, 1500)
 		}
 	}
 
