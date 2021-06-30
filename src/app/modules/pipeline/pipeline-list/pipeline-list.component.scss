@@ -4,17 +4,17 @@ table {
 }
 
 td, th {
-  border: 2px solid #fff;
+  border: 1px solid lightgray;
   text-align: left;
   padding: 8px;
   height: 100px;
   overflow: hidden;
 }
 
-tr:nth-child(odd) {
-  background-color: #3f425414;
-}
+// tr:nth-child(odd) {
+//   background-color: #3f425414;
+// }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
+// tr:nth-child(even) {
+//   background-color: #dddddd;
+// }

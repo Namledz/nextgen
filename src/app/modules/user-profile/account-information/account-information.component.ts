@@ -39,11 +39,11 @@ export class AccountInformationComponent implements OnInit, OnDestroy {
     this.formGroup = this.fb.group({
       username: [this.user.username, Validators.required],
       email: [this.user.email, Validators.compose([Validators.required, Validators.email])],
-      language: [this.user.language],
-      timeZone: [this.user.timeZone],
-      communicationEmail: [this.user.communication.email],
-      communicationSMS: [this.user.communication.sms],
-      communicationPhone: [this.user.communication.phone]
+      // language: [this.user.language],
+      // timeZone: [this.user.timeZone],
+      // communicationEmail: [this.user.communication.email],
+      // communicationSMS: [this.user.communication.sms],
+      // communicationPhone: [this.user.communication.phone]
     });
   }
 

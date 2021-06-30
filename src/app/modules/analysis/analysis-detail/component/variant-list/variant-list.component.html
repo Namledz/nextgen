@@ -354,13 +354,13 @@
 										<a href="https://www.ncbi.nlm.nih.gov/clinvar/variation/{{ variant.Clinvar_VARIANT_ID }}"
                                             target="_blank">{{variant.Clinvar_VARIANT_ID}}</a>
 											<br>
-										<span><i
+										<span *ngIf="variant.Clinvar_VARIANT_ID != '.'"><i
                                             [ngClass]="variant.gold_stars >= 1 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
-                                    <span><i
+                                    <span *ngIf="variant.Clinvar_VARIANT_ID != '.'"><i
                                             [ngClass]="variant.gold_stars >= 2 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
-                                    <span><i
+                                    <span *ngIf="variant.Clinvar_VARIANT_ID != '.'"><i
                                             [ngClass]="variant.gold_stars >= 3 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
-                                    <span><i
+                                    <span *ngIf="variant.Clinvar_VARIANT_ID != '.'"><i
                                             [ngClass]="variant.gold_stars >= 4 ? 'fa fa-star yellow-star' : 'fa fa-star'"></i></span>
 									</td>
 
