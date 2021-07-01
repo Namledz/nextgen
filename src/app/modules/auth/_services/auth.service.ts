@@ -55,8 +55,8 @@ export class AuthService implements OnDestroy {
 		let res;
 		return this.authHttpService.login(email, password).pipe(
 			map((response) => {
-				res = self.convertResponse(response);
-				return res;
+				// res = self.convertResponse(response);
+				return response;
 			}),
 			switchMap(() => this.getUserByToken()),
 			switchMap(() => { return of(res)}),
