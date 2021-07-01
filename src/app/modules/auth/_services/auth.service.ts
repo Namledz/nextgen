@@ -7,7 +7,7 @@ import { AuthHTTPService } from './auth-http/auth-http.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../_models/response.model';
-import { ToastrService } from 'ngx-toastr';
+
 
 @Injectable({
 	providedIn: 'root',
@@ -38,7 +38,7 @@ export class AuthService implements OnDestroy {
 	constructor(
 		private authHttpService: AuthHTTPService,
 		private router: Router,
-		private toastr: ToastrService
+		
 	) {
 		this.isLoadingSubject = new BehaviorSubject<boolean>(false);
 		this.currentUserSubject = new BehaviorSubject<UserModel>(undefined);
@@ -49,18 +49,13 @@ export class AuthService implements OnDestroy {
 	}
 
 	// public methods
-	login(email: string, password: string): Observable<UserModel> {
+	login(email: string, password: string): Observable<ResponseModel> {
 		this.isLoadingSubject.next(true);
 		let self = this;
 		let res;
 		return this.authHttpService.login(email, password).pipe(
 			map((response) => {
 				res = self.convertResponse(response);
-				if (res.status == 'success') {
-					self.toastr.success(res.message);
-				} else {
-					self.toastr.error(res.message);
-				}
 				return res;
 			}),
 			switchMap(() => this.getUserByToken()),
