@@ -66,9 +66,10 @@ export class AuthService implements OnDestroy {
 	}
 
 	logout() {
+		console.log("Logging out")
 		return this.authHttpService.logout().pipe(
 			map(() => {
-				localStorage.clear()
+				// localStorage.clear()
 				return true;
 			}),
 			catchError((err) => {
