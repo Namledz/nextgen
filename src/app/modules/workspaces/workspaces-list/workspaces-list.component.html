@@ -1,14 +1,14 @@
 <div class="card card-custom gutter-b">
-    <div class="card-header">
-        <div class="card-title">
-          <h3 class="card-label">My Workspaces</h3>
-        </div>
-        <div class="card-toolbar">
-          <button type="button" class="btn btn-primary">New Workspace</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <!-- <div class="form form-label-right">
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">My Workspaces</h3>
+		</div>
+		<div class="card-toolbar">
+			<button type="button" class="btn btn-primary">New Workspace</button>
+		</div>
+	</div>
+	<div class="card-body">
+		<!-- <div class="form form-label-right">
             <div class="form-group row">
               <div class="col-lg-3" [formGroup]="searchGroup">
                 <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
@@ -16,96 +16,104 @@
               </div>
             </div>
           </div> -->
-        <ng-container *ngIf="grouping.getSelectedRowsCount()">
-            <div class="form">
-              <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-                <div class="col-xl-12">
-                  <div class="form-group form-group-inline">
-                    <div class="form-label form-label-no-wrap">
-                      <label class="font-bold font-danger"><span>Selected records count:
-                          <b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
-                    </div>
-                    <div>
-                      <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
-                        (click)="deleteSelected()">
-                        <i class="fa fa-trash"></i> Delete All
-                      </button>&nbsp;
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
+		<ng-container *ngIf="grouping.getSelectedRowsCount()">
+			<div class="form">
+				<div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+					<div class="col-xl-12">
+						<div class="form-group form-group-inline">
+							<div class="form-label form-label-no-wrap">
+								<label class="font-bold font-danger"><span>Selected records count:
+										<b>{{ grouping.getSelectedRowsCount() }}</b></span></label>
+							</div>
+							<div>
+								<button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+									(click)="deleteSelected()">
+									<i class="fa fa-trash"></i> Delete All
+								</button>&nbsp;
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
 
-          <div class="table-responsive angular-bootstrap-table">
-            <table class="table table-head-custom table-vertical-center overflow-hidden">
-              <thead>
-                <th class="selection-cell-header" data-row-selection="true">
-                  <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
-                      [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
-                </th>
-                <th>
-                  Name
-                  <app-sort-icon column="name" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                    (sort)="sort($event)"></app-sort-icon>
-                </th>
-                <th>
-                  Last Modified
-                  <app-sort-icon column="lastModified" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                    (sort)="sort($event)"></app-sort-icon>
-                </th>
-                <th>
-                  Created By
-                  <app-sort-icon column="createdBy" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                    (sort)="sort($event)"></app-sort-icon>
-                </th>
-                <th>
-                    Number
-                  <app-sort-icon column="number" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                    (sort)="sort($event)"></app-sort-icon>
-                </th>
-                <th>
-                    Pipeline
-                  <app-sort-icon column="pipeline" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                    (sort)="sort($event)"></app-sort-icon>
-                </th>
-                <th>ACTIONS</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let workspace of workspacesService.items$ | async">
-                  <td class="selection-cell">
-                    <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(workspace.id)"
-                        [checked]="grouping.isRowSelected(workspace.id)" />
-                      <span></span>
-                    </label>
-                  </td>
-                  <td><a href="/workspaces/index/{{workspace.id}}">{{ workspace.name }}</a></td>
-                  <td>{{ workspace.lastModified }}</td>
-                  <td>{{ workspace.createdBy }}</td>
-                  <td>{{ workspace.number }}</td>
-                  <td>{{ workspace.pipeline }}</td> 
-                  <td>
-      
-                    <a title="Edit workspace" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                      (click)="edit(workspace.id)">
-                      <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                        class="svg-icon svg-icon-md svg-icon-primary">
-                      </span>
-                    </a>
-      
-                    <a title="Delete workspace" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                      (click)="delete(workspace.id)">
-                      <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
-                        class="svg-icon svg-icon-md svg-icon-danger">
-                      </span>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>         
+		<div class="table-responsive angular-bootstrap-table">
+			<table class="table table-head-custom table-vertical-center overflow-hidden">
+				<thead>
+					<th class="selection-cell-header" data-row-selection="true">
+						<label class="checkbox checkbox-single"><input type="checkbox"
+								(click)="grouping.selectAllRows()"
+								[checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+					</th>
+					<th>
+						Name
+						<app-sort-icon column="name" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Last Modified
+						<app-sort-icon column="lastModified" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Created By
+						<app-sort-icon column="createdBy" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Access
+						<app-sort-icon column="access" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+							(sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Number
+						<app-sort-icon column="number" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
+						Pipeline
+						<app-sort-icon column="pipeline" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+					<tr *ngFor="let workspace of workspacesService.items$ | async">
+						<td class="selection-cell">
+							<label class="checkbox checkbox-single"><input type="checkbox"
+									(click)="grouping.selectRow(workspace.id)"
+									[checked]="grouping.isRowSelected(workspace.id)" />
+								<span></span>
+							</label>
+						</td>
+						<td><a href="/workspaces/index/{{workspace.id}}">{{ workspace.name }}</a></td>
+						<td>{{ workspace.lastModified }}</td>
+						<td>{{ workspace.createdBy }}</td>
+						<td>{{ workspace.access }}</td>
+						<td>{{ workspace.number }}</td>
+						<td>{{ workspace.pipeline }}</td>
+						<td>
 
-          <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-          [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>      
-      </div>
+							<a title="Edit workspace" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+								(click)="edit(workspace.id)">
+								<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+									class="svg-icon svg-icon-md svg-icon-primary">
+								</span>
+							</a>
+
+							<a title="Delete workspace" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+								(click)="delete(workspace.id)">
+								<span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+									class="svg-icon svg-icon-md svg-icon-danger">
+								</span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+			[isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+	</div>
 </div>

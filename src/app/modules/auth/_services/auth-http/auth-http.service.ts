@@ -34,4 +34,8 @@ export class AuthHTTPService {
 		console.log("hellllllll")
 		return this.http.get(`${API_USERS_URL}/getCurrentUser`, { withCredentials: true, observe: 'response' });
 	}
+
+	logout(): Observable<any> {
+		return this.http.post(`${API_USERS_URL}/logout`, {}, { withCredentials: true, observe: 'response' });
+	}
 }

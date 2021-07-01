@@ -49,14 +49,14 @@ export class AuthService implements OnDestroy {
 	login(email: string, password: string): Observable<UserModel> {
 		this.isLoadingSubject.next(true);
 		let self = this;
-		let response;
+		let res;
 		return this.authHttpService.login(email, password).pipe(
 			map((response) => {
-				this.currentUserSubject = new BehaviorSubject<UserModel>(response.data);
-				return response;
+				res = self.convertResponse(response);
+				return res;
 			}),
 			switchMap(() => this.getUserByToken()),
-			switchMap(() => { return of(response)}),
+			switchMap(() => { return of(res)}),
 			catchError((err) => {
 				console.error('err', err);
 				return of(undefined);
@@ -66,10 +66,14 @@ export class AuthService implements OnDestroy {
 	}
 
 	logout() {
-		localStorage.removeItem(this.authLocalStorageToken);
-		this.router.navigate(['/auth/login'], {
-			queryParams: {},
-		});
+		return this.authHttpService.logout().pipe(
+			map(() => {
+				localStorage.clear()
+				return true;
+			}),
+			catchError((err) => {
+				return of(undefined);
+			}))
 	}
 
 	getUserByToken(): Observable<UserModel> {
