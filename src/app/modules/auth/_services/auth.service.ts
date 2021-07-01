@@ -85,10 +85,8 @@ export class AuthService implements OnDestroy {
 				if (res.status == 'success' && res.data) {
 					this.currentUserSubject = new BehaviorSubject<UserModel>(res.data);
 					this.currentUser = res.data
-					console.log("hello33121")
 					return res.data;
 				} else {
-					console.log("hello1")
 					this.redirectLogin();
 					throw new Error("Redirect");
 				}
@@ -110,10 +108,9 @@ export class AuthService implements OnDestroy {
 
 	private convertResponse(response): ResponseModel {
 		let res = new ResponseModel;
-		res.code = response.status;
-		res.status = response.body.status;
-		res.message = response.body.message || '';
-		res.data = response.body.data || {};
+		res.status = response.status;
+		res.message = response.message || '';
+		res.data = response.data || {};
 		return res;
 	}
 
