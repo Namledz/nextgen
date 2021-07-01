@@ -7,6 +7,7 @@ import { AuthHTTPService } from './auth-http/auth-http.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ResponseModel } from '../_models/response.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,6 +18,7 @@ export class AuthService implements OnDestroy {
 
 	private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 	private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
+	
 
 	// public fields
 	currentUser$: Observable<UserModel>;
@@ -35,7 +37,8 @@ export class AuthService implements OnDestroy {
 
 	constructor(
 		private authHttpService: AuthHTTPService,
-		private router: Router
+		private router: Router,
+		private toastr: ToastrService
 	) {
 		this.isLoadingSubject = new BehaviorSubject<boolean>(false);
 		this.currentUserSubject = new BehaviorSubject<UserModel>(undefined);
@@ -53,6 +56,11 @@ export class AuthService implements OnDestroy {
 		return this.authHttpService.login(email, password).pipe(
 			map((response) => {
 				res = self.convertResponse(response);
+				if (res.status == 'success') {
+					self.toastr.success(res.message);
+				} else {
+					self.toastr.error(res.message);
+				}
 				return res;
 			}),
 			switchMap(() => this.getUserByToken()),
@@ -110,10 +118,10 @@ export class AuthService implements OnDestroy {
 
 	private convertResponse(response): ResponseModel {
 		let res = new ResponseModel;
-		res.code = response.status;
-		res.status = response.body.status;
-		res.message = response.body.message || '';
-		res.data = response.body.data || {};
+		
+		res.status = response.status;
+		res.message = response.message || '';
+		res.data = response.data || {};
 		return res;
 	}
 
