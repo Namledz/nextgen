@@ -81,22 +81,24 @@ export class AuthService implements OnDestroy {
 	}
 
 	getUserByToken(): Observable<UserModel> {
+		let self = this;
 		this.isLoadingSubject.next(true);
 		return this.authHttpService.getUserByToken().pipe(
 			map((response) => {
-				let res = this.convertResponse(response);
+				let res = self.convertResponse(response);
 				console.log(res);
 				if (res.status == 'success' && res.data) {
-					this.currentUserSubject = new BehaviorSubject<UserModel>(res.data);
-					this.currentUser = res.data
+					self.currentUserSubject = new BehaviorSubject<UserModel>(res.data);
+					self.currentUser = res.data
 					return res.data;
 				} else {
-					this.redirectLogin();
+					self.redirectLogin();
 					throw new Error("Redirect");
 				}
 			}),
 			catchError((err) => {
-				console.log(err);
+				// console.log(err);
+				// this.redirectLogin();
 				return of(undefined);
 			}),
 			finalize(() => this.isLoadingSubject.next(false))
@@ -110,6 +112,8 @@ export class AuthService implements OnDestroy {
 	}
 
 	private convertResponse(response): ResponseModel {
+		console.log(response);
+		console.log(123);
 		let res = new ResponseModel;
 		res.status = response.status;
 		res.message = response.message || '';
