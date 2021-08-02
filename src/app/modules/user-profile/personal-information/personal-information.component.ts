@@ -39,8 +39,8 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   loadForm() {
     this.formGroup = this.fb.group({
       pic: [this.user.pic],
-      firstname: [this.user.firstname, Validators.required],
-      lastname: [this.user.lastname, Validators.required],
+      firstname: [this.user.first_name, Validators.required],
+      lastname: [this.user.last_name, Validators.required],
       // companyName: [this.user.companyName, Validators.required],
       // phone: [this.user.phone, Validators.required],
       email: [this.user.email, Validators.compose([Validators.required, Validators.email])],

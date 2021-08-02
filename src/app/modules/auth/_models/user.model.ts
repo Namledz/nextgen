@@ -2,16 +2,19 @@ import { AuthModel } from './auth.model';
 import { AddressModel } from './address.model';
 import { SocialNetworksModel } from './social-networks.model';
 
-export class UserModel extends AuthModel {
+export class UserModel {
   id: number;
+  uuid: string;
   username: string;
-  firstname: string;
-  lastname: string;
+  first_name: string;
+  last_name: string;
   password: string;
   email: string;
-  roles: number;
+  role: number;
   pic: string;
   status: number;
+  group: string;
+  institution: string;
   // account information
   createdAt: string;
   updatedAt: string;
@@ -23,7 +26,7 @@ export class UserModel extends AuthModel {
     //this.fullname = user.fullname || '';
     this.email = user.email || '';
     this.pic = user.pic || './assets/media/users/default.jpg';
-    this.roles = user.roles || [];
+    this.role = user.role || [];
     // this.occupation = user.occupation || '';
     // this.companyName = user.companyName || '';
     // this.phone = user.phone || '';

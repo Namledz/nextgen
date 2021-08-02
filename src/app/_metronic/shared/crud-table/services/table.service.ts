@@ -96,6 +96,19 @@ export abstract class TableService<T> {
     );
   }
 
+  findUsers(tableState: ITableState): Observable<TableResponseModel<T>> {
+    const url = this.API_URL + '/getUsers';
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    return this.http.post<TableResponseModel<T>>(url, tableState).pipe(
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('FIND ITEMS', err);
+        return of({ items: [], total: 0 });
+      })
+    );
+  }
+
   getItemById(id: number): Observable<BaseModel> {
     this._isLoading$.next(true);
     this._errorMessage.next('');
@@ -176,6 +189,41 @@ export abstract class TableService<T> {
     this._isLoading$.next(true);
     this._errorMessage.next('');
     const request = this.find(this._tableState$.value)
+      .pipe(
+        tap((res: TableResponseModel<T>) => {
+          this._items$.next(res.items);
+          this.patchStateWithoutFetch({
+            paginator: this._tableState$.value.paginator.recalculatePaginator(
+              res.total
+            ),
+          });
+        }),
+        catchError((err) => {
+          this._errorMessage.next(err);
+          return of({
+            items: [],
+            total: 0
+          });
+        }),
+        finalize(() => {
+          this._isLoading$.next(false);
+          const itemIds = this._items$.value.map((el: T) => {
+            const item = (el as unknown) as BaseModel;
+            return item.id;
+          });
+          this.patchStateWithoutFetch({
+            grouping: this._tableState$.value.grouping.clearRows(itemIds),
+          });
+        })
+      )
+      .subscribe();
+    this._subscriptions.push(request);
+  }
+
+  public fetchUsers() {
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    const request = this.findUsers(this._tableState$.value)
       .pipe(
         tap((res: TableResponseModel<T>) => {
           this._items$.next(res.items);
