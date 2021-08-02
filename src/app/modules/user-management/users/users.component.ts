@@ -87,11 +87,11 @@ export class UsersComponent implements
     if (role) {
       filter['role'] = role;
     }
-    this.usersService.patchState({ filter });
+    this.usersService.patchStateUsers({ filter });
   }
 
   search(searchTerm: string) {
-    this.usersService.patchState({ searchTerm });
+    this.usersService.patchStateUsers({ searchTerm });
   }
 
   searchForm() {
@@ -116,12 +116,12 @@ export class UsersComponent implements
     } else {
       sorting.direction = sorting.direction === 'asc' ? 'desc' : 'asc';
     }
-    this.usersService.patchState({ sorting });
+    this.usersService.patchStateUsers({ sorting });
   }
 
 
   paginate(paginator: PaginatorState) {
-    this.usersService.patchState({ paginator });
+    this.usersService.patchStateUsers({ paginator });
   }
 
   create() {

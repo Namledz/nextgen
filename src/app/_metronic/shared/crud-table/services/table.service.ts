@@ -261,6 +261,11 @@ export abstract class TableService<T> {
     this.fetch();
   }
 
+  public patchStateUsers(patch: Partial<ITableState>) {
+    this.patchStateWithoutFetch(patch);
+    this.fetchUsers();
+  }
+
   public patchStateReset() {
     let patchReset = {
       filter: {},
