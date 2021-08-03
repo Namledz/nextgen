@@ -38,4 +38,8 @@ export class AuthHTTPService {
 	logout(): Observable<any> {
 		return this.http.post(`${API_USERS_URL}/logout`, {}, { withCredentials: true, observe: 'response' });
 	}
+
+	setPassword(data): Observable<any> {
+		return this.http.post(`${API_USERS_URL}/setPasswordUser`, data, { withCredentials: true, observe:'response'});
+	}
 }

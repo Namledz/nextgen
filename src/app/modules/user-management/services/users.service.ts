@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
 import { TableService } from 'src/app/_metronic/shared/crud-table';
 import { environment } from 'src/environments/environment';
 
@@ -43,5 +44,13 @@ export class UsersService extends TableService<any> implements OnDestroy {
     return this.http.delete<any>(url, {withCredentials: true}).pipe(response => {
       return response
     })
+  }
+
+  deleteItemsUsers(ids: number[] = []): Observable<any> {
+    const tasks$ = [];
+		ids.forEach(id => {
+			tasks$.push(this.deleteUser(id));
+		});
+		return forkJoin(tasks$);
   }
 }

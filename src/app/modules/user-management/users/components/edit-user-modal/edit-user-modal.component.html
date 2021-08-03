@@ -81,14 +81,14 @@
                 formControlName="institution" />
               <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'group')">Institution format is incorrect</div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" *ngIf="user.id">
               <label class="form-label">Enter Password</label>
               <input type="password" class="form-control form-control-lg form-control-solid" name="password"
                 placeholder="Password" autocomplete="new-password" [class.is-invalid]="isControlInvalid('password')" formControlName="password" />
               <div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">Password is required</div>
               <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'password')">Password requires at least 8 characters in length includes at least 1 lowercase letter, 1 uppercase letter and 1 number</div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" *ngIf="user.id">
               <label class="form-label">Enter Confirm Password</label>
               <input type="password" class="form-control form-control-lg form-control-solid" name="cPassword"
                 placeholder="Confirm Password" autocomplete="new-password" [class.is-invalid]="isControlInvalid('cPassword')"

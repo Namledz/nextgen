@@ -12,7 +12,6 @@ import { UsersService } from '../../../services/users.service';
 const EMPTY_USER: UserModel = {
   id: undefined,
   uuid: '',
-  username: '',
   first_name: '',
   last_name: '',
   password: '',
@@ -69,7 +68,6 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
         })
       ).subscribe((user: UserModel) => {
         this.user = user;
-        console.log(this.user)
         this.loadFormEdit();
       });
       this.subscriptions.push(sb);
@@ -81,17 +79,11 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       first_name: [this.user.first_name, Validators.compose([Validators.required, Validators.maxLength(100)])],
       last_name: [this.user.last_name, Validators.compose([Validators.required, Validators.maxLength(100)])],
       email: [this.user.email, Validators.compose([Validators.required, Validators.email])],
-      status: [this.user.status],
+      status: [this.user.status, Validators.compose([Validators.required])],
       institution: [this.user.institution],
       group: [this.user.group],
       role: [this.user.role, Validators.compose([Validators.required])],
-      password: [this.user.password, Validators.compose([Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)])],
-      cPassword: [this.user.password, Validators.compose([Validators.required, Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)])],
-    },
-      {
-        validator: ConfirmPasswordValidator.MatchPassword
-      }
-    );
+    });
     if (!this.uuid) {
       this.formGroup.reset();
     }
@@ -167,7 +159,8 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
     this.user.last_name = formData.last_name;
     this.user.email = formData.email;
     this.user.institution = formData.institution;
-    this.user.role = +formData.role;
+    this.user.group = formData.group;
+    this.user.role = formData.role;
     this.user.password = formData.password;
     this.user.status = formData.status;
   }

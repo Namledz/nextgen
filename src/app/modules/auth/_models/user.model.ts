@@ -5,7 +5,6 @@ import { SocialNetworksModel } from './social-networks.model';
 export class UserModel {
   id: number;
   uuid: string;
-  username: string;
   first_name: string;
   last_name: string;
   password: string;
@@ -21,7 +20,6 @@ export class UserModel {
 
   setUser(user: any) {
     this.id = user.id;
-    this.username = user.username || '';
     this.password = user.password || '';
     //this.fullname = user.fullname || '';
     this.email = user.email || '';

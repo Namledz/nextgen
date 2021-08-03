@@ -21,6 +21,7 @@ import {
 import { WorkspacesService } from '../../workspaces/services/workspaces.service';
 import { UsersService } from '../services/users.service';
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
+import { DeleteUsersModalComponent } from './components/delete-users-modal/delete-users-modal.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 
 @Component({
@@ -58,7 +59,6 @@ export class UsersComponent implements
   ) { }
 
   ngOnInit(): void {
-    console.log(this.usersService.items$)
     this.filterForm();
     this.searchForm();
     this.usersService.fetchUsers();
@@ -72,10 +72,16 @@ export class UsersComponent implements
   filterForm() {
     this.filterGroup = this.fb.group({
       role: [''],
+      status: [''],
       searchTerm: [''],
     });
     this.subscriptions.push(
       this.filterGroup.controls.role.valueChanges.subscribe(() =>
+        this.filter()
+      )
+    );
+    this.subscriptions.push(
+      this.filterGroup.controls.status.valueChanges.subscribe(() =>
         this.filter()
       )
     );
@@ -87,6 +93,12 @@ export class UsersComponent implements
     if (role) {
       filter['role'] = role;
     }
+
+    const status = this.filterGroup.get('status').value;
+    if (status) {
+      filter['status'] = status;
+    }
+
     this.usersService.patchStateUsers({ filter });
   }
 
@@ -146,8 +158,28 @@ export class UsersComponent implements
     })
   }
 
-  deleteSelected(): void {
+  deleteSelected() {
+    const modalRef = this.modalService.open(DeleteUsersModalComponent, {size: 'md'});
+    modalRef.componentInstance.uuids = this.grouping.getSelectedRows()
+    modalRef.result.then(()=> {
+      this.usersService.fetchUsers(),
+      () => {}
+    })
   }
+
+  getStatusCSS(status) {
+    switch(status) {
+      case 'Active':
+        return 'label-light-primary'
+      case 'Disabled':
+        return 'label-light-danger'
+      case 'Pending':
+        return 'label-light-default'
+      default:
+        return 'label-light-default'
+    }
+  }
+
   fetchSelected(): void {
   }
   updateStatusForSelected(): void {

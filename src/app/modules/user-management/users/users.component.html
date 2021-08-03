@@ -14,12 +14,24 @@
                 <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
                   formControlName="searchTerm" /><small class="form-text text-muted"><b>Search</b> in all fields</small>
               </div>
-			  <div class="col-lg-3" [formGroup]="filterGroup">
-				<select class="form-control" placeholder="Filter by Role" name="role" formControlName="role">
-					<option value="">All</option>
-					<option value="Admin">Admin</option>
-					<option value="User">User</option>
-				</select><small class="form-text text-muted"><b>Filter</b> by Role</small>
+			  <div class="col-lg-4">
+				  <div class="row" [formGroup]="filterGroup">
+					  <div class="col-lg-6">
+						<select class="form-control" placeholder="Filter by Role" name="role" formControlName="role">
+							<option value="">All</option>
+							<option value=0 >Admin</option>
+							<option value=1>User</option>
+						</select><small class="form-text text-muted"><b>Filter</b> by Role</small>
+					  </div>
+					  <div class="col-lg-6">
+						<select class="form-control" name="status" placeholder="Filter by Status" formControlName="status">
+							<option value="">All</option>
+							<option value="0">Active</option>
+							<option value="2">Disabled</option>
+							<option value="3">Pending</option>
+						  </select><small class="form-text text-muted"><b>Filter</b> by Status</small>
+					  </div>
+				  </div>
 			  </div>
             </div>
         </div>
@@ -68,6 +80,11 @@
 							(sort)="sort($event)"></app-sort-icon>
 					</th>
 					<th>
+						Status
+						<app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+							(sort)="sort($event)"></app-sort-icon>
+					</th>
+					<th>
 						Institution
 						<app-sort-icon column="institution" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
@@ -91,7 +108,12 @@
 						<td>{{ user.name }}</td>
 						<td>{{ user.email }}</td>
 						<td>{{ user.role }}</td>
-						<td>{{ user.institution}}</td>
+						<td>
+							<span class="label label-lg label-inline" [ngClass]="getStatusCSS(user.status)">
+								{{ user.status }}
+							</span>
+						</td>
+						<td>{{ user.institution }}</td>
 						<td>{{ user.group}}</td>
 						<td>
 
