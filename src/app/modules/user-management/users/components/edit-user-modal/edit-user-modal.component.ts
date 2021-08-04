@@ -1,9 +1,10 @@
+import { shiftLeft } from '@amcharts/amcharts4/.internal/core/utils/Array';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { catchError, first, tap } from 'rxjs/operators';
 import { ConfirmPasswordValidator } from 'src/app/modules/auth/registration/confirm-password.validator';
 import { UserModel } from 'src/app/modules/auth/_models/user.model';
@@ -37,6 +38,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
 
   @Input() uuid;
   isLoading$;
+  isLoad: boolean = false
   user: UserModel;
   formGroup: FormGroup;
   private subscriptions: Subscription[] = []
@@ -48,7 +50,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
     public http: HttpClient,
     private toastr: ToastrService,
     private cd : ChangeDetectorRef,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isLoading$ = this.usersService.isLoading$;
@@ -117,8 +119,11 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   }
 
   edit() {
+    let self = this
+    self.isLoad = true
     const sbUpdate = this.usersService.updateUser(this.user).pipe(
       tap((res) => {
+        self.isLoad = false
         if(res.status == 'success') {
             this.toastr.success(res.message);
             this.modal.close();
@@ -135,8 +140,11 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   }
 
   create() {
+    let self = this
+    self.isLoad = true
     const sbCreate = this.usersService.createUser(this.user).pipe(
       tap((res) => {
+        self.isLoad = false
         if(res.status == 'success') {
             this.toastr.success(res.message);
             this.modal.close();

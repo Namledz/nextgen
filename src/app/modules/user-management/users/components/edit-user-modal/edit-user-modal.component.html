@@ -106,7 +106,10 @@
       <ng-container *ngIf="user">
 
         <button type="submit" class="btn btn-primary btn-elevate" (click)="save()"
-          [disabled]="formGroup.invalid">Save</button>
+          [disabled]="formGroup.invalid || isLoad ">Save</button>
+      </ng-container>
+      <ng-container *ngIf="isLoad">
+        <span class="spinner spinner-primary ml-3 mr-5"></span>
       </ng-container>
     </div>
   </div>

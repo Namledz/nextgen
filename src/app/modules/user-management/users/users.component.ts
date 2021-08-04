@@ -61,7 +61,7 @@ export class UsersComponent implements
   ngOnInit(): void {
     this.filterForm();
     this.searchForm();
-    this.usersService.fetchUsers();
+    this.usersService.fetch();
     this.grouping = this.usersService.grouping;
     this.paginator = this.usersService.paginator;
     this.sorting = this.usersService.sorting;
@@ -99,11 +99,11 @@ export class UsersComponent implements
       filter['status'] = status;
     }
 
-    this.usersService.patchStateUsers({ filter });
+    this.usersService.patchState({ filter });
   }
 
   search(searchTerm: string) {
-    this.usersService.patchStateUsers({ searchTerm });
+    this.usersService.patchState({ searchTerm });
   }
 
   searchForm() {
@@ -128,12 +128,12 @@ export class UsersComponent implements
     } else {
       sorting.direction = sorting.direction === 'asc' ? 'desc' : 'asc';
     }
-    this.usersService.patchStateUsers({ sorting });
+    this.usersService.patchState({ sorting });
   }
 
 
   paginate(paginator: PaginatorState) {
-    this.usersService.patchStateUsers({ paginator });
+    this.usersService.patchState({ paginator });
   }
 
   create() {
@@ -144,7 +144,7 @@ export class UsersComponent implements
     const modalRef = this.modalService.open(EditUserModalComponent, { size: 'xl' });
     modalRef.componentInstance.uuid = id;
     modalRef.result.then(() =>
-      this.usersService.fetchUsers(),
+      this.usersService.fetch(),
       () => {}
     );
   }
@@ -153,7 +153,7 @@ export class UsersComponent implements
     const modalRef = this.modalService.open(DeleteUserModalComponent, {size: 'md'});
     modalRef.componentInstance.uuid = id;
     modalRef.result.then(() => {
-      this.usersService.fetchUsers(),
+      this.usersService.fetch(),
       () => {}
     })
   }
@@ -162,7 +162,7 @@ export class UsersComponent implements
     const modalRef = this.modalService.open(DeleteUsersModalComponent, {size: 'md'});
     modalRef.componentInstance.uuids = this.grouping.getSelectedRows()
     modalRef.result.then(()=> {
-      this.usersService.fetchUsers(),
+      this.usersService.fetch(),
       () => {}
     })
   }

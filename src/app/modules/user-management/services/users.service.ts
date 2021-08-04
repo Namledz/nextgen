@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { TableService } from 'src/app/_metronic/shared/crud-table';
+import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic/shared/crud-table';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class UsersService extends TableService<any> implements OnDestroy {
   constructor(@Inject(HttpClient) http) {
     super(http);
    }
+
+  find(tableState: ITableState): Observable<TableResponseModel<any>> {
+		return this.http.post<TableResponseModel<any>>(this.API_URL, tableState, { withCredentials: true })
+	}
 
   ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
