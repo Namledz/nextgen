@@ -142,7 +142,7 @@ export class AuthService implements OnDestroy {
 		);
 	}
 
-	forgotPassword(email: string): Observable<boolean> {
+	forgotPassword(email: string): Observable<any> {
 		this.isLoadingSubject.next(true);
 		return this.authHttpService
 			.forgotPassword(email)
@@ -153,6 +153,13 @@ export class AuthService implements OnDestroy {
 		this.isLoadingSubject.next(true);
 		return this.authHttpService
 			.setPassword(data)
+			.pipe(finalize(() => this.isLoadingSubject.next(false)));
+	}
+
+	recoveryPassword(data) {
+		this.isLoadingSubject.next(true);
+		return this.authHttpService
+			.recoveryPassword(data)
 			.pipe(finalize(() => this.isLoadingSubject.next(false)));
 	}
 

@@ -6,6 +6,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {LogoutComponent} from './logout/logout.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'set-password/:id',
         component: SetPasswordComponent
+      },
+      {
+        path: 'password-recovery/:id',
+        component: RecoverPasswordComponent
       },
       {path: '', redirectTo: 'login', pathMatch: 'full'},
       {path: '**', redirectTo: 'login', pathMatch: 'full'},
