@@ -85,11 +85,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 		const loginSubscr = this.authService
 			.login(this.f.email.value, this.f.password.value)
 			.pipe(first())
-			.subscribe((res: ResponseModel) => {
-				if (res.status == "success") {
+			.subscribe((res: any) => {	
+				if (res.body.status == "success") {
 					this.router.navigate([this.returnUrl]);
 				} else {
-					this.toastr.error(res.message);
+					this.toastr.error(res.body.message);
 					// this.hasError = true;
 					// this.errorMessage = res.message;
 				}

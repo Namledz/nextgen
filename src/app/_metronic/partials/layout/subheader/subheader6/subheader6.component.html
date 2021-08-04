@@ -54,7 +54,7 @@
 						</svg>
 					</span>
 				</a>
-				<a href="/user-management" [ngClass]="getCurrentUrl('/user-management')"
+				<a href="/user-management" *ngIf="user.role == 0" [ngClass]="getCurrentUrl('/user-management')"
 					class="btn btn-text-primary btn-hover-light-primary font-weight-bold mr-2 cursor-pointer">
 					Users
 				</a>

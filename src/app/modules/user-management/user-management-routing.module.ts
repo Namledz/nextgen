@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserManagementComponent } from './user-management.component';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
+import { RoleGuard } from '../auth/_services/role.guard'
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: '**', redirectTo: 'users', pathMatch: 'full' },
     ],
+    canActivate: [RoleGuard],
+    data: {
+      requiredRoles: 0
+    }
   },
 ];
 

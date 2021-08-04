@@ -7,6 +7,7 @@ import { SubheaderService } from '../_services/subheader.service';
 import { KTUtil } from '../../../../../../assets/js/components/util';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../../../../modules/auth/_services/auth.service'
 
 @Component({
 	selector: 'app-subheader6',
@@ -47,6 +48,7 @@ export class Subheader6Component implements OnInit {
 		private cdr: ChangeDetectorRef,
 		private router: Router,
 		private modalService: NgbModal,
+		private auth: AuthService
 	) {
 		this.title$ = this.subheader.titleSubject.asObservable();
 		this.breadcrumbs$ = this.subheader.breadCrumbsSubject.asObservable();
@@ -106,4 +108,6 @@ export class Subheader6Component implements OnInit {
 			() => { }
 		);
 	}
+
+	user = this.auth.getUser()
 }

@@ -106,6 +106,10 @@ export class AuthService implements OnDestroy {
 		);
 	}
 
+	getUser() {
+		return this.currentUser
+	}
+
 	redirectLogin() {
 		// localStorage.removeItem(this.authLocalStorageToken);
 		console.log("hello")
