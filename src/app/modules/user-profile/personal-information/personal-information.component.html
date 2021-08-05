@@ -93,16 +93,25 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
+          <label class="col-xl-3 col-lg-3 col-form-label">Group</label>
           <div class="col-lg-9 col-xl-6">
             <input class="form-control form-control-lg form-control-solid"
               type="text"
-              formControlName="companyName"
-              [class.is-invalid]="isControlInvalid('companyName')"
-              [class.is-valid]="isControlValid('companyName')"
+              formControlName="group"
+              [class.is-invalid]="isControlInvalid('group')"
+              [class.is-valid]="isControlValid('group')"
             />
-            <span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your
-              full name.</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Institution</label>
+          <div class="col-lg-9 col-xl-6">
+            <input class="form-control form-control-lg form-control-solid"
+              type="text"
+              formControlName="institution"
+              [class.is-invalid]="isControlInvalid('institution')"
+              [class.is-valid]="isControlValid('institution')"
+            />
           </div>
         </div>
         <div class="row">
@@ -120,15 +129,14 @@
                   <i class="fa fa-phone"></i>
                 </span>
               </div>
-              <input type="text"
+              <input type="text" mask='000-000-0000'
                 class="form-control form-control-lg form-control-solid" 
-                placeholder="Phone"
-                formControlName="phone"
-                [class.is-invalid]="isControlInvalid('phone')"
-                [class.is-valid]="isControlValid('phone')"
+                placeholder="000-000-0000"
+                formControlName="phone_number"
+                [class.is-invalid]="isControlInvalid('phone_number')"
+                [class.is-valid]="isControlValid('phone_number')"
               />
             </div>
-            <span class="form-text text-muted">We'll never share your email with anyone else.</span>
           </div>
         </div>
         <div class="form-group row">
@@ -150,7 +158,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-xl-3 col-lg-3 col-form-label">Company Site</label>
           <div class="col-lg-9 col-xl-6">
             <div class="input-group input-group-lg input-group-solid">
@@ -163,7 +171,7 @@
                 />
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <!--end::Body-->
     </div>

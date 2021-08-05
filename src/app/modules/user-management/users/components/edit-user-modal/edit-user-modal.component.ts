@@ -22,6 +22,7 @@ const EMPTY_USER: UserModel = {
   status: 0,
   group: '',
   institution: '',
+  phone_number: undefined,
   // account information
   createdAt: '',
   updatedAt: '',
@@ -85,6 +86,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       institution: [this.user.institution],
       group: [this.user.group],
       role: [this.user.role, Validators.compose([Validators.required])],
+      phone_number: [this.user.phone_number]
     });
     if (!this.uuid) {
       this.formGroup.reset();
@@ -100,6 +102,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       institution: [this.user.institution],
       group: [this.user.group],
       role: [this.user.role, Validators.compose([Validators.required])],
+      phone_number: [this.user.phone_number],
       password: ['',Validators.compose([Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)])],
       cPassword: [''],
       },
@@ -167,6 +170,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
     this.user.last_name = formData.last_name;
     this.user.email = formData.email;
     this.user.institution = formData.institution;
+    this.user.phone_number = formData.phone_number;
     this.user.group = formData.group;
     this.user.role = formData.role;
     this.user.password = formData.password;

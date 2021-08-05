@@ -14,6 +14,7 @@ export class UserModel {
   status: number;
   group: string;
   institution: string;
+  phone_number: string;
   // account information
   createdAt: string;
   updatedAt: string;

@@ -46,4 +46,12 @@ export class AuthHTTPService {
 	recoveryPassword(data): Observable<any> {
 		return this.http.post(`${API_USERS_URL}/updatePassword`, data, { withCredentials: true, observe:'response'});
 	}
+
+	saveUpdateProfile(data): Observable<any> {
+		return this.http.post(`${API_USERS_URL}/updateUserProfile`, data, { withCredentials: true})
+	}
+
+	chnagePasswordProfile(data): Observable<any> {
+		return this.http.post(`${API_USERS_URL}/updatePasswordProfile`, data, { withCredentials: true})
+	}
 }

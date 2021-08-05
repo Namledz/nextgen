@@ -81,6 +81,14 @@
                 formControlName="institution" />
               <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'group')">Institution format is incorrect</div>
             </div>
+            <div class="col-lg-4">
+              <label class="form-label">Enter Phone Number</label>
+              <input type="text" mask='000-000-0000' class="form-control form-control-lg form-control-solid" name="phone_number"
+              placeholder="000-000-0000" autocomplete="off" [class.is-invalid]="isControlInvalid('phone_number')" [class.is-valid]="isControlValid('phone_number')" formControlName="phone_number" />
+              <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'phone_number')">Phone Number must be number</div>
+            </div>
+          </div>
+          <div class="form-group row">
             <div class="col-lg-4" *ngIf="user.id">
               <label class="form-label">Enter Password</label>
               <input type="password" class="form-control form-control-lg form-control-solid" name="password"

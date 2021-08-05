@@ -12,6 +12,7 @@ import { UserManagementRoutingModule } from './user-management-routing.module';
 import { EditUserModalComponent } from './users/components/edit-user-modal/edit-user-modal.component';
 import { DeleteUserModalComponent } from './users/components/delete-user-modal/delete-user-modal.component';
 import { DeleteUsersModalComponent } from './users/components/delete-users-modal/delete-users-modal.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [UsersComponent, RolesComponent, UserManagementComponent, EditUserModalComponent, DeleteUserModalComponent, DeleteUsersModalComponent],
@@ -24,7 +25,8 @@ import { DeleteUsersModalComponent } from './users/components/delete-users-modal
     NgbDatepickerModule,
     NgbModalModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   entryComponents: [
     UsersComponent

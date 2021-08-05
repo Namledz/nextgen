@@ -18,6 +18,7 @@ import {TaxInformationComponent} from './tax-information/tax-information.compone
 import {StatementsComponent} from './statements/statements.component';
 import {UserProfileRoutingModule} from './user-profile-routing.module';
 import {ProfileCardComponent} from './_components/profile-card/profile-card.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {ProfileCardComponent} from './_components/profile-card/profile-card.comp
     DropdownMenusModule,
     NgbDropdownModule,
     NgbTooltipModule,
-    WidgetsModule
+    WidgetsModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class UserProfileModule {}

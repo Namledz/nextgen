@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthService, UserModel } from '../../auth';
+import { AuthHTTPService } from '../../auth/_services/auth-http/auth-http.service';
+
 
 @Component({
   selector: 'app-personal-information',
@@ -17,7 +20,7 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
   avatarPic = 'none';
   isLoading$: Observable<boolean>;
 
-  constructor(private userService: AuthService, private fb: FormBuilder) {
+  constructor(private userService: AuthService, private fb: FormBuilder, private httpService: AuthHTTPService, private toastr: ToastrService) {
     this.isLoading$ = this.userService.isLoadingSubject.asObservable();
   }
 
@@ -41,14 +44,16 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
       pic: [this.user.pic],
       firstname: [this.user.first_name, Validators.required],
       lastname: [this.user.last_name, Validators.required],
-      // companyName: [this.user.companyName, Validators.required],
-      // phone: [this.user.phone, Validators.required],
+      group: [this.user.group, Validators.required],
+      institution: [this.user.institution, Validators.required],
+      phone_number: [this.user.phone_number, Validators.required],
       email: [this.user.email, Validators.compose([Validators.required, Validators.email])],
       // website: [this.user.website, Validators.required]
     });
   }
 
   save() {
+    var self = this
     this.formGroup.markAllAsTouched();
     if (!this.formGroup.valid) {
       return;
@@ -59,6 +64,15 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
 
     // Do request to your server for user update, we just imitate user update there
     this.userService.isLoadingSubject.next(true);
+
+    this.httpService.saveUpdateProfile(this.user)
+      .subscribe(response => {
+        if (response.status == 'success') {
+          self.toastr.success(response.message)
+        } else {
+          self.toastr.error(response.message)
+        }
+      })
     setTimeout(() => {
       this.userService.currentUserSubject.next(Object.assign({}, this.user));
       this.userService.isLoadingSubject.next(false);
