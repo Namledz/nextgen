@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
-import { UploadComponent } from '../modules/upload/upload.component';
 
 const routes: Routes = [
 	{
@@ -29,7 +28,10 @@ const routes: Routes = [
 			},
 			{
 				path: 'upload',
-				component: UploadComponent,
+				loadChildren: () =>
+					import('../modules/upload/upload.module').then(
+						(m) => m.UploadModule
+					),
 			},
 			{
 				path: 'workspaces',

@@ -16,6 +16,7 @@
       height: 100%;
       top: 0;
       left: 0;
+      cursor: pointer;
     }
   
     label {
@@ -126,4 +127,4 @@
     100% {
       transform: translate(1px, -2px) rotate(-1deg);
     }
-  }
+}

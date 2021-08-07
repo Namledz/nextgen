@@ -19,7 +19,7 @@
                 <img src="assets/images/dnd/ic-upload-file.svg" alt="">
                 <h3>Drag and drop file here</h3>
                 <h3>or</h3>
-                <label for="fileDropRef">Browse for file</label>
+                <label for="fileDropRef" style="cursor: pointer;">Browse for file</label>
             </div>
             <ngb-alert style="margin-top: 1rem;" [dismissible]="false" [type]="'light'">
                 <span class="svg-icon svg-icon-primary svg-icon-2x mr-1">
@@ -32,14 +32,14 @@
                             <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
                         </g>
                     </svg>
-                </span><strong>Allowed file formats:</strong> vcf
+                </span><strong>Allowed file formats:</strong> vcf, fastq
             </ngb-alert>
             <div class="files-list">
                 <div style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem;" *ngFor="let file of files; let i = index">
                     <div class="single-file">
-                        <img src="assets/images/dnd/ic-file.svg" width="45px" alt="file">
+                        <img src="assets/images/dnd/ic-file.svg" width="45px" alt="file" style="margin-right: 10px;">
                         <div class="info">
-                            <h4 class="name">
+                            <h4 class="name" style="word-break: break-word;">
                                 {{ file?.name }}
                             </h4>
                             <p class="size">
@@ -48,7 +48,9 @@
                             <app-progress [progress]="file?.progress"></app-progress>
                         </div>
                         <img src="assets/images/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file"
-                            (click)="deleteFile(i)">
+                            (click)="deleteFile(i)"  *ngIf="!isLoading && file?.progress == 0">
+                        <img src="assets/images/dnd/rolling.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="isLoading">
+                        <img src="/assets/media/svg/icons/Navigation/Check.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="file?.progress == 100">
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
@@ -80,6 +82,9 @@
         <ng-container>
   
         <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="checkSave()">Save</button>
+      </ng-container>
+      <ng-container *ngIf="isLoading">
+        <span class="spinner spinner-primary ml-3 mr-5"></span>
       </ng-container>
     </div>
 </div>

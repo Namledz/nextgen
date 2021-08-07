@@ -1,4 +1,3 @@
-import { UploadModalComponent } from './../../../../../components/upload-modal/upload-modal.component';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreadcrumbItemModel } from '../_models/breadcrumb-item.model';
@@ -6,7 +5,6 @@ import { LayoutService } from '../../../../core';
 import { SubheaderService } from '../_services/subheader.service';
 import { KTUtil } from '../../../../../../assets/js/components/util';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../../../modules/auth/_services/auth.service'
 
 @Component({
@@ -47,7 +45,6 @@ export class Subheader6Component implements OnInit {
 		private subheader: SubheaderService,
 		private cdr: ChangeDetectorRef,
 		private router: Router,
-		private modalService: NgbModal,
 		private auth: AuthService
 	) {
 		this.title$ = this.subheader.titleSubject.asObservable();
@@ -99,14 +96,6 @@ export class Subheader6Component implements OnInit {
 		if (this.router.url.includes(url)) {
 			return 'active'
 		}
-	}
-
-	openModalUpload() {
-		const modalRef = this.modalService.open(UploadModalComponent, { size: 'lg' });
-		modalRef.result.then(() =>
-			this.cdr.detectChanges(),
-			() => { }
-		);
 	}
 
 	user = this.auth.getUser()

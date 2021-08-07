@@ -22,9 +22,6 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
-import { UploadModalComponent } from './components/upload-modal/upload-modal.component';
-import { DndDirective } from './directives/dnd.directive';
-import { ProgressComponent } from './components/progress/progress.component';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -49,7 +46,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent, UploadModalComponent, DndDirective, ProgressComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
