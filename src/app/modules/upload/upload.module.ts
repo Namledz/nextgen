@@ -10,6 +10,11 @@ import { ModalUploadComponent } from './upload-list/component/modal-upload/modal
 import { ProgressComponent } from './upload-list/component/progress/progress.component';
 import { DndDirective } from './upload-list/directives/dnd.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InlineSVGModule } from 'ng-inline-svg';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DeleteUploadModalComponent } from './upload-list/component/delete-upload-modal/delete-upload-modal.component';
+import { DeleteUploadsModalComponent } from './upload-list/component/delete-uploads-modal/delete-uploads-modal.component';
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   declarations: [
@@ -17,16 +22,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UploadListComponent,
     ModalUploadComponent,
     ProgressComponent,
-    DndDirective
+    DndDirective,
+    DeleteUploadModalComponent,
+    DeleteUploadsModalComponent
   ],
   imports: [
     CommonModule,
     UploadRoutingModule,
     HttpClientModule,
     CRUDTableModule,
+    InlineSVGModule,
     NgbDatepickerModule,
     NgbModalModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelect2Module,
   ],
   entryComponents: [
     UploadListComponent

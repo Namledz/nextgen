@@ -1,16 +1,24 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic/shared/crud-table';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService {
-	constructor(private http: HttpClient) { }
+export class UploadService extends TableService<any> implements OnDestroy {
+	API_URL = `${environment.apiUrl}/upload`;
+	constructor(@Inject(HttpClient) http) {
+		super(http);
+	}
 
-  public generateRandomString(len) {
+	find(tableState: ITableState): Observable<TableResponseModel<any>> {
+		return this.http.post<TableResponseModel<any>>(this.API_URL, tableState, { withCredentials: true })
+	}
+
+	public generateRandomString(len) {
 		let result = '';
 		let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		let charactersLength = characters.length;
@@ -58,20 +66,42 @@ export class UploadService {
 		)
 	}
 
-  getBatchFilesSignedAuth(files: any[] = []): Observable<any> {
-    const tasks$ = [];
-    files.forEach(el => {
-			tasks$.push(this.getBatchFileSignedAuth({uploadName: el.uploadName, fileType: el.type, index: el.index}));
+	getBatchFilesSignedAuth(files: any[] = []): Observable<any> {
+		const tasks$ = [];
+		files.forEach(el => {
+				tasks$.push(this.getBatchFileSignedAuth({uploadName: el.uploadName, fileType: el.type, index: el.index}));
+			});
+			return forkJoin(tasks$);
+	}
+
+	getBatchFileSignedAuth(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/signed_url`, data, { withCredentials: true }).pipe(
+		catchError(err => {
+			console.error(err);
+			return of({});
+		})
+		)
+	}
+
+	deleteFile(id) {
+		const url = `${this.API_URL}/deleteUploadFile/${id}`
+		return this.http.delete<any>(url, {withCredentials: true})
+	}
+
+	deleteItemsFiles(ids: number[] = []): Observable<any>  {
+		const tasks$ = [];
+		ids.forEach(id => {
+			tasks$.push(this.deleteFile(id));
 		});
 		return forkJoin(tasks$);
-  }
+	}
 
-  getBatchFileSignedAuth(data: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/signed_url`, data, { withCredentials: true }).pipe(
-      catchError(err => {
-        console.error(err);
-        return of({});
-      })
-    )
-  }
+	getListWorkspace() {
+		const url = `${this.API_URL}/getListWorkspace`
+		return this.http.get(url, {withCredentials: true})
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sb => sb.unsubscribe());
+	}
 }

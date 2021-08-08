@@ -1,0 +1,14 @@
+:host::ng-deep .select2-container--default .select2-selection--multiple {
+    border: 1px solid #E4E6EF!important;
+    padding: 4px 8px!important;
+    font-size: 1rem!important;
+    font-weight: 400!important;
+    line-height: 1.5!important;
+    color: #3F4254!important;
+    border-radius: 0.42rem!important;
+}
+
+:host::ng-deep .select2-dropdown  {
+    border: 1px solid #E4E6EF!important;
+    padding: 4px 16px!important;
+}
