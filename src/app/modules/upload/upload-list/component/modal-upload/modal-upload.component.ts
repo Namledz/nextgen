@@ -57,9 +57,15 @@ export class ModalUploadComponent implements OnInit {
 			item.progress = 0;
 			item.sampleName = item.name;
 			item.project_id = 1;
-			if (item.name.indexOf('.vcf') == -1 || item.name.indexOf('.fastq') == -1) {
+			if (item.name.indexOf('.vcf') == -1 && item.name.indexOf('.fastq') == -1) {
 				this.toastr.error('Your file is incorrect format')
 				return false
+			}
+			else if(item.name.indexOf('.vcf') != -1) {
+				item.fileType = 'vcf'
+			}
+			else {
+				item.fileType = 'fastq'
 			}
 			this.files.push(item);
 		}
