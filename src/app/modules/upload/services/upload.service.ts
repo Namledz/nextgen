@@ -32,6 +32,9 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		const tasks$ = [];
 		data.forEach(el => {
 		tasks$.push(this.http.put(el.signedUrl, el.file).pipe(
+			map((response) => {
+				return true
+			}),
 			catchError(err => {
 				console.log("Error:", err)
 				return of(undefined);
@@ -69,7 +72,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 	getBatchFilesSignedAuth(files: any[] = []): Observable<any> {
 		const tasks$ = [];
 		files.forEach(el => {
-				tasks$.push(this.getBatchFileSignedAuth({uploadName: el.uploadName, fileType: el.fileType, index: el.index}));
+				tasks$.push(this.getBatchFileSignedAuth({uploadName: el.uploadName, fileType: el.type, index: el.index}));
 			});
 			return forkJoin(tasks$);
 	}

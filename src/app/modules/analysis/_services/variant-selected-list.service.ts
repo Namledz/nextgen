@@ -32,6 +32,11 @@ export class VariantSelectedListService extends TableService<any> implements OnD
 		return this.http.post(url, data, { withCredentials: true, observe: 'response' })
 	}
 
+	exportReport(data) {
+		const url = `${this.API_URL}/exportReport`;
+		return this.http.post(url, data, { withCredentials: true, observe: 'response' })
+	}
+
   	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}

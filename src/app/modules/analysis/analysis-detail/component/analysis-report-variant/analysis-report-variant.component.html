@@ -133,7 +133,20 @@
 	</table>
 </div>
 
-<div *ngIf='htmlData' style="padding-left: 5%; padding-right: 5%; padding-top: 5%; background: #f2f2f2; padding-bottom: 5%;">
+<div *ngIf='htmlData' style="padding-left: 5%; padding-right: 5%; padding-top: 2.5%; background: #f2f2f2; padding-bottom: 5%;">
+	<div style="text-align: end; padding-bottom: 15px;">
+		<button [disabled]="loadingExport" type="button" class="btn btn-primary" (click)="exportReport()">Export PDF
+			<span
+			[inlineSVG]="'./assets/media/svg/icons/Files/File.svg'"
+			cacheSVG="true"
+			class="svg-icon svg-icon-lg"
+			style="margin-right: 0;"
+		  ></span>
+		</button>
+		<ng-container *ngIf="loadingExport">
+			<span class="spinner spinner-primary ml-3 mr-5"></span>
+		</ng-container>
+	</div>
 	<div style="margin: 10px auto;
     background-color: #fff;
     padding: 1cm 1.2cm;" [innerHTML]="htmlData"></div>

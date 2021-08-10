@@ -169,8 +169,7 @@ export class UploadListComponent implements
 	
 	openModalUpload() {
 		const modalRef = this.modalService.open(ModalUploadComponent, { size: 'lg' });
-		modalRef.result.then(() =>
-			this.cd.detectChanges(),
+		modalRef.result.then(
 			() => { }
 		);
 	}

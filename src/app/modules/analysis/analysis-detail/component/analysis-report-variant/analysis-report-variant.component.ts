@@ -41,6 +41,7 @@ export class AnalysisReportVariantComponent implements
 
   grouping: GroupingState;
   isLoading: boolean;
+  loadingExport = false;
   private subscriptions: Subscription[] = [];
   variantSelected: any[];
   @Input() id;
@@ -116,6 +117,56 @@ export class AnalysisReportVariantComponent implements
     this.subscriptions.push(sb);    
     
   }
+
+  exportReport() {
+		const header = document.getElementsByClassName('report_header')[0].innerHTML;
+		const contentBody = document.getElementsByClassName('result_content')[0].innerHTML;
+		const footer = document.getElementsByClassName('report-footer')[0].innerHTML;
+		const htmlStartHeader = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+		const htmlStartFooter = '<!DOCTYPE html><html><head><meta charset="UTF-8">';
+		const htmlEnd = "</body></html>";
+		const pageNumberJS = "<script>\
+		   function subst() {\
+			   var vars={};\
+			   document.getElementById('page-number').style.display = 'block';\
+			   document.getElementById('page-number').style.marginRight = '0';\
+			   document.getElementById('page-number').style.marginLeft = 'auto';\
+			   var x=document.location.search.substring(1).split('&');\
+			   for (var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);};\
+			   var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];\
+			   for (var i in x) {\
+				   var y = document.getElementsByClassName(x[i]);\
+				   for (var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];\
+			   }\
+			 }\
+		 </script></head><body onload=\"subst()\">";
+
+		const data = {
+			header : header != undefined ? htmlStartHeader + header + htmlEnd : null,
+			contentBody : contentBody,
+			footer : footer != undefined ? htmlStartFooter + pageNumberJS + footer + htmlEnd : null
+		}
+    console.log(data)
+    this.loadingExport = true;
+
+    const sb = this.varianSelectedtListService.exportReport(data)
+    .subscribe((res : any) => {
+      console.log(res)
+        if(res.body.status == 'success') {
+            this.toastr.success(res.body.message);
+            this.loadingExport = false;
+            this.cd.detectChanges();
+            setTimeout(() => {
+              var url = res.body.url;
+              window.open(url);
+            }, 1000);
+        } else {
+          this.loadingExport = false;
+          this.toastr.error(res.body.message);
+        }
+    })
+    this.subscriptions.push(sb); 
+	}
 
   ngOnDestroy() {
     this.varianSelectedtListService.patchStateReset();

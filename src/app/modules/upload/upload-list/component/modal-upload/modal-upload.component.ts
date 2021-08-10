@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from 'ngx-toastr';
 import { UploadService } from '../../../services/upload.service'
@@ -10,7 +10,7 @@ import { of, Subscription } from 'rxjs';
   templateUrl: './modal-upload.component.html',
   styleUrls: ['./modal-upload.component.scss']
 })
-export class ModalUploadComponent implements OnInit {
+export class ModalUploadComponent implements OnInit, OnDestroy {
 	@ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
 	files: any[] = [];
 	isLoading: boolean = false;
@@ -95,7 +95,7 @@ export class ModalUploadComponent implements OnInit {
 			e.uploadName = uploadName;
 			e.index = index;
 		})
-		return this.uploadService.getBatchFilesSignedAuth(this.files).pipe(
+		const sb1 = this.uploadService.getBatchFilesSignedAuth(this.files).pipe(
 			map( signedUrl => {
 				let data = signedUrl.map( el => {
 				let obj = {
@@ -110,31 +110,36 @@ export class ModalUploadComponent implements OnInit {
 				return this.uploadService.fileUpload(data)
 			})
 			).subscribe(res => {
-				const sb = this.uploadService.postFilesInfor(this.files).pipe(
-					delay(1000),
-					catchError((errorMessage) => {
-						this.modal.dismiss(errorMessage);
-						return of(undefined);
-					}),
-					finalize(() => {
-						this.isLoading = false;
-						this.files.forEach(el => {
-							el.progress = 100;
+				if(res.some((el) => el == true)) {
+					this.uploadService.postFilesInfor(this.files).pipe(
+						catchError((errorMessage) => {
+							this.modal.dismiss(errorMessage);
+							return of(undefined);
+						}),
+						finalize(() => {
+							this.isLoading = false;
+							this.files.forEach(el => {
+								el.progress = 100;
+							})
 						})
-					})
-				).subscribe(res => {
-					setTimeout(() => {
-						if(res.every((data) => data.status == 'success')) {
-							this.toastr.success('Uploaded files successfully!')
-							this.modal.dismiss();
-						}
-						else {
-							this.toastr.error('Error!')
-						}
-					}, 1000);
-				});
-				this.subscriptions.push(sb);
+					).subscribe(response => {
+						setTimeout(() => {
+							if(response.every((data) => data.status == 'success')) {
+								this.toastr.success('Uploaded files successfully!')
+								this.uploadService.fetch()
+								this.modal.dismiss();
+							}
+							else {
+								this.toastr.error('Error!')
+							}
+						}, 1000);
+					});
+				}
+				else {
+					this.toastr.error('Error!')
+				}
 			})
+		this.subscriptions.push(sb1);
 	}
 
 	checkSave() {
@@ -151,6 +156,10 @@ export class ModalUploadComponent implements OnInit {
 	getWorkSpace(value, file) {
 		this.cdr.detectChanges();
 		file.project_id = value
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
 
 }
