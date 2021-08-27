@@ -104,7 +104,7 @@
 				<td>{{ analysis.id }}</td>
 				<td>
 					<a *ngIf='analysis.status == "Analyzed"' href="/workspaces/samples/detail/{{ analysis.id }}">{{ analysis.name }}</a>
-					<a *ngIf='analysis.status == "Queuing"' href="javascript:void(0)">{{ analysis.name }}</a>
+					<a *ngIf='analysis.status != "Analyzed"' href="javascript:void(0)">{{ analysis.name }}</a>
 				</td>
 				<td><a>{{ analysis.project_name }}</a></td>
 				<td>{{ analysis.createdAt }}</td>

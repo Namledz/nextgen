@@ -30,7 +30,7 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 	}
 
 	updateStatusForItems(ids: number[], status: number): Observable<any> {
-		return this.http.get<Analysis[]>(this.API_URL).pipe(
+		return this.http.get<Analysis[]>(this.API_URL, { withCredentials: true }).pipe(
 			map((analysis: Analysis[]) => {
 				return analysis.filter(a => ids.indexOf(a.id) > -1).map(a => {
 					// a.status = status;
@@ -49,14 +49,14 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 
 	getFastqQC(): Observable<any> {
 		let url = `${this.API_URL}/getFastqQC`
-		return this.http.get(url).pipe((response) => {
+		return this.http.get(url, { withCredentials: true }).pipe((response) => {
 			return response
 		});
 	}
 
 	getIgvInfo(analysisId: any) {
 		let url = `${this.API_URL}/get-igv-info/${analysisId}`
-		return this.http.get(url).pipe((response) => {
+		return this.http.get(url, { withCredentials: true }).pipe((response) => {
 			return response;
 		})
 	}
@@ -67,23 +67,23 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 
 	getAnalysisInfo(id) {
 		let url = `${environment.apiUrl}/analysis-info/${id}`
-		return this.http.get(url).pipe((response) => {
+		return this.http.get(url, { withCredentials: true }).pipe((response) => {
 			return response;
 		});
 	}
 
 	getQCVCF(id: any): any {
 		const url = `${environment.apiUrl}/getQCVCF/${id}`;
-		return this.http.get(url, {})
+		return this.http.get(url, { withCredentials: true })
 	}
 
 	getProjectName(id: any): any{
 		const url = `${environment.apiUrl}/workspace/project-name/${id}`;
-		return this.http.get(url, {})
+		return this.http.get(url, { withCredentials: true })
 	}
 
 	getVennDiagramData(data: any): any {
 		const url = `${environment.apiUrl}/analysis/venn-data`;
-		return this.http.post(url, { data: data });
+		return this.http.post(url, { data: data }, { withCredentials: true });
 	}
 }
