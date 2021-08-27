@@ -50,7 +50,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			let data = {
 				original_name: el.name,
 				sample_name: el.sampleName,
-				file_size: (el.size / (1024 * 1024)).toFixed(2),
+				file_size: el.size,
 				file_type: el.fileType,
 				upload_name: el.uploadName,
 				workspace: parseInt(el.project_id)

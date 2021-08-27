@@ -113,7 +113,8 @@
 				</td>
 				<td>{{ analysis.analyzed }}</td>
 				<td *ngIf="type!='covid'">{{ analysis.variants }}</td>
-				<td *ngIf="type!='covid'">{{ analysis.size }}</td>
+				<td *ngIf="type!='covid'">{{ formatBytes(analysis.size) }}</td>
+				<!-- <td *ngIf="type!='covid'">{{ analysis.size }}</td> -->
 				<td>{{ analysis.status }}</td>
 				<td>
 
