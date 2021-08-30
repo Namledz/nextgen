@@ -112,7 +112,8 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 						this.modal.close();
 					})
 				);
-				delayObservable.subscribe()
+				const sb = delayObservable.subscribe()
+				this.subscriptions.push(sb);
 			}
 			else if(this.files.every((el) => el.isError == true)) {
 				this.isLoading = false;
@@ -124,9 +125,10 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 						this.modal.close();
 					})
 				);
-				delayObservable.subscribe()	
+				const sb = delayObservable.subscribe()
+				this.subscriptions.push(sb);
 			}
-		}, 1000);
+		}, 1500);
 	}
 
 	uploadFile(file, index) {
