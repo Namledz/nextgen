@@ -48,9 +48,10 @@
                             <app-progress [progress]="file?.progress"></app-progress>
                         </div>
                         <img src="assets/images/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file"
-                            (click)="deleteFile(i)"  *ngIf="!isLoading && file?.progress == 0">
-                        <img src="assets/images/dnd/rolling.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="isLoading">
-                        <img src="/assets/media/svg/icons/Navigation/Check.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="file?.progress == 100">
+                            (click)="deleteFile(i)"  *ngIf="file?.progress == 0">
+                        <img src="assets/images/dnd/rolling.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="file?.progress < 100 && file?.progress != 0">
+                        <img src="/assets/media/svg/icons/Navigation/Check.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="file?.progress == 100 && !file?.isError">
+                        <img src="/assets/media/svg/icons/Navigation/exclamation-mark.svg" width="20px" style="align-self: flex-end; margin-left: 0.5rem;" *ngIf="file?.isError">
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
@@ -73,7 +74,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" style="margin-top: -10px; margin-bottom: 5px; color: #f64e60;;">
+                        <div *ngIf="file?.isError">
+                            <div class="col-xl-12">
+                                File upload failed!
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
         </ng-container>
     </div>
@@ -81,7 +90,7 @@
         <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
         <ng-container>
   
-        <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="checkSave()">Save</button>
+        <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="checkSave()">Upload</button>
       </ng-container>
       <ng-container *ngIf="isLoading">
         <span class="spinner spinner-primary ml-3 mr-5"></span>
