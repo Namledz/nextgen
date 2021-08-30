@@ -108,6 +108,17 @@ export class UploadListComponent implements
 		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 	}
 
+    getStatusCSS(file_type) {
+        switch(file_type) {
+          case 'vcf':
+            return 'label-light-primary'
+          case 'fastq':
+            return 'label-light-warning'
+          default:
+            return 'label-light-default'
+        }
+    }
+
 	formatSelect2data(data) {
 		for(let i in data) {
 			data[i].id = data[i].id

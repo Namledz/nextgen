@@ -11,5 +11,21 @@ export class ProfileCardComponent {
   user$: Observable<UserModel>;
   constructor(public userService: AuthService) {
     this.user$ = this.userService.currentUserSubject.asObservable();
+
+  }
+
+  getUserRole(role) {
+	switch (role) {
+		case 0:
+			return 'Admin'
+		case 1:
+			return 'User'
+		default:
+			return 'Unknow'
+	}
+  }
+
+  formatPhonenumber(phoneNumber) {
+      return phoneNumber.replace(/\D+/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
   }
 }

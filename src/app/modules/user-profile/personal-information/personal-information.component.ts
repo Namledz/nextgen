@@ -47,7 +47,7 @@ export class PersonalInformationComponent implements OnInit, OnDestroy {
       group: [this.user.group, Validators.required],
       institution: [this.user.institution, Validators.required],
       phone_number: [this.user.phone_number, Validators.required],
-      email: [this.user.email, Validators.compose([Validators.required, Validators.email])],
+      email: [{value: this.user.email, disabled: true}, Validators.compose([Validators.required, Validators.email])],
       // website: [this.user.website, Validators.required]
     });
   }

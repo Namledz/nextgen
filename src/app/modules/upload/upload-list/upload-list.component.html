@@ -122,7 +122,8 @@
 						<td>{{ uploadFile.id }}</td>
 						<td>{{ uploadFile.sample_name }}</td>
 						<td>{{ uploadFile.workspace_name }}</td>
-						<td>{{ uploadFile.file_type }}</td>
+						<td><span class="label label-lg label-inline" [ngClass]="getStatusCSS(uploadFile.file_type)">{{ uploadFile.file_type }}
+                        </span></td>
 						<td>{{ formatBytes(uploadFile.file_size) }}</td>
 						<td>{{ uploadFile.createdAt }}</td>
 						<td>
