@@ -25,7 +25,7 @@
 						</div>
 					</ng-template>
 				</mat-tab>
-				<mat-tab *ngIf='type != "covid"' label="Info">
+				<!-- <mat-tab *ngIf='type != "covid"' label="Info">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">
 							<app-analysis-info [id]="id"></app-analysis-info>
@@ -38,7 +38,7 @@
 							<app-genome-browser [id]="id"></app-genome-browser>
 						</div>
 					</ng-template>
-				</mat-tab>
+				</mat-tab> -->
 				<mat-tab *ngIf='type == "vcf"' label="Report">
 					<ng-template class="demo-tab-content" matTabContent>
 						<div style="min-height: 800px !important">

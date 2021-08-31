@@ -26,6 +26,7 @@ import {
 } from '../../../../../_metronic/shared/crud-table';
 import { Datalist } from '../../../ultils/datalist';
 import { VariantDetailModalComponent } from '../variant-detail-modal/variant-detail-modal.component';
+import $ from 'jquery';
 
 @Component({
 	selector: 'app-variant-list',
@@ -53,6 +54,8 @@ export class VariantListComponent implements
 	filterGroup: FormGroup;
 	searchGroup: FormGroup;
 	variantList: any[];
+	
+	old_annotation: string[] = [];
 
 	private subscriptions: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -122,51 +125,57 @@ export class VariantListComponent implements
 			width: '100%',
 			multiple: true,
 			tags: true,
-			formatResult: function (data) {
-				return data.html;
-			},
-			formatSelection: function (data) {
-				return data.text;
+			templateResult: function (item) {
+				if (!item.id) {
+					return item.text
+				}
+
+				var $result
+				if (item.dad) {
+					$result = $('<span style="padding-left: 20px;">' + item.text + '</span>');
+				} else {
+					$result = $('<span style="font-weight: 700;">' + item.text + '</span>');
+				}
+
+				return $result;
 			}
 		};
 
+		this.annotationList = [
+			{ id: "exonic", text: "Exon", items: ["frameshift", "inframe indel", "start lost", "start retained", "nonframeshift", "nonsynonymous SNV", "synonymous SNV", "stopgain", "stoploss", "stop retained", "coding", "missense", "Protein altering variant"], show: true },
+			{ id: "frameshift", text: "Frameshift", dad: "exonic", show: true },
+			{ id: "inframe indel", text: "Inframe indel", dad: "exonic", show: true },
+			{ id: "missense", text: "Missense", dad: "exonic", show: true },
+			{ id: "start lost", text: "Start loss", dad: "exonic", show: true },
+			{ id: "start retained", text: "Start retained", dad: "exonic", show: true },
+			{ id: "stopgain", text: "Stop gained", dad: "exonic", show: true },
+			{ id: "stoploss", text: "Stop loss", dad: "exonic", show: true },
+			{ id: "stop retained", text: "Stop retained", dad: "exonic", show: true },
+			{ id: "synonymous SNV", text: "Synonymous", dad: "exonic", show: true },
+			{ id: "coding", text: "Coding", dad: "exonic", show: true },
+			{ id: "Protein altering variant", text: "Protein altering variant", dad: "exonic", show: true },
+			{ id: "intronic", text: "Intron", show: true },
+			{ id: "splicing", text: "Splicing", items: ["splice_acceptor", "splice_donor", "splice_region"], show: true },
+			{ id: "splice_acceptor", text: "Splice acceptor", dad: "splicing", show: true },
+			{ id: "splice_donor", text: "Splice donor", dad: "splicing", show: true },
+			{ id: "splice_region", text: "Splice region", dad: "splicing", show: true },
+			{ id: "UTR", text: "UTR", items: ["3UTR", "5UTR"], show: true },
+			{ id: "3UTR", text: "3` UTR", dad: "UTR", show: true },
+			{ id: "5UTR", text: "5` UTR", dad: "UTR", show: true },
+			{ id: "regulatory_region", text: "Regulatory Region", items: ["TF_site", "sub_requlatory_region"], show: true },
+			{ id: "sub_requlatory_region", text: "Regulatory region", dad: "regulatory_region", show: true },
+			{ id: "upstream", text: "Upstream", items: ["NMD", "sub_upstream"], show: true },
+			{ id: "NMD", text: "NMD", dad: "upstream", show: true },
+			{ id: "sub_upstream", text: "Upstream variant", dad: "upstream", show: true },
+			{ id: "downstream", text: "Downstream", show: true },
+			{ id: "noncoding", text: "Noncoding", items: ["noncoding_exon", "noncoding_intron"], show: true },
+			{ id: "noncoding_exon", text: "Noncoding exon", dad: "noncoding", show: true },
+			{ id: "noncoding_intron", text: "Noncoding intron", dad: "noncoding", show: true },
+			{ id: "intergenic", text: "Intergenic", show: true },
+			{ id: "other", text: "Other", show: true }
+		]
 
-		this.annotationList = [{ id: "exonic", text: "Exon", items: ["frameshift", "inframe indel", "start lost", "start retained", "nonframeshift", "nonsynonymous SNV", "synonymous SNV", "stopgain", "stoploss", "stop retained", "coding", "missense", "Protein altering variant"], show: true },
-		{ id: "frameshift", text: "Frameshift", dad: "exonic", show: true },
-		{ id: "inframe indel", text: "Inframe indel", dad: "exonic", show: true },
-		{ id: "missense", text: "Missense", dad: "exonic", show: true },
-		{ id: "start lost", text: "Start loss", dad: "exonic", show: true },
-		{ id: "start retained", text: "Start retained", dad: "exonic", show: true },
-		{ id: "stopgain", text: "Stop gained", dad: "exonic", show: true },
-		{ id: "stoploss", text: "Stop loss", dad: "exonic", show: true },
-		{ id: "stop retained", text: "Stop retained", dad: "exonic", show: true },
-		{ id: "synonymous SNV", text: "Synonymous", dad: "exonic", show: true },
-		{ id: "coding", text: "Coding", dad: "exonic", show: true },
-		{ id: "Protein altering variant", text: "Protein altering variant", dad: "exonic", show: true },
-		{ id: "intronic", text: "Intron", show: true },
-		{ id: "splicing", text: "Splicing", items: ["splice_site_variant", "splice_region_variant", "splice_acceptor", "splice_donor"], show: true },
-		{ id: "splice_acceptor", text: "Splice acceptor", dad: "splicing", show: true },
-		{ id: "splice_donor", text: "Splice donor", dad: "splicing", show: true },
-		{ id: "splice_region", text: "Splice region", dad: "splicing", show: true },
-		{ id: "UTR", text: "UTR", items: ["3UTR", "5UTR"], show: true },
-		{ id: "3UTR", text: "3` UTR", dad: "UTR", show: true },
-		{ id: "5UTR", text: "5` UTR", dad: "UTR", show: true },
-		{ id: "regulatory_region", text: "Regulatory Region", items: ["TF_site", "sub_requlatory_region"], show: true },
-		{ id: "sub_requlatory_region", text: "Regulatory region", dad: "regulatory_region", show: true },
-		{ id: "upstream", text: "Upstream", items: ["NMD", "sub_upstream"], show: true },
-		{ id: "NMD", text: "NMD", dad: "upstream", show: true },
-		{ id: "sub_upstream", text: "Upstream variant", dad: "upstream", show: true },
-		{ id: "downstream", text: "Downstream", show: true },
-		{ id: "noncoding", text: "Noncoding", items: ["noncoding_exon", "noncoding_intron"], show: true },
-		{ id: "noncoding_exon", text: "Noncoding exon", dad: "noncoding", show: true },
-		{ id: "noncoding_intron", text: "Noncoding intron", dad: "noncoding", show: true },
-		{ id: "intergenic", text: "Intergenic", show: true },
-		{ id: "other", text: "Other", show: true }].map(e => {
-			e['html'] = `<h3 style="color: red">${e.text}</h3>`
-			return e;
-		})
-
-		console.log(this.annotationList)
+		
 	}
 
 	ngAfterViewInit() {
@@ -206,11 +215,14 @@ export class VariantListComponent implements
 			chromosome: [],
 			gnomADfrom: 0,
 			gnomADto: [''],
-			depthGreater: 0,
-			depthLower: [''],
+			readDepthSign: 'greater',
+			readDepth: 10,
+			AFSign: 'greater',
+			alleleFraction: 0.2,
+			gnomAdSign: 'greater',
+			gnomAd: 0,
 			annotation: [''],
 			classification: [''],
-			alleleFraction: ['']
 			// qualityGreater: [''],
 			// qualityLower: [''],
 			// sequencenceOntology: [''],
@@ -259,24 +271,34 @@ export class VariantListComponent implements
 			filter['chrom'] = arrayInt;
 		}
 
-		const depthGreater = this.filterGroup.get('depthGreater').value;
-		if (depthGreater || depthGreater == 0) {
-			filter['depth_greater'] = depthGreater;
+		const readDepthSign = this.filterGroup.get('readDepthSign').value;
+		if (readDepthSign) {
+			filter['readDepthSign'] = readDepthSign;
 		}
 
-		const depthLower = this.filterGroup.get('depthLower').value;
-		if (depthLower || depthLower == 0) {
-			filter['depth_lower'] = depthLower;
+		const readDepth = this.filterGroup.get('readDepth').value;
+		if (readDepth || readDepth == 0) {
+			filter['readDepth'] = readDepth;
 		}
 
-		const gnomADfrom = this.filterGroup.get('gnomADfrom').value;
-		if (gnomADfrom || gnomADfrom == 0) {
-			filter['gnomADfrom'] = gnomADfrom;
+		const AFSign = this.filterGroup.get('AFSign').value;
+		if (AFSign) {
+			filter['AFSign'] = AFSign;
 		}
 
-		const gnomADto = this.filterGroup.get('gnomADto').value;
-		if (gnomADto || gnomADto == 0) {
-			filter['gnomADto'] = gnomADto;
+		const alleleFraction = this.filterGroup.get('alleleFraction').value;
+		if (alleleFraction || alleleFraction == 0) {
+			filter['alleleFraction'] = alleleFraction;
+		}
+
+		const gnomAdSign = this.filterGroup.get('gnomAdSign').value;
+		if (gnomAdSign) {
+			filter['gnomAdSign'] = gnomAdSign;
+		}
+
+		const gnomAd = this.filterGroup.get('gnomAd').value;
+		if (gnomAd || gnomAd == 0) {
+			filter['gnomAd'] = gnomAd;
 		}
 
 		// const sequencenceOntology = this.filterGroup.get('sequencenceOntology').value;
@@ -298,36 +320,6 @@ export class VariantListComponent implements
 		if (classification) {
 			filter['classification'] = classification;
 		}
-
-		const alleleFraction = this.filterGroup.get('alleleFraction').value
-		if (alleleFraction) {
-			filter['alleleFraction'] = alleleFraction;
-		}
-		// const depthLower = this.filterGroup.get('depthLower').value;
-		// if (depthLower) {
-		// 	filter['depth_lower'] = depthLower;
-		// }
-
-		// const qualityGreater = this.filterGroup.get('qualityGreater').value;
-		// if (qualityGreater) {
-		// 	filter['quality_greater'] = qualityGreater;
-		// }
-
-		// const qualityLower = this.filterGroup.get('qualityLower').value;
-		// if (qualityLower) {
-		// 	filter['quality_lower'] = qualityLower;
-		// }
-
-		// const gnomAdCompare = this.filterGroup.get('gnomAdCompare').value;
-		// const filterGnomAdText = this.filterGroup.get('gnomAdText').value;
-		// if (gnomAdCompare && filterGnomAdText) {
-		// 	filter['gnomad'] = {
-		// 		type: gnomAdCompare,
-		// 		value: filterGnomAdText
-		// 	}
-		// }
-
-
 
 		return filter;
 	}
@@ -481,5 +473,52 @@ export class VariantListComponent implements
 			this.cd.detectChanges(),
 			() => { }
 		);
+	}
+
+	onTagChanged(value: string[] | null) {
+		let current = value
+		if (current.length != this.old_annotation.length) {
+			if (current.length > this.old_annotation.length) {
+				let diff = current.filter(e => !this.old_annotation.includes(e))
+				diff.forEach(e => {
+					let index = this.annotationList.findIndex(anno => anno.id == e)
+					if (index > -1) {
+						if (this.annotationList[index].items) {
+							this.annotationList[index].items.forEach(child => {
+								let index2 = current.indexOf(child)
+								if (index2 == -1) {
+									current.push(child)
+								}
+							})
+						}
+					}
+				})
+			} else {
+				let diff = this.old_annotation.filter(e => !current.includes(e))
+				diff.forEach((e: any) => {
+					let index = this.annotationList.findIndex(anno => anno.id == e)
+					if (index > -1) {
+						if (this.annotationList[index].items) {
+							this.annotationList[index].items.forEach(child => {
+								let index2 = current.indexOf(child)
+								if (index2 != -1) {
+									current.splice(index2, 1)
+								}
+							})
+						} else {
+							let index2 = current.indexOf(e.dad)
+							if (index2 != -1) {
+								current.splice(index2, 1)
+							}
+						}
+					}
+				})
+			}
+
+			this.filterGroup.patchValue({
+				annotation: current,
+			})
+			this.old_annotation = current
+		}
 	}
 }
