@@ -22,6 +22,17 @@ export class UserOffcanvasComponent implements OnInit {
 		this.user$ = this.auth.currentUserSubject.asObservable();
 	}
 
+    getUserRole(role) {
+        switch (role) {
+            case 0:
+                return 'Admin'
+            case 1:
+                return 'User'
+            default:
+                return 'Unknow'
+        }
+      }
+
 	logout() {
 		this.auth.logout().subscribe(() => document.location.reload());
 	}
