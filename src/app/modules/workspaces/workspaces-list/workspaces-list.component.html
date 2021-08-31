@@ -4,7 +4,7 @@
 			<h3 class="card-label">My Workspaces</h3>
 		</div>
 		<div class="card-toolbar">
-			<button type="button" class="btn btn-primary">New Workspace</button>
+			<button type="button" class="btn btn-primary" (click)="create()">New Workspace</button>
 		</div>
 	</div>
 	<div class="card-body">
@@ -95,7 +95,7 @@
 						<td>
 
 							<a title="Edit workspace" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-								(click)="edit(workspace.id)">
+								>
 								<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
 									class="svg-icon svg-icon-md svg-icon-primary">
 								</span>

@@ -40,7 +40,7 @@
         placeholder="Fullname"
         autocomplete="off"
         [ngClass]="{
-          'is-invalid': registrationForm.controls['fullname'].invalid
+          'is-invalid': registrationForm.controls['fullname'].invalid && registrationForm.controls['fullname'].touched
         }"
       />
       <ng-container
@@ -80,7 +80,7 @@
         name="email"
         formControlName="email"
         autocomplete="off"
-        [ngClass]="{ 'is-invalid': registrationForm.controls['email'].invalid }"
+        [ngClass]="{ 'is-invalid': registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched }"
       />
       <ng-container
         [ngTemplateOutlet]="formError"
@@ -130,7 +130,7 @@
         formControlName="password"
         autocomplete="off"
         [ngClass]="{
-          'is-invalid': registrationForm.controls['password'].invalid
+          'is-invalid': registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched
         }"
       />
       <ng-container
@@ -173,7 +173,7 @@
         autocomplete="off"
         formControlName="cPassword"
         [ngClass]="{
-          'is-invalid': registrationForm.controls['cPassword'].invalid
+          'is-invalid': registrationForm.controls['cPassword'].invalid && registrationForm.controls['cPassword'].touched
         }"
       />
       <ng-container

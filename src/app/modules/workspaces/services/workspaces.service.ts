@@ -22,13 +22,13 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 
 	getWorkspaceName(id: any) {
 		console.log(id);
-		return this.http.get(`${environment.apiUrl}/workspace/project-name/${id}`).pipe((response) => {
+		return this.http.get(`${environment.apiUrl}/workspace/project-name/${id}`, { withCredentials: true }).pipe((response) => {
 			return response
 		})
 	}
 
 	updateWorkspaceDashboard(data) {
-		return this.http.post(`${this.API_URL}/update`, {data: data})
+		return this.http.post(`${this.API_URL}/update`, {data: data}, { withCredentials: true })
 	}
 
 	deleteItems(ids: number[] = []): Observable<any> {
@@ -40,10 +40,22 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 	}
 
 	getWorkspaceDashboard(id) {
-		return this.http.get(`${this.API_URL}/dashboard/${id}`).pipe((response) => {
+		return this.http.get(`${this.API_URL}/dashboard/${id}`, { withCredentials: true }).pipe((response) => {
 			return response
 		})
 	}
+
+	getListPipeline(): Observable<any> {
+		return this.http.get(`${this.API_URL}/getPipeline`,  { withCredentials: true }).pipe((response) => {
+			return response
+		})
+	}
+
+	createWorkspace(data): Observable<any> {
+		return this.http.post(`${this.API_URL}/createWorkspace`, data, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+ 	}
 
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());

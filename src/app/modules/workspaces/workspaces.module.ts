@@ -12,6 +12,7 @@ import { WorkspacesListComponent } from './workspaces-list/workspaces-list.compo
 import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
 import { WorkspacesDashboardComponent } from './workspaces-dashboard/workspaces-dashboard.component';
 import { AnalysisModule } from '../analysis/analysis.module';
+import { EditWorkspaceModalComponent } from './workspaces-list/components/edit-workspace-modal/edit-workspace-modal.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AnalysisModule } from '../analysis/analysis.module';
     WorkspacesComponent,
     WorkspacesListComponent,
     WorkspacesIndexComponent,
-    WorkspacesDashboardComponent
+    WorkspacesDashboardComponent,
+    EditWorkspaceModalComponent
   ],
   imports: [
     CommonModule,
