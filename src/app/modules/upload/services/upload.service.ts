@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map, catchError, switchMap, finalize } from 'rxjs/operators';
+import { forkJoin, Observable, of, throwError  } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEventType } from '@angular/common/http';
+import { map, catchError, switchMap, finalize, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic/shared/crud-table';
 
@@ -28,20 +28,49 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return result;
 	}
 
-  	public fileUpload(data: any[] = []): Observable<any> {
-		const tasks$ = [];
-		data.forEach(el => {
-		tasks$.push(this.http.put(el.signedUrl, el.file).pipe(
-			map((response) => {
-				return true
+	public fileUpload(data): Observable<any> {
+		return this.http.put<HttpResponse<any>>(data.preSignedUrl, data.file, { headers: {'Access-Control-Expose-Headers': 'etag'}, observe: "response" }).pipe(
+			retryWhen(errors => errors.pipe(
+				switchMap((error) => {
+					if(error.status == 0) {
+						return of(error.status)
+					}
+					return of(error);
+				}),
+				take(100),
+				delay(2000),
+				concat(throwError({error: 'Sorry, there was an error (after 100 retries)'}))
+			)),
+			map((response: HttpResponse<any>) => {
+				let obj = {
+					ETag: response.headers.get('etag'),
+					PartNumber: data.partNumber
+				}
+				return obj;
 			}),
 			catchError(err => {
-				console.log("Error:", err)
-				return of(undefined);
+				console.error(err);
+				return of({});
 			})
-		));
-		})
-		return forkJoin(tasks$);
+		)
+	}
+
+	createMultipartUpload(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/createMultipartUpload`, data, { withCredentials: true }).pipe(
+			catchError(err => {
+				console.error(err);
+				return of({});
+			})
+		)
+	}
+
+	completeMultipartUpload(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/completeMultipartUpload`, data, { withCredentials: true }).pipe(
+			catchError(err => {
+				console.error(err);
+				return of({});
+			})
+		)
 	}
 
 	postFilesInfor(filesInfor: any[] = []): Observable<any> {
@@ -64,25 +93,38 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/uploadFileInfor`, data, { withCredentials: true }).pipe(
 			catchError((err) => {
 				console.log("Error:", err)
-				return of(undefined);
+				return of({});
 			})
 		)
 	}
 
-	getBatchFilesSignedAuth(files: any[] = []): Observable<any> {
+	getBatchFilesSignedAuth(data: any[] = []): Observable<any> {
 		const tasks$ = [];
-		files.forEach(el => {
-				tasks$.push(this.getBatchFileSignedAuth({uploadName: el.uploadName, fileType: el.type, index: el.index}));
-			});
-			return forkJoin(tasks$);
+		data.forEach(el => {
+			tasks$.push(this.getBatchFileSignedAuth(el));
+		});
+		return forkJoin(tasks$);
 	}
 
 	getBatchFileSignedAuth(data: any): Observable<any> {
-		return this.http.post(`${environment.apiUrl}/signed_url`, data, { withCredentials: true }).pipe(
-		catchError(err => {
-			console.error(err);
-			return of({});
-		})
+		let dataSend = {
+			uploadName: data.uploadName, 
+			partNumber: data.partNumber, 
+			uploadId: data.uploadId,
+		}
+		return this.http.post(`${environment.apiUrl}/signed_url`, dataSend, { withCredentials: true }).pipe(
+			map((response: any) => {
+				let objRes = {
+					preSignedUrl: response.preSignedUrl,
+					file: data.file,
+					partNumber: data.partNumber
+				}
+				return objRes;
+			}),
+			catchError(err => {
+				console.error(err);
+				return of({});
+			})
 		)
 	}
 

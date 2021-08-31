@@ -87,7 +87,6 @@ export class AuthService implements OnDestroy {
 		return this.authHttpService.getUserByToken().pipe(
 			map((response) => {
 				let res = self.convertResponse(response);
-				console.log(res);
 				if (res.status == 'success' && res.data) {
 					self.currentUserSubject = new BehaviorSubject<UserModel>(res.data);
 					self.currentUser = res.data
@@ -117,8 +116,6 @@ export class AuthService implements OnDestroy {
 	}
 
 	private convertResponse(response): ResponseModel {
-		console.log(response);
-		console.log(123);
 		let res = new ResponseModel;
 		res.status = response.body.status;
 		res.message = response.body.message || '';

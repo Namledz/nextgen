@@ -2,8 +2,9 @@ import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, OnDestroy 
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from 'ngx-toastr';
 import { UploadService } from '../../../services/upload.service'
-import { map, catchError, switchMap, finalize, mergeMap, delay, tap } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
+import { map, mergeMap, takeUntil, delay, tap } from 'rxjs/operators';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { of, Subscription, forkJoin, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-modal-upload',
@@ -15,6 +16,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	files: any[] = [];
 	isLoading: boolean = false;
 	subscriptions: Subscription[] = [];
+	readonly destroy$ = new Subject();
 
 	constructor(
 		public modal: NgbActiveModal,
@@ -55,6 +57,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	prepareFilesList(files: Array<any>) {
 		for (const item of files) {
 			item.progress = 0;
+			item.isError = false;
 			item.sampleName = item.name;
 			item.project_id = 1;
 			if (item.name.indexOf('.vcf') == -1 && item.name.indexOf('.fastq') == -1) {
@@ -93,52 +96,126 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 		this.files.forEach((e, index) => {
 			let uploadName = `${this.uploadService.generateRandomString(32)}.${this.files[index].sampleName.substring(this.files[index].sampleName.lastIndexOf(".") + 1)}`;
 			e.uploadName = uploadName;
-			e.index = index;
 		})
-		const sb1 = this.uploadService.getBatchFilesSignedAuth(this.files).pipe(
-			map( signedUrl => {
-				let data = signedUrl.map( el => {
-				let obj = {
-					signedUrl: el.preSignedUrl,
-					file: this.files[el.index]
+		let totalFile = 0;
+		const uploadMultifile = setInterval(() => {
+			if(totalFile++ < this.files.length) {
+				this.uploadFile(this.files[totalFile-1], totalFile-1);
+			}
+			if(this.files.every((el) => el.progress == 100)) {
+				this.isLoading = false;
+				clearInterval(uploadMultifile);
+				const delayObservable = of(true).pipe(
+					delay(1000),
+					tap((res) => {
+						this.toastr.success('Uploaded files successfully!');
+						this.modal.close();
+					})
+				);
+				const sb = delayObservable.subscribe()
+				this.subscriptions.push(sb);
+			}
+			else if(this.files.every((el) => el.isError == true)) {
+				this.isLoading = false;
+				clearInterval(uploadMultifile);
+				const delayObservable = of(false).pipe(
+					delay(1000),
+					tap((res) => {
+						this.toastr.success('Uploaded files unsuccessfully!');
+						this.modal.close();
+					})
+				);
+				const sb = delayObservable.subscribe()
+				this.subscriptions.push(sb);
+			}
+		}, 1500);
+	}
+
+	uploadFile(file, index) {
+		let data = {
+			uploadName: file.uploadName, 
+			fileType: file.type
+		}
+		this.files[index].progress += 1;
+		const sb1 = this.uploadService.createMultipartUpload(data).pipe(
+			map( result => {
+				return result.uploadId;
+			}),
+			mergeMap( data => {
+				file.uploadId = data;
+				const CHUNK_SIZE = 10000000;
+				const fileSize = file.size;
+				const CHUNKS_COUNT = Math.floor(fileSize / CHUNK_SIZE) + 1;
+				let start, end, blob;
+				let filesData = []
+				for (let i = 1; i < CHUNKS_COUNT + 1; i++) {
+					start = (i - 1) * CHUNK_SIZE;
+					end = (i) * CHUNK_SIZE;
+					blob = (i < CHUNKS_COUNT) ? file.slice(start, end) : file.slice(start);
+
+					filesData.push({uploadName: file.uploadName, partNumber: i, uploadId: data, file: blob});
 				}
-				return obj;
+
+				return this.uploadService.getBatchFilesSignedAuth(filesData);
+			})
+		).pipe(
+			map(result => {
+				return result;
+			}),
+			mergeMap( data => {
+				const tasks$ = [];
+				data.forEach(el => {
+					tasks$.push(this.uploadService.fileUpload(el).pipe(
+						map(result => {
+							const percentage = file.size == 0 ? 90 : Math.round(el.file.size/file.size * 90);
+							this.files[index].progress += percentage;
+							return result;
+						})
+					));
 				})
+				return forkJoin(tasks$);
+			})
+		).pipe(
+			map(result => {
+				let data = {
+					uploadName: file.uploadName,
+					parts: result,
+					uploadId: file.uploadId
+				}
+
 				return data;
 			}),
 			mergeMap( data => {
-				return this.uploadService.fileUpload(data)
-			})
-			).subscribe(res => {
-				if(res.some((el) => el == true)) {
-					this.uploadService.postFilesInfor(this.files).pipe(
-						catchError((errorMessage) => {
-							this.modal.dismiss(errorMessage);
-							return of(undefined);
-						}),
-						finalize(() => {
-							this.isLoading = false;
-							this.files.forEach(el => {
-								el.progress = 100;
-							})
-						})
-					).subscribe(response => {
-						setTimeout(() => {
-							if(response.every((data) => data.status == 'success')) {
-								this.toastr.success('Uploaded files successfully!')
-								this.uploadService.fetch()
-								this.modal.dismiss();
-							}
-							else {
-								this.toastr.error('Error!')
-							}
-						}, 1000);
-					});
+				return this.uploadService.completeMultipartUpload(data)
+			}),
+			takeUntil(this.destroy$)
+		).subscribe(res => {
+			if(res.status == "success") {
+				let data = {
+					original_name: file.name,
+					sample_name: file.sampleName,
+					file_size: file.size,
+					file_type: file.fileType,
+					upload_name: file.uploadName,
+					workspace: parseInt(file.project_id)
 				}
-				else {
-					this.toastr.error('Error!')
-				}
-			})
+				const sb2 = this.uploadService.postFileInfor(data).subscribe(response => {
+					if(response.status == "success") {
+						this.files[index].progress = 100;
+					}
+					else {
+						this.files[index].isError = true;
+						this.files[index].progress = 100;
+					}
+				})
+				this.subscriptions.push(sb2);
+			}
+			else {
+				this.files[index].isError = true;
+				this.files[index].progress = 100;
+			}
+		})
+
 		this.subscriptions.push(sb1);
 	}
 
@@ -159,6 +236,11 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		if(this.isLoading == true) {
+			this.toastr.error('Your upload has been terminated.');
+		}
+		this.destroy$.next();
+		this.destroy$.complete();
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
 
