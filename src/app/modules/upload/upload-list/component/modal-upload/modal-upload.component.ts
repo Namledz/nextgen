@@ -122,7 +122,6 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 					delay(1000),
 					tap((res) => {
 						this.toastr.success('Uploaded files unsuccessfully!');
-						this.modal.close();
 					})
 				);
 				const sb = delayObservable.subscribe()
@@ -167,7 +166,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				data.forEach(el => {
 					tasks$.push(this.uploadService.fileUpload(el).pipe(
 						map(result => {
-							const percentage = file.size == 0 ? 90 : Math.round(el.file.size/file.size * 90);
+							let percentage = file.size == 0 ? 90 : Math.round(el.file.size/file.size * 90);
 							this.files[index].progress += percentage;
 							return result;
 						})
