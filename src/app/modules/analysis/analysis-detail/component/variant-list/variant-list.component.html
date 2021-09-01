@@ -30,20 +30,31 @@
 							</mat-slider>
 						</div> -->
 						<div class="col-5">
-							<input class="form-control" type="number" formControlName="depthGreater">
+							<!-- <input class="form-control" type="number" formControlName="depthGreater"> -->
+							<select class="form-control" placeholder="Filter by Type" name="type" formControlName="readDepthSign">
+								<option value="greater">>=</option>
+								<option value="lower"> =< </option>
+							  </select>
 						</div>
-						<div class="col-2" style="margin: auto;">
-							To
-						</div>
-						<div class="col-5">
-							<input class="form-control" type="number" formControlName="depthLower">
+						<div class="col-7">
+							<input class="form-control" type="number" formControlName="readDepth">
 						</div>
 					</div>
 					<div class="form-group row mb-1">
 						<label class="text-bold col-12 col-form-label">Allele Fraction</label>
-						<div class="col-12">
+						<!-- <div class="col-12">
 							<input type="number" class="form-control" name="searchText" placeholder="Enter AF"
 								formControlName="alleleFraction" />
+						</div> -->
+						<div class="col-5">
+							<!-- <input class="form-control" type="number" formControlName="depthGreater"> -->
+							<select class="form-control" placeholder="Filter by Type" name="type" formControlName="AFSign">
+								<option value="greater">>=</option>
+								<option value="lower"> =< </option>
+							  </select>
+						</div>
+						<div class="col-7">
+							<input class="form-control" type="number" formControlName="alleleFraction">
 						</div>
 					</div>
 					<div class="form-group row mb-1">
@@ -56,7 +67,7 @@
 					</div>
 					<div class="form-group row mb-1">
 						<label class="text-bold col-12 col-form-label">GnomAD</label>
-						<div class="col-5">
+						<!-- <div class="col-5">
 							<input class="form-control" type="number" formControlName="gnomADfrom">
 						</div>
 						<div class="col-2" style="margin: auto;">
@@ -64,13 +75,27 @@
 						</div>
 						<div class="col-5">
 							<input class="form-control" type="number" formControlName="gnomADto">
+						</div> -->
+						<div class="col-5">
+							<!-- <input class="form-control" type="number" formControlName="depthGreater"> -->
+							<select class="form-control" placeholder="Filter by Type" name="type" formControlName="gnomAdSign">
+								<option value="greater">></option>
+								<option value="lower"> < </option>
+							  </select>
+						</div>
+						<div class="col-7">
+							<input class="form-control" type="number" min="0" formControlName="gnomAd">
 						</div>
 					</div>
 					<div class="form-group row mb-1">
 						<label class="text-bold col-12 col-form-label">Annotation</label>
 						<div class="col-12">
-							<ng-select2 [data]="annotationList" placeholder="Select Annotation" [options]="options"
-								formControlName="annotation">
+							<ng-select2
+								[data]="annotationList"
+								placeholder="Select Annotation"
+								[options]="annotationOptions"
+								formControlName="annotation"
+								(valueChanged)="onTagChanged($event)">
 							</ng-select2>
 						</div>
 					</div>
@@ -241,7 +266,7 @@
 										[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 								</th>
 								<th class="width-110">
-									cDNA
+									HGVSc
 									<!-- <app-sort-icon column="cnomen" [activeColumn]="sorting.column"
 								[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon> -->
 								</th>
