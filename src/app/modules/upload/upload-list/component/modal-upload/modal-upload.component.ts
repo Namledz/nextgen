@@ -96,6 +96,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 		this.files.forEach((e, index) => {
 			let uploadName = `${this.uploadService.generateRandomString(32)}.${this.files[index].sampleName.substring(this.files[index].sampleName.lastIndexOf(".") + 1)}`;
 			e.uploadName = uploadName;
+            e.progress = 0;
 		})
 		let totalFile = 0;
 		const uploadMultifile = setInterval(() => {
@@ -121,7 +122,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				const delayObservable = of(false).pipe(
 					delay(1000),
 					tap((res) => {
-						this.toastr.success('Uploaded files unsuccessfully!');
+						this.toastr.error('Uploaded files unsuccessfully!');
 					})
 				);
 				const sb = delayObservable.subscribe()

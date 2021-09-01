@@ -83,7 +83,7 @@
 						<app-sort-icon column="id" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 					</th>
-					<th style="width: 35%; word-break: break-all;">
+					<th style="width: 20%;">
 						File Name
 						<app-sort-icon column="name" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
@@ -120,7 +120,7 @@
 							</label>
 						</td>
 						<td>{{ uploadFile.id }}</td>
-						<td>{{ uploadFile.sample_name }}</td>
+						<td style="word-break: break-all;">{{ uploadFile.sample_name }}</td>
 						<td>{{ uploadFile.workspace_name }}</td>
 						<td><span class="label label-lg label-inline" [ngClass]="getStatusCSS(uploadFile.file_type)">{{ uploadFile.file_type }}
                         </span></td>
