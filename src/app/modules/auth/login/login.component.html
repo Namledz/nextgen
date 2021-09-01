@@ -39,7 +39,7 @@
 			<label class="font-size-h6 font-weight-bolder text-dark">Email</label>
 			<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="email" name="email"
 				formControlName="email" autocomplete="off"
-				[ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid }" />
+				[ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid && loginForm.controls['email'].touched }" />
 			<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
           message: 'Email is required',
@@ -75,7 +75,7 @@
 
 			<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" name="password"
 				autocomplete="off" formControlName="password"
-				[ngClass]="{ 'is-invalid': loginForm.controls['password'].invalid }" />
+				[ngClass]="{ 'is-invalid': loginForm.controls['password'].invalid && loginForm.controls['password'].touched }" />
 			<ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
           message: 'Password is required',
