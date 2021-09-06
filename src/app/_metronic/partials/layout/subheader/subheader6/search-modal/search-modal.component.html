@@ -1,0 +1,36 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+            <ng-container>{{totalAll}} Results</ng-container>
+        </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px;">
+        <ng-container *ngIf="data">
+            <div *ngFor="let obj of data" class="border-bottom mb-5 ml-5">
+                <div *ngIf="obj.type === 'analysis'">
+                    <div class="row" class="ml-1">
+                        <span class="label label-lg label-inline label-light-primary">{{obj.type}}</span>
+                        <a class="ml-3" href="/workspaces/samples/detail/{{ obj.data.id }}">{{obj.data.analysis_name}}</a>
+                    </div>
+                    <div class="row" class="ml-1 my-2">
+                        <span><b>Workspaces</b>: {{obj.data.workspace_name}}</span>
+                        <span class="ml-3"><b>Status</b>: {{obj.data.status}}</span>
+                    </div>
+                </div>
+                <div *ngIf="obj.type === 'analyses'">
+                    <div class="row" class="ml-1">
+                        <span class="label label-lg label-inline label-light-primary">{{obj.type}}</span>
+                        <a class="ml-3">{{obj.data.analyses_name}}</a>
+                    </div>
+                    <div class="row" class="ml-1 my-2">
+                        <span><b>Workspaces</b>: {{obj.data.workspace_name}}</span>
+                        <span class="ml-3"><b>Status</b>: {{obj.data.status}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
+    </div>
+</div>

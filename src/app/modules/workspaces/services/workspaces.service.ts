@@ -56,6 +56,18 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 			return response
 		})
  	}
+	
+	search(searchTerm): Observable<any> {
+		return this.http.post(`${this.API_URL}/search`, {data: searchTerm}, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+	}
+
+	delete(id) {
+		return this.http.delete<any>(`${this.API_URL}/deleteWorkspace/${id}`, {withCredentials: true}).pipe(response => {
+		  return response
+		})
+	  }
 
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());

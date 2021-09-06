@@ -10,12 +10,14 @@ import { Subheader5Component } from './subheader5/subheader5.component';
 import { Subheader6Component } from './subheader6/subheader6.component';
 import { Subheader7Component } from './subheader7/subheader7.component';
 import { SubheaderWrapperComponent } from './subheader-wrapper/subheader-wrapper.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownMenusModule } from '../../content/dropdown-menus/dropdown-menus.module';
 import { TopbarComponent } from '../../../../pages/_layout/components/topbar/topbar.component';
 import { LanguageSelectorComponent } from '../../../../pages/_layout/components/topbar/language-selector/language-selector.component';
 import { ExtrasModule } from '../../../partials/layout/extras/extras.module';
 import { CoreModule } from '../../../core';
+import { FormsModule } from '@angular/forms';
+import { SearchModalComponent } from './subheader6/search-modal/search-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { CoreModule } from '../../../core';
     Subheader7Component,
     SubheaderWrapperComponent,
     TopbarComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    SearchModalComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,9 @@ import { CoreModule } from '../../../core';
     NgbDropdownModule,
     DropdownMenusModule,
     ExtrasModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    NgbModalModule
   ],
   exports: [SubheaderWrapperComponent],
 })

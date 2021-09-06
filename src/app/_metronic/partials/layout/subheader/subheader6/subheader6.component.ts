@@ -6,6 +6,8 @@ import { SubheaderService } from '../_services/subheader.service';
 import { KTUtil } from '../../../../../../assets/js/components/util';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../../modules/auth/_services/auth.service'
+import { SearchModalComponent } from './search-modal/search-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-subheader6',
@@ -39,13 +41,15 @@ export class Subheader6Component implements OnInit {
 	title$: Observable<string>;
 	breadcrumbs$: Observable<BreadcrumbItemModel[]>;
 	description$: Observable<string>;
+	searchTerm: any;
 
 	constructor(
 		private layout: LayoutService,
 		private subheader: SubheaderService,
 		private cdr: ChangeDetectorRef,
 		private router: Router,
-		private auth: AuthService
+		private auth: AuthService,
+		private modalService: NgbModal,
 	) {
 		this.title$ = this.subheader.titleSubject.asObservable();
 		this.breadcrumbs$ = this.subheader.breadCrumbsSubject.asObservable();
@@ -96,6 +100,15 @@ export class Subheader6Component implements OnInit {
 		if (this.router.url.includes(url)) {
 			return 'active'
 		}
+	}
+
+	search() {
+		let searchTerm = this.searchTerm
+		const modalRef = this.modalService.open(SearchModalComponent, { size: 'xl' });
+		modalRef.componentInstance.searchTerm = searchTerm;
+		modalRef.result.then(() =>
+      		() => {}
+    	);
 	}
 
 	user = this.auth.getUser()

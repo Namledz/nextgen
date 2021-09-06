@@ -20,6 +20,7 @@ import {
   ISearchView,
 } from '../../../_metronic/shared/crud-table';
 import { EditWorkspaceModalComponent } from './components/edit-workspace-modal/edit-workspace-modal.component';
+import { DeleteWorkspaceModalComponent } from './components/delete-workspace-modal/delete-workspace-modal.component';
 
 @Component({
   selector: 'app-workspaces-list',
@@ -137,7 +138,12 @@ export class WorkspacesListComponent
 	}
 
 	delete(id: number) {
-
+    const modalRef = this.modalService.open(DeleteWorkspaceModalComponent, { size: 'md' });
+    modalRef.componentInstance.id = id;
+    modalRef.result.then(() =>
+      this.workspacesService.fetch(),
+      () => {}
+    );
 	}
 
   deleteSelected() {
