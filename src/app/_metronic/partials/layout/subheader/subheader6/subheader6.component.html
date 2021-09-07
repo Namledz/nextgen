@@ -81,8 +81,8 @@
 
 		<div class="d-flex align-items-center flex-wrap">
 			<div class="input-group input-group-sm input-group-solid max-w-175px mr-2">
-				<input type="text" class="form-control pl-4" placeholder="Search..." />
-				<div class="input-group-append">
+				<input type="text" class="form-control pl-4" [(ngModel)]="searchTerm" placeholder="Search..." (keyup.enter)="search()" />
+				<div class="input-group-append" (click)="search()" style="cursor: pointer;">
 					<span class="input-group-text">
 						<span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
 							class="svg-icon svg-icon-md"></span>

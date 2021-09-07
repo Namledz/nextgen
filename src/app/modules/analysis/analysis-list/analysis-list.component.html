@@ -117,11 +117,16 @@
 				<!-- <td *ngIf="type!='covid'">{{ analysis.size }}</td> -->
 				<td>{{ analysis.status }}</td>
 				<td>
-
-					<a title="Edit analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-						(click)="edit(analysis.id)">
-						<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+					<a title="View analysis" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+					href="/workspaces/samples/detail/{{ analysis.id }}">
+						<span [inlineSVG]="'./assets/media/svg/icons/Files/File.svg'" cacheSVG="true"
 							class="svg-icon svg-icon-md svg-icon-primary">
+						</span>
+					</a>
+					<a title="Delete analysis" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+						(click)="delete(analysis.id)">
+						<span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+							class="svg-icon svg-icon-md svg-icon-danger">
 						</span>
 					</a>
 
