@@ -1,3 +1,4 @@
+import { FilterModalComponent } from './component/filter-modal/filter-modal.component';
 import { Variant } from './../../../_models/variant.model';
 import { Component, Input, OnDestroy, OnInit, ChangeDetectorRef, AfterViewInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -103,6 +104,7 @@ export class VariantListComponent implements
 		this.url = `${environment.apiUrl}/variant/${this.id}`
 		this.variantListService.API_URL = this.url;
 		this.filterForm();
+		this.applyFilter()
 
 		this.setUpSelect2();
 		// this.searchForm();
@@ -218,16 +220,11 @@ export class VariantListComponent implements
 			readDepthSign: 'greater',
 			readDepth: 10,
 			AFSign: 'greater',
-			alleleFraction: 0.2,
+			alleleFraction: 0.02,
 			gnomAdSign: 'greater',
 			gnomAd: 0,
 			annotation: [''],
 			classification: [''],
-			// qualityGreater: [''],
-			// qualityLower: [''],
-			// sequencenceOntology: [''],
-			// depthLower: [''],
-			// readDepth: ['']
 		});
 	}
 
@@ -237,23 +234,21 @@ export class VariantListComponent implements
 	}
 
 	reset() {
-		this.filterGroup.reset()
-		// this.filterGroup = this.fb.group({
-		// 	geneName: [''],
-		// 	chromosome: [],
-		// 	gnomADfrom: 0,
-		// 	gnomADto: [''],
-		// 	depthGreater: 0,
-		// 	depthLower: [''],
-		// 	annotation: [''],
-		// 	classification: [''],
-		// 	alleleFraction: ['']
-		// 	// qualityGreater: [''],
-		// 	// qualityLower: [''],
-		// 	// sequencenceOntology: [''],
-		// 	// depthLower: [''],
-		// 	// readDepth: ['']
-		// });
+		// this.filterGroup.reset()
+		this.filterGroup = this.fb.group({
+			geneName: [''],
+			chromosome: [],
+			gnomADfrom: 0,
+			gnomADto: [''],
+			readDepthSign: 'greater',
+			readDepth: 10,
+			AFSign: 'greater',
+			alleleFraction: 0.02,
+			gnomAdSign: 'greater',
+			gnomAd: 0,
+			annotation: [''],
+			classification: [''],
+		});
 		let filter = this.filter();
 		this.variantListService.patchState({ filter });
 	}
@@ -521,4 +516,45 @@ export class VariantListComponent implements
 			this.old_annotation = current
 		}
 	}
+
+	saveFilter() {
+		const modalRef = this.modalService.open(FilterModalComponent, { size: 'lg' });
+		modalRef.componentInstance.title = "Save";
+		modalRef.componentInstance.filter_string = JSON.stringify(this.filter())
+		modalRef.result.then(() =>
+			this.cd.detectChanges(),
+			() => { }
+		);
+	}
+
+	loadFilter() {
+		const modalRef = this.modalService.open(FilterModalComponent, { size: 'lg' });
+		modalRef.componentInstance.title = "Load";
+		modalRef.result.then((filterLoaded) => {
+			this.variantListService.patchState({filter: filterLoaded});
+
+			// patch form group filter
+			this.filterGroup.patchValue({
+				geneName: filterLoaded.geneName ? filterLoaded.geneName : [''],
+				chromosome: filterLoaded.chromosome ? filterLoaded.chromosome : [],
+				gnomADfrom: filterLoaded.gnomADfrom ? filterLoaded.gnomADfrom : 0,
+				gnomADto: filterLoaded.gnomADto ? filterLoaded.gnomADto : [''],
+				readDepthSign: filterLoaded.readDepthSign ? filterLoaded.readDepthSign :  'greater',
+				readDepth: filterLoaded.readDepth ? filterLoaded.readDepth : 10,
+				AFSign: filterLoaded.AFSign ? filterLoaded.AFSign :  'greater',
+				alleleFraction: filterLoaded.alleleFraction ? filterLoaded.alleleFraction : 0.02,
+				gnomAdSign: filterLoaded.gnomAdSign ? filterLoaded.gnomAdSign : 'greater',
+				gnomAd: filterLoaded.gnomAd ? filterLoaded.gnomAd : 0,
+				annotation: filterLoaded.annotation ? filterLoaded.annotation : [''],
+				classification: filterLoaded.classification ? filterLoaded.classification : [''],
+			})
+			
+			this.cd.detectChanges()
+		}); 
+		// modalRef.result.then(() =>
+		// 	this.cd.detectChanges(),
+		// 	() => { }
+		// );
+	}
+
 }
