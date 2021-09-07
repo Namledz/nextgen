@@ -1,0 +1,55 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+            {{title}} Filter
+        </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px;">
+        <ng-container *ngIf="isLoading">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+
+        <ng-container  *ngIf="title == 'Save' ">
+            <form class="form">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Save filter as:</label>
+                        <select class="form-control" [(ngModel)]="selectedSaveFilter" [ngModelOptions]="{standalone: true}">
+                            <option value="">Create new filter</option>
+                            <option *ngFor="let filter of filters" [value]="filter.name">{{filter.name}}</option>
+                          </select>
+                    </div>
+                    <div *ngIf="selectedSaveFilter == ''" class="form-group">
+                        <!-- <label>Email address:</label> -->
+                        <input type="text" class="form-control" placeholder="Save as ..." [(ngModel)]="inputNewFilter" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+
+        <ng-container  *ngIf="title == 'Load' ">
+            <form class="form">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Select your filter: </label>
+                        <select class="form-control" [(ngModel)]="selectedSaveFilter" [ngModelOptions]="{standalone: true}">
+                            <option value="" selected disabled hidden>Select Filter</option>
+                            <option *ngFor="let filter of filters" [value]="filter.name">{{filter.name}}</option>
+                          </select>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
+        <ng-container>
+            <button *ngIf="title == 'Load' " type="submit" class="btn btn-primary btn-elevate" [disabled]="checkLoad()" (click)="load()">
+                Load Filter</button>
+            <button *ngIf="title == 'Save' " type="submit" class="btn btn-primary btn-elevate" [disabled]="checkSave()" (click)="save()">
+                Save Filter</button>
+        </ng-container>
+    </div>
+</div>
