@@ -86,4 +86,10 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		const url = `${environment.apiUrl}/analysis/venn-data`;
 		return this.http.post(url, { data: data }, { withCredentials: true });
 	}
+
+	delete(id) {
+		return this.http.delete<any>(`${environment.apiUrl}/analysis/deleteAnalysis/${id}`, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+	}
 }
