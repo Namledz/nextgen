@@ -73,22 +73,6 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		)
 	}
 
-	postFilesInfor(filesInfor: any[] = []): Observable<any> {
-		const tasks$ = [];
-		filesInfor.forEach(el => {
-			let data = {
-				original_name: el.name,
-				sample_name: el.sampleName,
-				file_size: el.size,
-				file_type: el.fileType,
-				upload_name: el.uploadName,
-				workspace: parseInt(el.project_id)
-			}
-			tasks$.push(this.postFileInfor(data));
-		});
-		return forkJoin(tasks$);
-	}
-
   	postFileInfor(data: any): Observable<any> {
 		return this.http.post(`${environment.apiUrl}/uploadFileInfor`, data, { withCredentials: true }).pipe(
 			catchError((err) => {
@@ -139,11 +123,6 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			tasks$.push(this.deleteFile(id));
 		});
 		return forkJoin(tasks$);
-	}
-
-	getListWorkspace() {
-		const url = `${this.API_URL}/getListWorkspace`
-		return this.http.get(url, {withCredentials: true})
 	}
 
 	ngOnDestroy() {

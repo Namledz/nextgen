@@ -76,20 +76,10 @@ export class UploadListComponent implements
 		this.filterForm();
 		this.searchForm();
 		this.uploadService.fetch();
-		this.getListWorkspace()
 		this.grouping = this.uploadService.grouping;
 		this.paginator = this.uploadService.paginator;
 		this.sorting = this.uploadService.sorting;
 		const sb = this.uploadService.isLoading$.subscribe(res => this.isLoading = res);
-	}
-
-	getListWorkspace() {
-		const sb = this.uploadService.getListWorkspace().pipe(
-			).subscribe((res) => {
-				this.dropdownList = this.formatSelect2data(res)
-				this.cd.detectChanges()
-			});
-			this.subscriptions.push(sb);
 	}
 
 	/**
@@ -130,16 +120,10 @@ export class UploadListComponent implements
 	filterForm() {
 		this.filterGroup = this.fb.group({
 		  type: [''],
-		  workspace: [''],
 		  searchTerm: [''],
 		});
 		this.subscriptions.push(
 		  this.filterGroup.controls.type.valueChanges.subscribe(() =>
-			this.filter()
-		  )
-		);
-		this.subscriptions.push(
-		  this.filterGroup.controls.workspace.valueChanges.subscribe(() =>
 			this.filter()
 		  )
 		);
@@ -152,10 +136,6 @@ export class UploadListComponent implements
 		  filter['type'] = type;
 		}
 
-		const workspace = this.filterGroup.get('workspace').value;
-		if(workspace && workspace.length > 0) {
-			filter['workspace'] = workspace
-		}
 	
 	
 		this.uploadService.patchState({ filter });
@@ -195,7 +175,7 @@ export class UploadListComponent implements
 	}
 	
 	openModalUpload() {
-		const modalRef = this.modalService.open(ModalUploadComponent, { size: 'lg' });
+		const modalRef = this.modalService.open(ModalUploadComponent, { size: 'xl' });
 		modalRef.result.then(() => 
 			this.uploadService.fetch(),
 			() => { }
