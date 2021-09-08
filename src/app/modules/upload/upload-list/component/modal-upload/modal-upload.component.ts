@@ -1,15 +1,20 @@
 import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef, OnDestroy } from "@angular/core";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../../../../../_metronic/core';
 import { ToastrService } from 'ngx-toastr';
 import { UploadService } from '../../../services/upload.service'
 import { map, mergeMap, takeUntil, delay, tap } from 'rxjs/operators';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { of, Subscription, forkJoin, Observable, Subject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-upload',
   templateUrl: './modal-upload.component.html',
-  styleUrls: ['./modal-upload.component.scss']
+  styleUrls: ['./modal-upload.component.scss'],
+  providers: [
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
+]
 })
 export class ModalUploadComponent implements OnInit, OnDestroy {
 	@ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
@@ -18,15 +23,25 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	subscriptions: Subscription[] = [];
 	readonly destroy$ = new Subject();
 
+    formGroup: FormGroup = this.fb.group({
+        filesArr: this.fb.array([])
+    })
+
 	constructor(
 		public modal: NgbActiveModal,
 		private toastr: ToastrService,
 		private cdr: ChangeDetectorRef,
-		private uploadService: UploadService
+		private uploadService: UploadService,
+        private fb: FormBuilder
 	) { }
 
 	ngOnInit(): void {
 	}
+
+
+    get FilesArray() {
+        return this.formGroup.controls["filesArr"] as FormArray;
+    }
 
 	/**
 	 * on file drop handler
@@ -47,6 +62,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	 * @param index (File index)
 	 */
 	deleteFile(index: number) {
+        this.FilesArray.removeAt(index);
 		this.files.splice(index, 1);
 	}
 
@@ -56,20 +72,23 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	 */
 	prepareFilesList(files: Array<any>) {
 		for (const item of files) {
-			item.progress = 0;
-			item.isError = false;
-			item.sampleName = item.name;
-			item.project_id = 1;
-			if (item.name.indexOf('.vcf') == -1 && item.name.indexOf('.fastq') == -1) {
+            if (item.name.indexOf('.vcf') == -1) {
 				this.toastr.error('Your file is incorrect format')
 				return false
 			}
-			else if(item.name.indexOf('.vcf') != -1) {
+			else {
 				item.fileType = 'vcf'
 			}
-			else {
-				item.fileType = 'fastq'
-			}
+            const fileForm = this.fb.group({
+                sampleName: [item.name, Validators.compose([Validators.required])],
+                firstName: ['', Validators.compose([Validators.required])],
+                lastName: ['', Validators.compose([Validators.required])],
+                dob: ['', Validators.compose([Validators.required])],
+                phenotype: ['']
+            })
+            this.FilesArray.push(fileForm);
+			item.progress = 0;
+			item.isError = false;
 			this.files.push(item);
 		}
 		this.fileDropEl.nativeElement.value = "";
@@ -94,7 +113,8 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	save() {
 		this.isLoading = true;
 		this.files.forEach((e, index) => {
-			let uploadName = `${this.uploadService.generateRandomString(32)}.${this.files[index].sampleName.substring(this.files[index].sampleName.lastIndexOf(".") + 1)}`;
+            let fileSampleName = this.FilesArray.controls[index].value.sampleName;
+			let uploadName = `${this.uploadService.generateRandomString(32)}.${fileSampleName.substring(fileSampleName.lastIndexOf(".") + 1)}`;
 			e.uploadName = uploadName;
             e.progress = 0;
 		})
@@ -191,14 +211,19 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 			takeUntil(this.destroy$)
 		).subscribe(res => {
 			if(res.status == "success") {
+                const fromValue = this.FilesArray.controls[index].value;
 				let data = {
 					original_name: file.name,
-					sample_name: file.sampleName,
+					sample_name: fromValue.sampleName,
 					file_size: file.size,
 					file_type: file.fileType,
 					upload_name: file.uploadName,
-					workspace: parseInt(file.project_id)
+					first_name: fromValue.firstName,
+                    last_name: fromValue.lastName,
+                    dob: fromValue.dob,
+                    phenotype: fromValue.phenotype,
 				}
+                console.log(data)
 				const sb2 = this.uploadService.postFileInfor(data).subscribe(response => {
 					if(response.status == "success") {
 						this.files[index].progress = 100;
@@ -220,19 +245,29 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	}
 
 	checkSave() {
-		if (this.files.length == 0 || this.isLoading == true) {
+		if (this.files.length == 0 || this.isLoading == true || this.formGroup.invalid) {
 			return true
 		}
 	}
 
-	getSampleName($event, file) {
-		this.cdr.detectChanges();
-		file.sampleName = $event.target.value
+    isControlValid(controlName: string, index: any): boolean {
+		const control = this.FilesArray.controls[index].get(controlName);
+		return control.valid && (control.dirty || control.touched);
+	}
+	
+	isControlInvalid(controlName: string, index: any): boolean {
+		const control = this.FilesArray.controls[index].get(controlName);
+		return control.invalid && (control.dirty || control.touched);
 	}
 
-	getWorkSpace(value, file) {
-		this.cdr.detectChanges();
-		file.project_id = value
+	controlHasError(validation, controlName, index: any): boolean {
+		const control = this.FilesArray.controls[index].get(controlName);
+		return control.hasError(validation) && (control.dirty || control.touched);
+	}
+
+    isControlTouched(controlName: string, index: any): boolean {
+		const control = this.FilesArray.controls[index].get(controlName);
+		return control.dirty || control.touched;
 	}
 
 	ngOnDestroy() {

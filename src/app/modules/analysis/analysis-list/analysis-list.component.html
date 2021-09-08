@@ -61,6 +61,11 @@
 				<app-sort-icon column="project" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
 					(sort)="sort($event)"></app-sort-icon>
 			</th>
+            <th>
+				Pipeline
+				<app-sort-icon column="pipeline" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+					(sort)="sort($event)"></app-sort-icon>
+			</th>
 			<th>
 				Created
 				<app-sort-icon column="created" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
@@ -107,6 +112,7 @@
 					<a *ngIf='analysis.status != "Analyzed"' href="javascript:void(0)">{{ analysis.name }}</a>
 				</td>
 				<td><a>{{ analysis.project_name }}</a></td>
+                <td><a>{{ analysis.pipeline_name }}</a></td>
 				<td>{{ analysis.createdAt }}</td>
 				<td>
 					{{ analysis.updatedAt }}

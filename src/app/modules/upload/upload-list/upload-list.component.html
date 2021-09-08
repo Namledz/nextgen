@@ -37,16 +37,6 @@
 						<option value='vcf'>VCF</option>
 					</select><small class="form-text text-muted"><b>Filter</b> by Type</small>
 				</div>
-				<div class="col-lg-4" [formGroup]="filterGroup">
-					<ng-select2
-					  [data]="dropdownList"
-					  placeholder="Select workspace"
-					  [options]="options"
-					  formControlName="workspace"
-					  >
-					</ng-select2>
-					<small class="form-text text-muted"><b>Filter</b> by Workspace</small>
-				</div>
             </div>
         </div>
 		<ng-container *ngIf="grouping.getSelectedRowsCount()">
@@ -83,14 +73,9 @@
 						<app-sort-icon column="id" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 					</th>
-					<th style="width: 20%;">
+					<th style="width: 25%;">
 						File Name
 						<app-sort-icon column="name" [activeColumn]="sorting.column"
-							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
-					</th>
-					<th>
-						Workspace
-						<app-sort-icon column="workspace" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 					</th>
 					<th>
@@ -121,19 +106,11 @@
 						</td>
 						<td>{{ uploadFile.id }}</td>
 						<td style="word-break: break-all;">{{ uploadFile.sample_name }}</td>
-						<td>{{ uploadFile.workspace_name }}</td>
 						<td><span class="label label-lg label-inline" [ngClass]="getStatusCSS(uploadFile.file_type)">{{ uploadFile.file_type }}
                         </span></td>
 						<td>{{ formatBytes(uploadFile.file_size) }}</td>
 						<td>{{ uploadFile.createdAt }}</td>
 						<td>
-
-							<!-- <a title="Edit workspace" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-								(click)="edit(workspace.id)">
-								<span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-									class="svg-icon svg-icon-md svg-icon-primary">
-								</span>
-							</a> -->
 
 							<a title="Delete upload" class="btn btn-icon btn-light btn-hover-danger btn-sm"
 								(click)="delete(uploadFile.id)">

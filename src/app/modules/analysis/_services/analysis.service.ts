@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { exhaustMap, map } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { exhaustMap, map, catchError } from 'rxjs/operators';
 import { TableService, TableResponseModel, ITableState, BaseModel } from '../../../_metronic/shared/crud-table';
 import { Analysis } from '../_models/analysis.model';
 import { baseFilter } from '../../../_fake/fake-helpers/http-extenstions';
@@ -86,4 +86,24 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
 		const url = `${environment.apiUrl}/analysis/venn-data`;
 		return this.http.post(url, { data: data }, { withCredentials: true });
 	}
+
+    getSamplesByProjectId(): Observable<any> {
+        const url = `${environment.apiUrl}/analysis/getSamplesByProjectId`;
+        return this.http.get(url, {withCredentials: true}).pipe(
+            catchError(err => {
+                console.log(err);
+                return of({})
+            })
+        )
+    }
+
+    createAnalysis(data: any): Observable<any> {
+        const url = `${environment.apiUrl}/analysis/createAnalysis`;
+        return this.http.post(url, data, {withCredentials: true}).pipe(
+            catchError(err => {
+                console.log(err);
+                return of({})
+            })
+        )
+    }
 }

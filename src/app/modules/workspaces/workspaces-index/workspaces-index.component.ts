@@ -1,8 +1,10 @@
 import { Attribute, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AnalysisListComponent } from '../.././analysis/analysis-list/analysis-list.component'
+import { AnalysisService } from '../../analysis/_services/analysis.service';
 import { WorkspacesService } from '../services/workspaces.service';
 import { Location } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAnalysesModalComponent } from '../../analysis/analysis-list/components/create-analyses-modal/create-analyses-modal.component'
 
 @Component({
 	selector: 'app-workspaces-index',
@@ -16,7 +18,9 @@ export class WorkspacesIndexComponent implements OnInit {
 		private route: ActivatedRoute,
 		private cd: ChangeDetectorRef,
 		private workspaceService: WorkspacesService,
-		private _location: Location
+		private _location: Location,
+        private modalService: NgbModal,
+        private AnalysisService: AnalysisService
 	) { }
 	id: any
 	tab: any
@@ -49,6 +53,15 @@ export class WorkspacesIndexComponent implements OnInit {
 		}
 		this.cd.detectChanges();
 	}
+
+    createAnalysis() {
+        const modalRef = this.modalService.open(CreateAnalysesModalComponent, { size: 'lg' });
+        modalRef.componentInstance.projectId = this.route.snapshot.params.id;
+        modalRef.result.then(() => 
+            this.AnalysisService.fetch(),
+            () => {}
+        );
+    }
 
 	backClicked() {
 		this._location.back();

@@ -5,9 +5,10 @@
 		</div>
 		<div class="card-toolbar">
 			<!-- <button type="button" class="btn btn-primary">New Analysis</button> -->
-			<a style="margin-left: 10px;" type="button" class="btn btn-light" routerLink="/workspaces/list">
+			<a type="button" class="btn btn-light" routerLink="/workspaces/list">
 				<i class="fa fa-arrow-left"></i>Back
 			</a>
+            <a style="margin-left: 10px;" (click)="createAnalysis()" type="button" class="btn btn-primary">New Analysis</a>
 		</div>
 	</div>
 	<div class="card-body">
