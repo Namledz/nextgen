@@ -582,26 +582,30 @@ export class VariantListComponent implements
 		const modalRef = this.modalService.open(FilterModalComponent, { size: 'lg' });
 		modalRef.componentInstance.title = "Load";
 		modalRef.result.then((filterLoaded) => {
-			this.variantListService.patchState({filter: filterLoaded});
+			if(filterLoaded) {
+				this.variantListService.patchState({ filter: filterLoaded });
 
-			// patch form group filter
-			this.filterGroup.patchValue({
-				geneName: filterLoaded.geneName ? filterLoaded.geneName : [''],
-				chromosome: filterLoaded.chromosome ? filterLoaded.chromosome : [],
-				gnomADfrom: filterLoaded.gnomADfrom ? filterLoaded.gnomADfrom : 0,
-				gnomADto: filterLoaded.gnomADto ? filterLoaded.gnomADto : [''],
-				readDepthSign: filterLoaded.readDepthSign ? filterLoaded.readDepthSign :  'greater',
-				readDepth: filterLoaded.readDepth ? filterLoaded.readDepth : 10,
-				AFSign: filterLoaded.AFSign ? filterLoaded.AFSign :  'greater',
-				alleleFraction: filterLoaded.alleleFraction ? filterLoaded.alleleFraction : 0.02,
-				gnomAdSign: filterLoaded.gnomAdSign ? filterLoaded.gnomAdSign : 'greater',
-				gnomAd: filterLoaded.gnomAd ? filterLoaded.gnomAd : 0,
-				annotation: filterLoaded.annotation ? filterLoaded.annotation : [''],
-				classification: filterLoaded.classification ? filterLoaded.classification : [''],
-			})
-			
+				// patch form group filter
+				this.filterGroup.patchValue({
+					geneName: filterLoaded.geneName ? filterLoaded.geneName : [''],
+					chromosome: filterLoaded.chromosome ? filterLoaded.chromosome : [],
+					gnomADfrom: filterLoaded.gnomADfrom ? filterLoaded.gnomADfrom : 0,
+					gnomADto: filterLoaded.gnomADto ? filterLoaded.gnomADto : [''],
+					readDepthSign: filterLoaded.readDepthSign ? filterLoaded.readDepthSign : 'greater',
+					readDepth: filterLoaded.readDepth ? filterLoaded.readDepth : 10,
+					AFSign: filterLoaded.AFSign ? filterLoaded.AFSign : 'greater',
+					alleleFraction: filterLoaded.alleleFraction ? filterLoaded.alleleFraction : 0.02,
+					gnomAdSign: filterLoaded.gnomAdSign ? filterLoaded.gnomAdSign : 'greater',
+					gnomAd: filterLoaded.gnomAd ? filterLoaded.gnomAd : 0,
+					annotation: filterLoaded.annotation ? filterLoaded.annotation : [''],
+					classification: filterLoaded.classification ? filterLoaded.classification : [''],
+				})
+			}
+		
 			this.cd.detectChanges()
-		}); 
+		},
+			() => { }
+		); 
 	}
 
 }
