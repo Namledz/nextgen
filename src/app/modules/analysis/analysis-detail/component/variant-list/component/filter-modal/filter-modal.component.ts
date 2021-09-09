@@ -88,6 +88,25 @@ export class FilterModalComponent implements OnInit {
     this.subscriptions.push(sb);
   }
 
+  deleteFilter() {
+    // selectedSaveFilter
+    const sb = this.filterService.deleteFilter(this.selectedSaveFilter).pipe(
+      first(),
+      catchError((errorMessage) => {
+        this.modal.dismiss(errorMessage);
+        return of(null);
+      })
+    ).subscribe((res: CustomResponse) => {
+      if (res.status === 'success') {
+        this.toastr.success(res.message)
+        this.modal.dismiss()
+      } else {
+        this.toastr.error(res.message)
+      }
+    });
+    this.subscriptions.push(sb);
+  }
+
   getFilters() {
     const sb = this.filterService.getFilters(this.user).pipe(
       first(),

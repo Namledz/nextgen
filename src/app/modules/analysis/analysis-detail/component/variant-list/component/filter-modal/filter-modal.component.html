@@ -45,7 +45,9 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
+        
         <ng-container>
+            <button  *ngIf="title == 'Load'" type="button" class="btn btn-danger btn-elevate mr-2" [disabled]="checkLoad()" (click)="deleteFilter()">Delete</button>
             <button *ngIf="title == 'Load' " type="submit" class="btn btn-primary btn-elevate" [disabled]="checkLoad()" (click)="load()">
                 Load Filter</button>
             <button *ngIf="title == 'Save' " type="submit" class="btn btn-primary btn-elevate" [disabled]="checkSave()" (click)="save()">
