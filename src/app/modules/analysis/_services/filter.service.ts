@@ -37,6 +37,11 @@ export class FilterService extends TableService<any> implements OnDestroy{
         return this.http.post(url , { name }, { withCredentials: true })
     }
 
+    deleteFilter(name: string) {
+        let url = `${this.API_URL}/delete`
+        return this.http.post(url , { name }, { withCredentials: true })
+    }
+
   	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
