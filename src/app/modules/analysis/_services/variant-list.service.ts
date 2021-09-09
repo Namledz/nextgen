@@ -62,6 +62,11 @@ export class VariantListService extends TableService<Variant> implements OnDestr
 		return this.http.post(url, data, { withCredentials: true, observe: 'response' })
 	}
 
+	exportVariants(data: any): Observable<any> {
+		const url = `${environment.apiUrl}/variant/export-variants`;
+		return this.http.post(url, data, { withCredentials: true, observe: 'response' })
+	}
+
 	getSeletedVariants() {
 		const url = `${this.API_URL}/getSeletedVariants`;
 		return this.http.get(url, { withCredentials: true, observe: 'response' })
