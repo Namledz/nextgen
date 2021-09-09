@@ -50,12 +50,8 @@ export class FilterModalComponent implements OnInit {
   }
 
   save() {
-    let data = !this.selectedSaveFilter ?
-    {
+    let data = {
       name: this.inputNewFilter,
-      filter_string: this.filter_string
-    } : {
-      name: this.selectedSaveFilter,
       filter_string: this.filter_string
     }
 
@@ -69,6 +65,8 @@ export class FilterModalComponent implements OnInit {
       if (res.status === 'success') {
         this.toastr.success(res.message)
         this.modal.dismiss()
+      } else {
+        this.toastr.error(res.message)
       }
     });
     this.subscriptions.push(sb);
@@ -106,7 +104,7 @@ export class FilterModalComponent implements OnInit {
   }
 
   checkSave() {
-    if(this.selectedSaveFilter == '' && this.inputNewFilter == '') {
+    if(this.inputNewFilter == '') {
       return true
     }
 	}
