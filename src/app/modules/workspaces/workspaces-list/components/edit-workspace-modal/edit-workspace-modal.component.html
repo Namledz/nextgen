@@ -48,12 +48,11 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
-        <ng-container>
-  
-        <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid || isLoad ">Save</button>
-      </ng-container>
-      <ng-container *ngIf="isLoad">
-        <span class="spinner spinner-primary ml-3 mr-5"></span>
-      </ng-container>
+        <ng-container *ngIf="workspace">
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid || isLoad ">Save</button>
+		</ng-container>
+		<ng-container *ngIf="isLoad">
+			<span class="spinner spinner-primary ml-3 mr-5"></span>
+		</ng-container>
     </div>
 </div>

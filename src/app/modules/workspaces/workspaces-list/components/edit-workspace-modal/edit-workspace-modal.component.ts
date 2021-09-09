@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subscription } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, first, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/modules/auth';
 import { WorkspaceModel } from 'src/app/modules/auth/_models/workspace.model';
 import { WorkspacesService } from '../../../services/workspaces.service';
@@ -59,6 +59,18 @@ export class EditWorkspaceModalComponent implements OnInit, OnDestroy {
 		if (!this.id) {
 			this.workspace = EMPTY_WORKSPACE;
 			this.loadForm();
+		} else {
+			const sb = this.workSpacesService.getWorkspaceById(this.id).pipe(
+				first(),
+				catchError((errorMessage) => {
+				  this.modal.dismiss(errorMessage);
+				  return of(EMPTY_WORKSPACE);
+				})
+			  ).subscribe((workspace: WorkspaceModel) => {
+					this.workspace = workspace;
+					this.loadFormEdit();
+			  });
+			  this.subscriptions.push(sb);
 		}
 	}
 
@@ -71,7 +83,15 @@ export class EditWorkspaceModalComponent implements OnInit, OnDestroy {
 		if (!this.id) {
 		  this.formGroup.reset();
 		}
-	  }
+	}
+
+	loadFormEdit() {
+		this.formGroup = this.fb.group({
+			name: [this.workspace.name, Validators.compose([Validators.required, Validators.maxLength(100)])],
+			pipeline: [this.workspace.pipeline, Validators.compose([Validators.required])],
+			dashboard: [this.workspace.dashboard,]
+		})
+	}
 
 	save() {
 		this.prepareWorkspace();
@@ -83,7 +103,24 @@ export class EditWorkspaceModalComponent implements OnInit, OnDestroy {
 	}
 
 	edit() {
-
+		let self = this
+		self.isLoad = true
+		const sbUpdate = this.workSpacesService.updateWorkspace(this.workspace).pipe(
+		tap((res) => {
+			self.isLoad = false
+			if(res.status == 'success') {
+				this.toastr.success(res.message);
+				this.modal.close();
+			} else {
+				this.toastr.error(res.message);
+			}
+		}),
+		catchError((errorMessage) => {
+			this.modal.dismiss(errorMessage);
+			return of(this.workspace);
+		}),
+		).subscribe();
+		this.subscriptions.push(sbUpdate);
 	}
 
 	create() {
