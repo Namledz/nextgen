@@ -34,7 +34,7 @@
                             <label class="form-label">Enter Analysis Name</label>
                             <input type="text" class="form-control form-control-lg form-control-solid" name="analysisName"
                                 placeholder="Analysis Name" autocomplete="off" [class.is-invalid]="isControlInvalid('analysisName')"
-                                [class.is-valid]="isControlValid('analysisName')" [ngModel]="formatSampleValue(formGroup.value.sampleList)" formControlName="analysisName" />
+                                [class.is-valid]="isControlValid('analysisName')" [ngModel]="formatSampleValue(formGroup.value.sampleList, 'sample_name')" formControlName="analysisName" />
                             <div class="valid-feedback" *ngIf="isControlValid('analysisName')">Analysis Name was entered correct</div>
                             <div class="invalid-feedback" *ngIf="controlHasError('required', 'analysisName')">Analysis Name is required</div>
                         </div>

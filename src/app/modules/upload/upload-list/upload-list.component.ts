@@ -22,6 +22,7 @@ import { UploadService } from '../services/upload.service';
 import { DeleteUploadModalComponent } from './component/delete-upload-modal/delete-upload-modal.component';
 import { DeleteUploadsModalComponent } from './component/delete-uploads-modal/delete-uploads-modal.component';
 import { ModalUploadComponent } from './component/modal-upload/modal-upload.component';
+import { ModalUploadFastqComponent } from './component/modal-upload-fastq/modal-upload-fastq.component';
 
 @Component({
   selector: 'app-upload-list',
@@ -88,7 +89,7 @@ export class UploadListComponent implements
 	* @param decimals (Decimals point)
 	*/
 	formatBytes(bytes, decimals = 2) {
-		if (bytes === 0) {
+		if (bytes == 0) {
 			return "0 Bytes";
 		}
 		const k = 1024;
@@ -174,8 +175,16 @@ export class UploadListComponent implements
 		this.uploadService.patchState({ paginator });
 	}
 	
-	openModalUpload() {
+	openModalUploadVcf() {
 		const modalRef = this.modalService.open(ModalUploadComponent, { size: 'xl' });
+		modalRef.result.then(() => 
+			this.uploadService.fetch(),
+			() => { }
+		);
+	}
+
+    openModalUploadFastq() {
+		const modalRef = this.modalService.open(ModalUploadFastqComponent, { size: 'xl', scrollable: true });
 		modalRef.result.then(() => 
 			this.uploadService.fetch(),
 			() => { }
@@ -202,6 +211,7 @@ export class UploadListComponent implements
 
 	fetchSelected(): void {
 	}
+
 	updateStatusForSelected(): void {
 	}
   

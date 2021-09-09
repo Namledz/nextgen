@@ -2,10 +2,10 @@
     <div class="modal-header">
         <div class="modal-title h4" id="example-modal-sizes-title-lg">
 
-            <ng-container>Upload Sample</ng-container>
+            <ng-container>Upload Vcf Samples</ng-container>
         </div>
     </div>
-    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px;">
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 400px;">
         <!-- <ng-container *ngIf="isLoading$ | async">
         <div class="overlay-layer bg-transparent">
           <div class="spinner spinner-lg spinner-success"></div>
@@ -19,10 +19,10 @@
                 <img src="assets/images/dnd/ic-upload-file.svg" alt="">
                 <h3>Drag and drop file here</h3>
                 <h3>or</h3>
-                <label for="fileDropRef" style="cursor: pointer;">Browse for file</label>
+                <label for="fileDropRef" style="cursor: pointer;">Browse for files</label>
             </div>
             <ngb-alert style="margin-top: 1rem;" [dismissible]="false" [type]="'light'">
-                <span class="svg-icon svg-icon-primary svg-icon-2x mr-1">
+                <span class="svg-icon svg-icon-primary svg-icon-2x mr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                         height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -32,7 +32,7 @@
                             <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
                         </g>
                     </svg>
-                </span><strong>Allowed file formats:</strong> vcf
+                </span><strong>Allowed file format:</strong> vcf
             </ngb-alert>
             <div class="files-list" [formGroup]="formGroup">
                 <div style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem;" *ngFor="let file of files; let i = index">

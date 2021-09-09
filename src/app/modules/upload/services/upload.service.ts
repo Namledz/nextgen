@@ -20,7 +20,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 
 	public generateRandomString(len) {
 		let result = '';
-		let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		let characters = '0123456789';
 		let charactersLength = characters.length;
 		for (let i = 0; i < len; i++) {
 			result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -38,7 +38,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 					return of(error);
 				}),
 				take(100),
-				delay(2000),
+				delay(3000),
 				concat(throwError({error: 'Sorry, there was an error (after 100 retries)'}))
 			)),
 			map((response: HttpResponse<any>) => {
@@ -50,7 +50,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			}),
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return of({status: "error"});
 			})
 		)
 	}
@@ -59,7 +59,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/createMultipartUpload`, data, { withCredentials: true }).pipe(
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return of({status: "error"});
 			})
 		)
 	}
@@ -68,7 +68,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/completeMultipartUpload`, data, { withCredentials: true }).pipe(
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return of({status: "error"});
 			})
 		)
 	}
@@ -77,7 +77,25 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/uploadFileInfor`, data, { withCredentials: true }).pipe(
 			catchError((err) => {
 				console.log("Error:", err)
-				return of({});
+				return of({status: "error"});
+			})
+		)
+	}
+
+    createUploadFastQ(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/createUploadFastQ`, data, { withCredentials: true }).pipe(
+			catchError((err) => {
+				console.log("Error:", err)
+				return of({status: "error"});
+			})
+		)
+	}
+
+    createSampleFastQ(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/createSampleFastQ`, data, { withCredentials: true }).pipe(
+			catchError((err) => {
+				console.log("Error:", err)
+				return of({status: "error"});
 			})
 		)
 	}
@@ -107,7 +125,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			}),
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return of({status: "error"});
 			})
 		)
 	}
