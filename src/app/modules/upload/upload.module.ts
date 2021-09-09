@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteUploadModalComponent } from './upload-list/component/delete-upload-modal/delete-upload-modal.component';
 import { DeleteUploadsModalComponent } from './upload-list/component/delete-uploads-modal/delete-uploads-modal.component';
 import { NgSelect2Module } from 'ng-select2';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ModalUploadFastqComponent } from './upload-list/component/modal-upload-fastq/modal-upload-fastq.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { NgSelect2Module } from 'ng-select2';
     ProgressComponent,
     DndDirective,
     DeleteUploadModalComponent,
-    DeleteUploadsModalComponent
+    DeleteUploadsModalComponent,
+    ModalUploadFastqComponent
   ],
   imports: [
     CommonModule,
@@ -38,9 +42,13 @@ import { NgSelect2Module } from 'ng-select2';
     FormsModule,
     ReactiveFormsModule,
     NgSelect2Module,
+    DragDropModule
   ],
   entryComponents: [
     UploadListComponent
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class UploadModule { }
