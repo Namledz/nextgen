@@ -78,11 +78,9 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 	}
 
     deleteForm(index: number) {
-        document.querySelectorAll<HTMLElement>('.formFadeOut')[index].style.opacity = '0'
-        setTimeout(() => {
-            this.FilesArray.removeAt(index);
-            this.dragForm.splice(index, 1);
-        }, 800)
+        // document.querySelectorAll<HTMLElement>('.formFadeOut')[index].style.opacity = '0'
+        this.FilesArray.removeAt(index);
+        this.dragForm.splice(index, 1);
     }
 
 	/**
