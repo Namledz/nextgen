@@ -89,6 +89,11 @@
 						<app-sort-icon column="type" [activeColumn]="sorting.column"
 							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
 					</th>
+                    <th>
+						Upload Status
+						<app-sort-icon column="status" [activeColumn]="sorting.column"
+							[activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+					</th>
 					<th>
 						Size
 						<app-sort-icon column="size" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
@@ -113,6 +118,8 @@
 						<td>{{ uploadFile.id }}</td>
 						<td style="word-break: break-all;">{{ uploadFile.original_name }}</td>
 						<td><span class="label label-lg label-inline" [ngClass]="getStatusCSS(uploadFile.file_type)">{{ uploadFile.file_type }}
+                        </span></td>
+                        <td><span class="label label-lg label-inline" [ngClass]="getUploadStatusCSS(uploadFile.upload_status)">{{ uploadFile.upload_status }}
                         </span></td>
 						<td>{{ formatBytes(uploadFile.file_size) }}</td>
 						<td>{{ uploadFile.createdAt }}</td>

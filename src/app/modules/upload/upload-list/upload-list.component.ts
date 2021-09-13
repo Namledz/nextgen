@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -23,13 +23,15 @@ import { DeleteUploadModalComponent } from './component/delete-upload-modal/dele
 import { DeleteUploadsModalComponent } from './component/delete-uploads-modal/delete-uploads-modal.component';
 import { ModalUploadComponent } from './component/modal-upload/modal-upload.component';
 import { ModalUploadFastqComponent } from './component/modal-upload-fastq/modal-upload-fastq.component';
+import { ComponentCanDeactivate } from '../services/component-can-deactivate';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-upload-list',
   templateUrl: './upload-list.component.html',
   styleUrls: ['./upload-list.component.scss']
 })
-export class UploadListComponent implements
+export class UploadListComponent extends ComponentCanDeactivate implements
 	OnInit,
 	OnDestroy,
 	ICreateAction,
@@ -62,9 +64,9 @@ export class UploadListComponent implements
 		private fb: FormBuilder,
 		private modalService: NgbModal, 
 		private cd: ChangeDetectorRef,
-		public uploadService: UploadService,
+		public uploadService: UploadService
 		
-	) { }
+	) { super() }
 	create(): void {
 		throw new Error('Method not implemented.');
 	}
@@ -107,6 +109,19 @@ export class UploadListComponent implements
             return 'label-light-warning'
           default:
             return 'label-light-default'
+        }
+    }
+
+    getUploadStatusCSS(status) {
+        switch(status) {
+          case 'Completed':
+            return 'label-light-primary'
+          case 'Uploading':
+            return 'label-light-warning'
+          case 'Error':
+            return 'label-light-danger'
+          default:
+            return 'label-light-warning'
         }
     }
 
@@ -190,6 +205,14 @@ export class UploadListComponent implements
 			() => { }
 		);
 	}
+
+    canDeactivate(): boolean {
+        const uploadStatus = this.uploadService.isUploadAll;
+        if(uploadStatus.every(el => el==true)) {
+            return true;
+        }
+        return false;
+    }
 
 	delete(id) {
 		const modalRef = this.modalService.open(DeleteUploadModalComponent, { size: 'md' });

@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from "@ng-boot
 import { CustomAdapter, CustomDateParserFormatter, getDateFromString } from '../../../../../_metronic/core';
 import { ToastrService } from 'ngx-toastr';
 import { UploadService } from '../../../services/upload.service'
-import { map, mergeMap, takeUntil, delay, tap } from 'rxjs/operators';
+import { map, mergeMap, takeUntil, delay, tap, finalize } from 'rxjs/operators';
 import { of, Subscription, forkJoin, Observable, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CDK_DRAG_CONFIG } from '@angular/cdk/drag-drop';
@@ -74,6 +74,8 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 	 * @param index (File index)
 	 */
 	deleteFile(index: number) {
+        let pos = this.filesUploading.indexOf(this.files[index].uploadName);
+        this.filesUploading.splice(pos, 1);
 		this.files.splice(index, 1);
 	}
 
@@ -89,10 +91,10 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 	 */
 	prepareFilesList(files: Array<any>) {
 		for (const item of files) {
-            if (item.name.indexOf('.fastq') == -1) {
+            if(item.name.substring(item.name.indexOf('.fastq')) != '.fastq' && item.name.substring(item.name.indexOf('.fastq')) != '.fastq.gz') {
 				this.toastr.error(`File '${item.name}' is incorrect format`)
 				continue;
-			}
+            }
 			else if(!this.checkFastqFileName(item.name)) {
                 this.toastr.error(`Filename '${item.name}' is not in the correct format`)
 				continue;
@@ -103,6 +105,7 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 			item.progress = 0;
             item.isUploaded = false;
 			item.isError = false;
+            item.isProcessing = true;
 			this.files.push(item);
 		}
 		this.fileDropEl.nativeElement.value = "";
@@ -138,7 +141,7 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 	}
 
     checkFastqFileName(name: string) {
-        if((name.indexOf('_R1_')!=-1 && name.split('_R1_').length == 2) || (name.indexOf('_R2_')!=-1 && name.split('_R2_').length == 2)) {
+        if(name.indexOf('_R1_')!=-1 || name.indexOf('_R2_')!=-1) {
             return true;
         }
         return false;
@@ -157,7 +160,6 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
             if(this.filesUploading.length!=0) {
                 let fileUploadName = this.filesUploading.shift();
                 let pos = this.files.map(el => {return el.uploadName}).indexOf(fileUploadName);
-                this.toastr.success(`Start uploading file ${this.files[pos].name}...`);
                 this.uploadFile(this.files[pos]);
             }
             else {
@@ -167,17 +169,34 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
     }
 
 	uploadFile(file) {
-		let data = {
-			uploadName: file.uploadName, 
-			fileType: file.type
-		}
-		file.progress += 1;
-		const sb1 = this.uploadService.createMultipartUpload(data).pipe(
+        file.progress += 1;
+        this.uploadService.uploadAll(this.files.map(el => el.progress == 100 ? true : false ))
+        let data = {
+            original_name: file.name,
+            file_size: file.size,
+            file_type: file.fileType,
+            upload_name: file.uploadName
+        }
+        const sb1 = this.uploadService.createUploadFastQ(data).pipe(
+            map(result => {
+                this.uploadService.fetch();
+                return result.uploadId
+            }),
+            mergeMap(data => {
+                file.uploadId = data;
+                file.isProcessing = false;
+                let dataMultipartUpload = {
+                    uploadName: file.uploadName, 
+                    fileType: file.type
+                }
+                return this.uploadService.createMultipartUpload(dataMultipartUpload)
+            })
+        ).pipe(
 			map( result => {
-				return result.uploadId;
+                return result.uploadId;
 			}),
 			mergeMap( data => {
-				file.uploadId = data;
+				file.uploadMultipartId = data;
 				const CHUNK_SIZE = 10000000;
 				const fileSize = file.size;
 				const CHUNKS_COUNT = Math.floor(fileSize / CHUNK_SIZE) + 1;
@@ -188,21 +207,18 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 					end = (i) * CHUNK_SIZE;
 					blob = (i < CHUNKS_COUNT) ? file.slice(start, end) : file.slice(start);
 
-					filesData.push({uploadName: file.uploadName, partNumber: i, uploadId: data, file: blob});
+					filesData.push({uploadName: file.uploadName, partNumber: i, uploadMultipartId: data, file: blob});
 				}
 
 				return this.uploadService.getBatchFilesSignedAuth(filesData);
 			})
 		).pipe(
-			map(result => {
-				return result;
-			}),
 			mergeMap( data => {
 				const tasks$ = [];
 				data.forEach(el => {
 					tasks$.push(this.uploadService.fileUpload(el).pipe(
 						map(result => {
-							let percentage = file.size == 0 ? 90 : Math.round(el.file.size/file.size * 90);
+							let percentage = file.size == 0 ? 89 : Math.round(el.file.size/file.size * 89);
 							file.progress += percentage;
 							return result;
 						})
@@ -215,44 +231,48 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 				let data = {
 					uploadName: file.uploadName,
 					parts: result,
-					uploadId: file.uploadId
+					uploadMultipartId: file.uploadMultipartId
 				}
 
 				return data;
 			}),
 			mergeMap( data => {
 				return this.uploadService.completeMultipartUpload(data)
-			}),
-			takeUntil(this.destroy$)
-		).subscribe(res => {
-			if(res.status == "success") {
-				let data = {
-					original_name: file.name,
-					file_size: file.size,
-					file_type: file.fileType,
-					upload_name: file.uploadName
-				}
-				const sb2 = this.uploadService.createUploadFastQ(data).subscribe(response => {
-					if(response.status == "success") {
-                        file.uploadId = response.uploadId;
-						file.progress = 100;
-                        this.toastr.success(`Uploaded file ${file.name} successfully!`);
-					}
-					else {
-						file.isError = true;
-						file.progress = 100;
-                        this.toastr.error(`${file.name} uploaded failed`)
-					}
-				})
-				this.subscriptions.push(sb2);
-			}
-			else {
-				file.isError = true;
-				file.progress = 100;
-			}
-		})
-
-		this.subscriptions.push(sb1);
+			})
+		).pipe(
+            mergeMap(res => {
+                if(res.status == "success") {
+                    file.progress = 100;
+                    let data = {
+                        uploadId: file.uploadId,
+                        uploadStatus: 1
+                    }
+                    return this.uploadService.updateStatusUploadFastQ(data)
+                }
+                else {
+                    file.isError = true;
+                    file.progress = 100;
+                    let data = {
+                        uploadId: file.uploadId,
+                        uploadStatus: 2
+                    }
+                    return this.uploadService.updateStatusUploadFastQ(data)
+                }
+            })
+        ).pipe(
+            tap(() => {
+                this.uploadService.uploadAll(this.files.map(el => el.progress == 100 ? true : false ))
+                this.uploadService.fetch();
+            })
+        )
+        .subscribe(res => {
+            sb1.unsubscribe();
+		}, err => {
+            file.isError = true;
+            file.progress = 100;
+            this.toastr.error('Unkown Error!');
+            sb1.unsubscribe();
+        })
 	}
 
     checkSave() {
@@ -296,6 +316,7 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
         const tasks$ = [];
         for(let index in this.FilesArray.controls) {
             const fromValue = this.FilesArray.controls[index].value;
+            let str = Object.values(this.FilesArray.value[index]).join('_')
             let data = {
                 sample_name: fromValue.sampleName,
                 first_name: fromValue.firstName,
@@ -309,16 +330,16 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
             }
             tasks$.push(this.uploadService.createSampleFastQ(data).pipe(
                 delay(1000),
-                map(res => {
+                tap(res => {
                     if(res.status == 'success') {
-                        this.toastr.success(`Created sample ${fromValue.sampleName} successfully!`);
-                        this.FilesArray.removeAt(+index);
-                        this.dragForm.splice(+index, 1);
-                        return true;
+                        let pos = this.FilesArray.value.findIndex(el => {
+                            return Object.values(el).join('_') == str
+                        })
+                        this.FilesArray.removeAt(pos);
+                        this.dragForm.splice(pos, 1);
                     }
                     else {
                         this.toastr.error(`Created sample ${fromValue.sampleName} failed!`);
-                        return false
                     }
                 })
             ))
@@ -330,15 +351,11 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
                 return res;
             }),
-            delay(2000),
+            delay(1000),
             tap(res => {
-                if(res.every(el => el == true)) {
-                    this.modal.close();
-                }
+                this.toastr.success('Samples will be automatically created when the uploads is complete!')
             })
-        ).subscribe();
-
-        this.subscriptions.push(sb);
+        ).subscribe((res) => { sb.unsubscribe() }, err => {console.log(err); this.toastr.error('Unkown Error!')});
     }
 
     checkFastqPairValid() {
@@ -394,9 +411,9 @@ export class ModalUploadFastqComponent implements OnInit, OnDestroy {
 	}
 
     ngOnDestroy(): void {
-        this.destroy$.next();
-		this.destroy$.complete();
-		this.subscriptions.forEach(sb => sb.unsubscribe());
+        // this.destroy$.next();
+		// this.destroy$.complete();
+		// this.subscriptions.forEach(sb => sb.unsubscribe());
     }
 
 }

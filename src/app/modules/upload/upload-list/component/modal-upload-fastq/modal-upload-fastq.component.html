@@ -45,7 +45,7 @@
                     cdkDropList
                     [cdkDropListData]="files"
                     (cdkDropListDropped)="drop($event)">
-                        <div class="file-box" style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem; cursor: move;" *ngFor="let file of files; let i = index" [cdkDragData]="file" cdkDrag [cdkDragDisabled]="file?.progress < 100 || file?.isError">
+                        <div class="file-box" style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem; cursor: move;" *ngFor="let file of files; let i = index" [cdkDragData]="file" cdkDrag [cdkDragDisabled]="file?.isProcessing || file?.isError">
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div>
                                 <div class="single-file">
@@ -142,8 +142,9 @@
                                                     [cdkDropListEnterPredicate]="fowardPredicate">
                                                     <div *ngFor="let file of dragForm[i]['forward']" [cdkDragData]="file" cdkDrag>
                                                         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                                                        <div style="cursor: move;">
-                                                            {{file?.name}} - {{formatBytes(file?.size)}}
+                                                        <div style="cursor: move; margin-bottom: 5px;">
+                                                            <img src="assets/images/dnd/ic-file.svg" width="25px" alt="file" style="margin-right: 10px;">
+                                                            <span>{{file?.name}} - {{formatBytes(file?.size)}} - {{file?.progress}}%</span>
                                                         </div>
                                                         <div *cdkDragPreview class="file-box" style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem;">
                                                             <div class="single-file" style="min-width: 100px;">
@@ -173,8 +174,9 @@
                                                     [cdkDropListEnterPredicate]="reversePredicate">
                                                     <div *ngFor="let file of dragForm[i]['reverse']; let i = index" cdkDrag [cdkDragData]="file">
                                                         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-                                                        <div style="cursor: move;">
-                                                            {{file?.name}} - {{formatBytes(file?.size)}}
+                                                        <div style="cursor: move; margin-bottom: 5px;">
+                                                            <img src="assets/images/dnd/ic-file.svg" width="25px" alt="file" style="margin-right: 10px;">
+                                                            <span>{{file?.name}} - {{formatBytes(file?.size)}} - {{file?.progress}}%</span>
                                                         </div>
                                                         <div *cdkDragPreview class="file-box" style="border: dashed 1px #979797; margin-bottom: 1rem; padding:0 1rem;">
                                                             <div class="single-file" style="min-width: 100px;">

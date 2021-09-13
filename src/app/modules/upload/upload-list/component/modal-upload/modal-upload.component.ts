@@ -164,7 +164,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				return result.uploadId;
 			}),
 			mergeMap( data => {
-				file.uploadId = data;
+				file.uploadMultipartId = data;
 				const CHUNK_SIZE = 10000000;
 				const fileSize = file.size;
 				const CHUNKS_COUNT = Math.floor(fileSize / CHUNK_SIZE) + 1;
@@ -175,7 +175,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 					end = (i) * CHUNK_SIZE;
 					blob = (i < CHUNKS_COUNT) ? file.slice(start, end) : file.slice(start);
 
-					filesData.push({uploadName: file.uploadName, partNumber: i, uploadId: data, file: blob});
+					filesData.push({uploadName: file.uploadName, partNumber: i, uploadMultipartId: data, file: blob});
 				}
 
 				return this.uploadService.getBatchFilesSignedAuth(filesData);
@@ -202,7 +202,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				let data = {
 					uploadName: file.uploadName,
 					parts: result,
-					uploadId: file.uploadId
+					uploadMultipartId: file.uploadMultipartId
 				}
 
 				return data;
