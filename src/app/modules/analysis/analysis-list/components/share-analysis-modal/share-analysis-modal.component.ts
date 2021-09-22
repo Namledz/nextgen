@@ -39,12 +39,14 @@ export class ShareAnalysisModalComponent implements OnInit, OnDestroy {
 			emailIDs : this.emailIDs
 		}
 		const sb = this.analysisService.shareAnalysis(data).pipe(
+			delay(1000),
 			tap((res) => {
 			  if(res.status == 'success') {
+				  this.isLoading = false
 				  this.toastr.success(res.message);
 				  this.modal.close();
-				  this.isLoading = false
 			  } else {
+					this.isLoading = false
 				  this.toastr.error(res.message);
 			  }
 			}),
