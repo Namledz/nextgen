@@ -6,6 +6,7 @@ import { UploadService } from '../../../services/upload.service'
 import { map, mergeMap, takeUntil, delay, tap } from 'rxjs/operators';
 import { of, Subscription, forkJoin, Observable, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-modal-upload',
@@ -32,7 +33,8 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 		private toastr: ToastrService,
 		private cdr: ChangeDetectorRef,
 		private uploadService: UploadService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private datePipe: DatePipe
 	) { }
 
 	ngOnInit(): void {
@@ -73,8 +75,8 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 	prepareFilesList(files: Array<any>) {
 		for (const item of files) {
             if (item.name.indexOf('.vcf') == -1) {
-				this.toastr.error('Your file is incorrect format')
-				return false
+				this.toastr.error(`File '${item.name}' is incorrect format`)
+				continue;
 			}
 			else {
 				item.fileType = 'vcf'
@@ -112,9 +114,9 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 
 	save() {
 		this.isLoading = true;
+        this.toastr.success('Start uploading files...')
 		this.files.forEach((e, index) => {
-            let fileSampleName = this.FilesArray.controls[index].value.sampleName;
-			let uploadName = `${this.uploadService.generateRandomString(32)}.${fileSampleName.substring(fileSampleName.lastIndexOf(".") + 1)}`;
+			let uploadName = `${this.datePipe.transform(new Date(), "yyyyMMddHHmmss")}${this.uploadService.generateRandomString(6)}${e.name.substring(e.name.indexOf('.vcf'))}`;
 			e.uploadName = uploadName;
             e.progress = 0;
 		})
@@ -148,7 +150,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				const sb = delayObservable.subscribe()
 				this.subscriptions.push(sb);
 			}
-		}, 1500);
+		}, 2000);
 	}
 
 	uploadFile(file, index) {
@@ -162,7 +164,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				return result.uploadId;
 			}),
 			mergeMap( data => {
-				file.uploadId = data;
+				file.uploadMultipartId = data;
 				const CHUNK_SIZE = 10000000;
 				const fileSize = file.size;
 				const CHUNKS_COUNT = Math.floor(fileSize / CHUNK_SIZE) + 1;
@@ -173,7 +175,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 					end = (i) * CHUNK_SIZE;
 					blob = (i < CHUNKS_COUNT) ? file.slice(start, end) : file.slice(start);
 
-					filesData.push({uploadName: file.uploadName, partNumber: i, uploadId: data, file: blob});
+					filesData.push({uploadName: file.uploadName, partNumber: i, uploadMultipartId: data, file: blob});
 				}
 
 				return this.uploadService.getBatchFilesSignedAuth(filesData);
@@ -200,7 +202,7 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
 				let data = {
 					uploadName: file.uploadName,
 					parts: result,
-					uploadId: file.uploadId
+					uploadMultipartId: file.uploadMultipartId
 				}
 
 				return data;
@@ -223,7 +225,6 @@ export class ModalUploadComponent implements OnInit, OnDestroy {
                     dob: fromValue.dob,
                     phenotype: fromValue.phenotype,
 				}
-                console.log(data)
 				const sb2 = this.uploadService.postFileInfor(data).subscribe(response => {
 					if(response.status == "success") {
 						this.files[index].progress = 100;

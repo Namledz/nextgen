@@ -112,7 +112,7 @@ export class AnalysisListComponent
  * @param decimals (Decimals point)
  */
 	formatBytes(bytes, decimals = 2) {
-		if (bytes === 0) {
+		if (bytes == 0) {
 			return "0 Bytes";
 		}
 		const k = 1024;

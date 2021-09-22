@@ -52,10 +52,10 @@ export class CreateAnalysesModalComponent implements OnInit, OnDestroy {
         this.cd.detectChanges();
     }
 
-    formatSampleValue(sampleId) {
+    formatSampleValue(sampleId, keyName) {
         if(sampleId) {
             let pos = this.sampleList.map(el => {return el.id}).indexOf(+sampleId);
-            return this.sampleList[pos].sample_name;
+            return this.sampleList[pos][keyName];
         }
         return ''
     }
@@ -63,11 +63,14 @@ export class CreateAnalysesModalComponent implements OnInit, OnDestroy {
     create() {
         this.isLoading = true;
         const formData = this.formGroup.value;
+        console.log(this.formatSampleValue(formData.sampleList, 'file_size'))
         const data = {
             name: formData.analysisName,
             project_id: this.projectId,
             pipeline_id:  formData.pipeLineList,
-            upload_id: formData.sampleList,
+            sample_id: formData.sampleList,
+            p_type: this.formatSampleValue(formData.sampleList, 'file_type'),
+            size: this.formatSampleValue(formData.sampleList, 'file_size'),
             description: formData.description,
         }
         const sb = this.AnalysisService.createAnalysis(data).pipe(

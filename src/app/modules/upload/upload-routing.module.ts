@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UploadComponent } from './upload.component';
 import { UploadListComponent } from './upload-list/upload-list.component'
+import { CanActivatePageGuard } from './services/can-activate-page.guard'
 
 const routes: Routes = [
 	{
@@ -10,7 +11,8 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'list',
-				component: UploadListComponent
+				component: UploadListComponent,
+                canDeactivate: [CanActivatePageGuard]
 			},
 			{ path: '', redirectTo: 'list', pathMatch: 'full' },
 			{ path: '**', redirectTo: 'errors/404', pathMatch: 'full' },

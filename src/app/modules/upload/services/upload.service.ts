@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { forkJoin, Observable, of, throwError  } from 'rxjs';
+import { forkJoin, Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse, HttpEventType } from '@angular/common/http';
 import { map, catchError, switchMap, finalize, retryWhen, delay, take, concat } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
@@ -10,6 +10,17 @@ import { ITableState, TableResponseModel, TableService } from 'src/app/_metronic
 })
 export class UploadService extends TableService<any> implements OnDestroy {
 	API_URL = `${environment.apiUrl}/upload`;
+
+    private _isUploadAll = new BehaviorSubject<boolean[]>([]);
+
+    get isUploadAll() {
+        return this._isUploadAll.value;
+    }
+
+    public uploadAll(data: boolean[]) {
+        this._isUploadAll.next(data);
+    }
+
 	constructor(@Inject(HttpClient) http) {
 		super(http);
 	}
@@ -20,7 +31,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 
 	public generateRandomString(len) {
 		let result = '';
-		let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		let characters = '0123456789';
 		let charactersLength = characters.length;
 		for (let i = 0; i < len; i++) {
 			result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -38,7 +49,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 					return of(error);
 				}),
 				take(100),
-				delay(2000),
+				delay(3000),
 				concat(throwError({error: 'Sorry, there was an error (after 100 retries)'}))
 			)),
 			map((response: HttpResponse<any>) => {
@@ -50,7 +61,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			}),
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return throwError(err);
 			})
 		)
 	}
@@ -59,7 +70,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/createMultipartUpload`, data, { withCredentials: true }).pipe(
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return throwError(err);
 			})
 		)
 	}
@@ -68,7 +79,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/completeMultipartUpload`, data, { withCredentials: true }).pipe(
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return throwError(err);
 			})
 		)
 	}
@@ -77,7 +88,34 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		return this.http.post(`${environment.apiUrl}/uploadFileInfor`, data, { withCredentials: true }).pipe(
 			catchError((err) => {
 				console.log("Error:", err)
-				return of({});
+				return throwError(err);
+			})
+		)
+	}
+
+    createUploadFastQ(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/createUploadFastQ`, data, { withCredentials: true }).pipe(
+			catchError((err) => {
+				console.log("Error:", err)
+				return throwError(err);
+			})
+		)
+	}
+
+    createSampleFastQ(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/createSampleFastQ`, data, { withCredentials: true }).pipe(
+			catchError((err) => {
+				console.log("Error:", err)
+				return throwError(err);
+			})
+		)
+	}
+
+    updateStatusUploadFastQ(data: any): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/updateStatusUploadFastQ`, data, { withCredentials: true }).pipe(
+			catchError((err) => {
+				console.log("Error:", err)
+				return throwError(err);
 			})
 		)
 	}
@@ -94,7 +132,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 		let dataSend = {
 			uploadName: data.uploadName, 
 			partNumber: data.partNumber, 
-			uploadId: data.uploadId,
+			uploadMultipartId: data.uploadMultipartId,
 		}
 		return this.http.post(`${environment.apiUrl}/signed_url`, dataSend, { withCredentials: true }).pipe(
 			map((response: any) => {
@@ -107,7 +145,7 @@ export class UploadService extends TableService<any> implements OnDestroy {
 			}),
 			catchError(err => {
 				console.error(err);
-				return of({});
+				return throwError(err);
 			})
 		)
 	}
