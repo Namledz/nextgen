@@ -26,6 +26,8 @@ import { FetchAnalysisModalComponent } from './components/fetch-analysis-modal/f
 import { EditAnalysisModalComponent } from './components/edit-analysis-modal/edit-analysis-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { ShareAnalysisModalComponent } from './components/share-analysis-modal/share-analysis-modal.component';
 
 @Component({
 	selector: 'app-analysis-list',
@@ -71,7 +73,8 @@ export class AnalysisListComponent
 		private modalService: NgbModal,
 		public analysisService: AnalysisService, 
 		private route: ActivatedRoute,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private toastr: ToastrService
 	) { }
 
 	// angular lifecircle hooks
@@ -205,6 +208,33 @@ export class AnalysisListComponent
 	// form actions
 	create() {
 		this.edit(undefined);
+	}
+
+	reAnalyzed() {
+		let data = {
+			id: this.grouping.getSelectedRows()
+		}
+
+		const sb = this.analysisService.reAnalyzeAnalysis(data)
+			.subscribe((res) => {
+				if (res.status == 'success') {
+					this.toastr.success(res.message)
+					this.analysisService.fetch()
+				} else {
+					this.toastr.error(res.message)
+				}
+			})
+		this.subscriptions.push(sb);
+
+	}
+
+	shareAnalysis() {
+		const modalRef = this.modalService.open(ShareAnalysisModalComponent, {size: 'md'});
+			modalRef.componentInstance.ids = this.grouping.getSelectedRows();
+			modalRef.result.then(() => 
+			this.analysisService.fetch(),
+			() => {}
+		)
 	}
 
 	edit(id: number) {

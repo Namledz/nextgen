@@ -112,4 +112,25 @@ export class AnalysisService extends TableService<Analysis> implements OnDestroy
             })
         )
     }
+
+	reAnalyzeAnalysis(data: any): Observable<any> {
+		const url = `${environment.apiUrl}/analysis/reAnalyzeAnalysis`;
+		return this.http.post(url, data, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+	}
+
+	getListEmail(): Observable<any> {
+		const url = `${environment.apiUrl}/analysis/getListEmail`;
+		return this.http.get(url, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+	}
+
+	shareAnalysis(data): Observable<any> {
+		const url = `${environment.apiUrl}/analysis/shareAnalysis`;
+		return this.http.post(url, data, {withCredentials: true}).pipe((response) => {
+			return response
+		})
+	}
 }

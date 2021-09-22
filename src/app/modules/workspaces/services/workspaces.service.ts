@@ -81,6 +81,18 @@ export class WorkspacesService extends TableService<any> implements OnDestroy {
 		})
 	}
 
+	getListEmail() {
+		return this.http.get<any>(`${this.API_URL}/getListEmail`, {withCredentials: true}).pipe(response => {
+			return response
+		})
+	}
+
+	shareWorkspace(data) {
+		return this.http.post<any>(`${this.API_URL}/shareWorkspace`, data, {withCredentials: true}).pipe(response => {
+			return response
+		})
+	}
+
 	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}

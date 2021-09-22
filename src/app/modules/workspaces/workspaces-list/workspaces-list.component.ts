@@ -21,6 +21,7 @@ import {
 } from '../../../_metronic/shared/crud-table';
 import { EditWorkspaceModalComponent } from './components/edit-workspace-modal/edit-workspace-modal.component';
 import { DeleteWorkspaceModalComponent } from './components/delete-workspace-modal/delete-workspace-modal.component';
+import { ShareWorkspaceModalComponent } from './components/share-workspace-modal/share-workspace-modal.component';
 
 @Component({
   selector: 'app-workspaces-list',
@@ -144,6 +145,15 @@ export class WorkspacesListComponent
       this.workspacesService.fetch(),
       () => {}
     );
+	}
+
+	shareWorkspace() {
+		const modalRef = this.modalService.open(ShareWorkspaceModalComponent, {size: 'md'});
+			modalRef.componentInstance.ids = this.grouping.getSelectedRows();
+			modalRef.result.then(() => 
+			this.workspacesService.fetch(),
+			() => {}
+		)
 	}
 
   deleteSelected() {

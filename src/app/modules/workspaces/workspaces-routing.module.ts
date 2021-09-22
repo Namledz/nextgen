@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkspacesComponent } from './workspaces.component';
 import { WorkspacesListComponent } from './workspaces-list/workspaces-list.component';
 import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
+import { SharedAnalysisListComponent } from './shared-analysis-list/shared-analysis-list.component';
 
 const routes: Routes = [
 	{
@@ -16,6 +17,10 @@ const routes: Routes = [
 			{
 				path: 'index/:id',
 				component: WorkspacesIndexComponent
+			},
+			{
+				path: 'shared-analysis',
+				component: SharedAnalysisListComponent
 			},
 			{
 				path: 'samples',

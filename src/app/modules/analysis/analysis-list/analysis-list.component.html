@@ -24,11 +24,16 @@
 							(click)="deleteSelected()">
 							<i class="fa fa-trash"></i> Delete All
 						</button>&nbsp;
-						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1">
+						<!-- <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1">
 							<i class="fas fa-vial"></i> Analyze
-						</button>&nbsp;
-						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1">
+						</button>&nbsp; -->
+						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1" 
+							(click)="reAnalyzed()">
 							<i class="fa fa-sync-alt"></i> Re-Analyze
+						</button>
+						<button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1" 
+							(click)="shareAnalysis()">
+							<i class="fa fa-share-alt"></i> Share Analysis
 						</button>
 					</div>
 				</div>

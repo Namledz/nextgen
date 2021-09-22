@@ -39,6 +39,7 @@ import { AuspiceTreeComponent } from './analysis-detail/component/auspice-tree/a
 import { IgvModalComponent } from './analysis-detail/component/variant-list/component/igv-modal/igv-modal.component';
 import { FilterModalComponent } from './analysis-detail/component/variant-list/component/filter-modal/filter-modal.component';
 import { CreateAnalysesModalComponent } from './analysis-list/components/create-analyses-modal/create-analyses-modal.component';
+import { ShareAnalysisModalComponent } from './analysis-list/components/share-analysis-modal/share-analysis-modal.component';
 
 @NgModule({
 	declarations: [
@@ -62,7 +63,8 @@ import { CreateAnalysesModalComponent } from './analysis-list/components/create-
 		AuspiceTreeComponent,
 		IgvModalComponent,
 		FilterModalComponent,
-		CreateAnalysesModalComponent
+		CreateAnalysesModalComponent,
+		ShareAnalysisModalComponent
 	],
 	imports: [
 		CommonModule,

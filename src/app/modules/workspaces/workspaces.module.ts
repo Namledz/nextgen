@@ -14,6 +14,8 @@ import { WorkspacesDashboardComponent } from './workspaces-dashboard/workspaces-
 import { AnalysisModule } from '../analysis/analysis.module';
 import { EditWorkspaceModalComponent } from './workspaces-list/components/edit-workspace-modal/edit-workspace-modal.component';
 import { DeleteWorkspaceModalComponent } from './workspaces-list/components/delete-workspace-modal/delete-workspace-modal.component';
+import { ShareWorkspaceModalComponent } from './workspaces-list/components/share-workspace-modal/share-workspace-modal.component';
+import { SharedAnalysisListComponent } from './shared-analysis-list/shared-analysis-list.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { DeleteWorkspaceModalComponent } from './workspaces-list/components/dele
     WorkspacesIndexComponent,
     WorkspacesDashboardComponent,
     EditWorkspaceModalComponent,
-    DeleteWorkspaceModalComponent
+    DeleteWorkspaceModalComponent,
+    ShareWorkspaceModalComponent,
+    SharedAnalysisListComponent
   ],
   imports: [
     CommonModule,
