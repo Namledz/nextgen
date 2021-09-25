@@ -28,7 +28,7 @@ export class ShareWorkspaceModalComponent implements OnInit, OnDestroy {
 	constructor(private workSpacesService: WorkspacesService, public modal: NgbActiveModal, private toastr: ToastrService) { }
 
 	ngOnInit(): void {
-		this.isLoading$ = this.workSpacesService.isLoading$;
+		//this.isLoading$ = this.workSpacesService.isLoading$;
 		this.getListEmail()
 	}
 
@@ -60,6 +60,13 @@ export class ShareWorkspaceModalComponent implements OnInit, OnDestroy {
 			})
 		  ).subscribe();
 		  this.subscriptions.push(sb);
+	}
+
+	checkInvalid() {
+		if (this.emailIDs == undefined) {
+			return true
+		}
+		return false
 	}
 
 	getListEmail() {

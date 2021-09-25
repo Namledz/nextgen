@@ -54,4 +54,14 @@ export class AuthHTTPService {
 	chnagePasswordProfile(data): Observable<any> {
 		return this.http.post(`${API_USERS_URL}/updatePasswordProfile`, data, { withCredentials: true})
 	}
+
+	getAccessUserIDsOfWorkspace(id): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/workspaces/getAccessUserIDsOfWorkspace`, {id: id} , {withCredentials: true})
+	}
+
+	getAccessUserIDsOfAnalysis(id): Observable<any> {
+		return this.http.post(`${environment.apiUrl}/analysis/getAccessUserIDsOfAnalysis`, {id: id} , {withCredentials: true})
+	}
+
+	
 }

@@ -61,6 +61,13 @@ export class ShareAnalysisModalComponent implements OnInit, OnDestroy {
 		  this.subscriptions.push(sb);
 	}
 
+	checkInvalid() {
+		if (this.emailIDs == undefined) {
+			return true
+		}
+		return false
+	}
+
 	getListEmail() {
 		const sb = this.analysisService.getListEmail().pipe()
 			.subscribe(res => {

@@ -182,6 +182,14 @@ export class AuthService implements OnDestroy {
 		}
 	}
 
+	getAccessUserIDsOfWorkspace(id) {
+		return this.authHttpService.getAccessUserIDsOfWorkspace(id).pipe(finalize(() => this.isLoadingSubject.next(false) ))
+	}
+
+	getAccessUserIDsOfAnalysis(id) {
+		return this.authHttpService.getAccessUserIDsOfAnalysis(id).pipe(finalize(() => this.isLoadingSubject.next(false) ))
+	}
+
 	ngOnDestroy() {
 		this.unsubscribe.forEach((sb) => sb.unsubscribe());
 	}

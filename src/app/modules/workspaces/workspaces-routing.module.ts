@@ -4,6 +4,8 @@ import { WorkspacesComponent } from './workspaces.component';
 import { WorkspacesListComponent } from './workspaces-list/workspaces-list.component';
 import { WorkspacesIndexComponent } from './workspaces-index/workspaces-index.component';
 import { SharedAnalysisListComponent } from './shared-analysis-list/shared-analysis-list.component';
+import { SharedWorkspaceGuard } from '../auth/_services/shared-workspace.guard';
+import { AuthGuard } from '../auth/_services/auth.guard';
 
 const routes: Routes = [
 	{
@@ -12,15 +14,18 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'list',
-				component: WorkspacesListComponent
+				component: WorkspacesListComponent,
+				canActivate: [AuthGuard]
 			},
 			{
 				path: 'index/:id',
-				component: WorkspacesIndexComponent
+				component: WorkspacesIndexComponent,
+				canActivate: [AuthGuard,SharedWorkspaceGuard]
 			},
 			{
 				path: 'shared-analysis',
-				component: SharedAnalysisListComponent
+				component: SharedAnalysisListComponent,
+				canActivate: [AuthGuard]
 			},
 			{
 				path: 'samples',
