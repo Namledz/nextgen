@@ -10,10 +10,11 @@ import { AuthService } from '..';
 export class SharedAnalysisGuard implements CanActivate {
   	constructor(private router: Router, private authService: AuthService) {}
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		let workspaceID = route.paramMap.get('id');
-		return this.authService.getAccessUserIDsOfAnalysis(workspaceID).pipe(
+		let analysisID = route.paramMap.get('id');
+		const currentUser = this.authService.currentUserValue;
+		return this.authService.getAccessUserIDsOfAnalysis(analysisID).pipe(
 			map(data => {
-				if (data.indexOf(workspaceID) == -1) {
+				if (data.indexOf((currentUser.id).toString()) == -1) {
 					this.router.navigate(['/'])
 				}
 				return !!data

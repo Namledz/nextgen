@@ -11,9 +11,10 @@ export class SharedWorkspaceGuard implements CanActivate {
 	constructor(private router: Router, private authService: AuthService) {}
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		let workspaceID = route.paramMap.get('id');
+		const currentUser = this.authService.currentUserValue;
 		return this.authService.getAccessUserIDsOfWorkspace(workspaceID).pipe(
 			map(data => {
-				if (data.indexOf(workspaceID) == -1) {
+				if (data.indexOf((currentUser.id).toString()) == -1) {
 					this.router.navigate(['/'])
 				}
 				return !!data
